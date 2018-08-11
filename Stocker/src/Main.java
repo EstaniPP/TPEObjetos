@@ -9,7 +9,8 @@ public class Main {
 		//while(rs.next()) {
 			
 		//}
-		Vector<Articulo> va = db.getArticulos(null);
+		FiltroArticulo.idInterno f1 = new FiltroArticulo.idInterno(2);
+		Vector<Articulo> va = db.getArticulos(f1);
 		for(Articulo a : va) {
 			System.out.println(a.getCodigoBarras());
 		}
@@ -17,7 +18,7 @@ public class Main {
 		
 		//db.addArticulo(a);
 		
-		//FiltroArticulo.idInterno f1 = new FiltroArticulo.idInterno(2);
+		
 		//System.out.println(f1.getStatement());
 		System.out.println("EXITO");
 	}
