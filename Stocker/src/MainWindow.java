@@ -14,10 +14,23 @@ import javax.swing.AbstractListModel;
 import javax.swing.border.BevelBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JToolBar;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.GridLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.BoxLayout;
+import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Dialog.ModalExclusionType;
 
 public class MainWindow {
 
-	private JFrame frame;
+	private JFrame frmStocker;
 	private JTable table;
 
 	/**
@@ -28,7 +41,7 @@ public class MainWindow {
 			public void run() {
 				try {
 					MainWindow window = new MainWindow();
-					window.frame.setVisible(true);
+					window.frmStocker.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,10 +60,34 @@ public class MainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 600, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmStocker = new JFrame();
+		frmStocker.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+		frmStocker.setTitle("STOCKER");
+		frmStocker.setResizable(false);
+		frmStocker.setBounds(100, 100, 600, 300);
+		frmStocker.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmStocker.getContentPane().setLayout(null);
+		
+		JLabel lblStocker = new JLabel("STOCKER");
+		lblStocker.setFont(new Font("Verdana", Font.BOLD, 50));
+		lblStocker.setBounds(166, 39, 267, 103);
+		frmStocker.getContentPane().add(lblStocker);
+		
+		JButton btnStock = new JButton("STOCK");
+		btnStock.setBounds(128, 154, 117, 29);
+		frmStocker.getContentPane().add(btnStock);
+		
+		JButton button = new JButton("CLIENTES");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button.setBounds(354, 154, 117, 29);
+		frmStocker.getContentPane().add(button);
+		
+		JButton button_1 = new JButton("VENTAS");
+		button_1.setBounds(241, 154, 117, 29);
+		frmStocker.getContentPane().add(button_1);
 		
 		//headers for the table
         String[] columns = new String[] {
@@ -63,26 +100,6 @@ public class MainWindow {
             {2, "Rambo", 70.0, false },
             {3, "Zorro", 60.0, true },
         };
-        //create table with data
-		JTable table = new JTable(data, columns);
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				int row = table.getSelectedRow();
-				System.out.println(table.getValueAt(row, 0));
-				
-			}
-		});
-		table.setShowGrid(false);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setSurrendersFocusOnKeystroke(true);
-		table.setFillsViewportHeight(true);
-		
-		
-		
-		table.setBounds(6, 42, 419, 200);
-		frame.getContentPane().add(table);
 		
 		TableColumn tblclmnUser = new TableColumn();
 		tblclmnUser.setResizable(false);
