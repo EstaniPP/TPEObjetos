@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Venta {
+	static final int IDVENTANUEVA= -1;
 	// id del auto increment de la base de datos
 	int idVenta;
 	// tipo de venta que se realizo (con o sin cliente)
@@ -16,10 +17,11 @@ public abstract class Venta {
 	//id del cliente que realizo la compra (si es '0' es una compra sin cliente)
 	int idClienteVenta;
 	
-	public Venta(int tipoVenta, Date fechaventa, int idClienteVenta) {
+	public Venta(int idVenta, int tipoVenta, Date fechaventa, int idClienteVenta) {
 		this.tipoVenta = tipoVenta;
 		this.fechaVenta = fechaventa;
 		this.idClienteVenta = idClienteVenta;
+		this.idVenta = idVenta;
 	}
 	
 	public abstract float getPrecioAPagar();

@@ -1,3 +1,4 @@
+import java.util.HashMap;
 
 public class Cliente {
 	// id del auto increment de la base de datos
@@ -10,13 +11,22 @@ public class Cliente {
 	String email;
 	//tipo de cliente que es. Ejemplo 1(minorista)
 	int tipoCliente;
-	
+	//Hash con el id de cliente y su descuento asociado
+	static HashMap<Integer, Integer> descuentos;
+	//Hash con el id de cliente y su nombre asociado
+	static HashMap<Integer, String> nombreTipoCliente;
+		
+		
 	public Cliente(int idCliente, String nombre, String telefono, String email, int tipoCliente) {
 		this.idCliente = idCliente;
 		this.nombre = nombre;
 		this.telefono = nombre;
 		this.email = email;
 		this.tipoCliente = tipoCliente;
+	}
+	
+	public static float getDescuento(int tipoCliente) {
+		return descuentos.get(tipoCliente);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -60,5 +70,9 @@ public class Cliente {
 		this.tipoCliente = tipoCliente;
 	}
 	
+	public static void addTipoCliente(Integer idTipo, String nombreTipo, Integer descuento) {
+		descuentos.put(idTipo, descuento);
+		nombreTipoCliente.put(idTipo, nombreTipo);
+	}
 	
 }
