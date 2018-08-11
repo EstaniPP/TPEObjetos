@@ -71,9 +71,10 @@ public class DBManager {
 	public Vector<Articulo> getArticulos(Filtro f) throws SQLException{
 		String query = "SELECT * FROM ARTICULOS ";
 		if(f != null) {
-			query += "WHERE " + f.getStatement();
+			query += "WHERE" + f.getStatement();
 		}
 		Vector<Articulo> vTemp = new Vector<Articulo>();
+		System.out.println(query);
 		ResultSet rs = dataQuery(query);
 		while(rs.next()) {
 			Articulo a = new Articulo();
