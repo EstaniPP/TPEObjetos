@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.Vector;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
@@ -12,7 +13,7 @@ import javax.swing.JOptionPane;
 public class DBManager {
 	private Connection connection;
 	private final String dbHost = "localhost";
-	private final String dbPort = "3307";
+	private final String dbPort = "3306";
 	private final String dbUser = "root";
 	private final String dbPassword = "";
 	private final String dbName = "stocker";
@@ -27,7 +28,7 @@ public class DBManager {
 	public DBManager() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection ("jdbc:mysql://"+ dbHost +":"+ dbPort +"/"+ dbName +"",""+ dbUser +"", dbPassword);
+			connection = DriverManager.getConnection ("jdbc:mysql://"+ dbHost +":"+ dbPort +"/"+ dbName +"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",""+ dbUser +"", dbPassword);
 			//Statement s = connection.createStatement(); 
 			//ResultSet rs = s.executeQuery ("select * from CLIENTES");
 		}catch(Exception e) {
@@ -67,6 +68,24 @@ public class DBManager {
 		this.execQuery(query);
 	}
 	
+	public Vector<Articulo> getArticulos(Filtro f) throws SQLException{
+		String query = "SELECT * FROM ARTICULOS ";
+		if(f != null) {
+			query += "WHERE " + f.getStatement();
+		}
+		Vector<Articulo> vTemp = new Vector<Articulo>();
+		ResultSet rs = dataQuery(query);
+		while(rs.next()) {
+			Articulo a = new Articulo();
+			a.setCodigoBarras(rs.getString("codigoBarras"));
+			a.setDescripcion(rs.getString("descripcion"));
+			a.setFamilia(rs.getInt("familia"));
+			a.setPrecioUnitario(rs.getDouble("precioUnitario"));
+			a.setStock(rs.getInt("stock"));
+			vTemp.add(a);
+		}
+		return vTemp;
+	}
 	
 	
 }
