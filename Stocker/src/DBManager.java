@@ -11,11 +11,12 @@ import javax.swing.JOptionPane;
 
 public class DBManager {
 	private Connection connection;
-	private String dbHost = "localhost";
-	private String dbPort = "3307";
-	private String dbUser = "root";
-	private String dbPassword = "";
-	private String dbName = "stocker";
+	private final String dbHost = "localhost";
+	private final String dbPort = "3307";
+	private final String dbUser = "root";
+	private final String dbPassword = "";
+	private final String dbName = "stocker";
+	
 	
 	public static void main(String[] args) {
 		DBManager db = new DBManager();	
@@ -34,16 +35,37 @@ public class DBManager {
 		}
 	}
 	
-	public ResultSet query(String query) {
+	public ResultSet dataQuery(String query) {
 		try {
 			Statement s = connection.createStatement();
-			return s.executeQuery(query);
+			ResultSet rs = s.executeQuery(query);
+			return rs;
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
+	public void execQuery(String query) {
+		try {
+			Statement s = connection.createStatement();
+			s.executeUpdate(query);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	// funcionalidad articulos
+	
+	public void addArticulo(Articulo a) {
+		String query = "INSERT INTO `ARTICULOS` "
+				+ "(`idInterno`, `codigoBarras`, `descripcion`, `familia`, `precioUnitario`, `stock`) "
+				+ "VALUES (NULL, '" + a.getCodigoBarras() + "', '" + a.getDescripcion() + "', '" + a.getFamilia()+ "', '" + a.getPrecioUnitario() + "', '" + a.getStock() + "');";
+		// ejecuto la consulta
+		this.execQuery(query);
+	}
 	
 	
 	
