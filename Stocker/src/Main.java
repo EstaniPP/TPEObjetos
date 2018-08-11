@@ -13,11 +13,6 @@ public class Main {
 			System.out.println(a.getCodigoBarras());
 		}
 		
-		
-		//db.addArticulo(a);
-		
-		
-		//System.out.println(f1.getStatement());
 		System.out.println("EXITO");
 	}
 }
