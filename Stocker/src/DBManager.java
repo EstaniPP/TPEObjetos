@@ -16,18 +16,25 @@ public class DBManager {
 	private String dbUser = "root";
 	private String dbPassword = "";
 	private String dbName = "stocker";
+	
+	public static void main(String[] args) {
+		DBManager db = new DBManager();	
+		
+		//System.out.print("hola");
+	}
+	
 	public DBManager() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection ("jdbc:mysql://"+ dbHost +":"+ dbPort +"/"+ dbName +"",""+ dbUser +"", dbPassword);
-			Statement s = connection.createStatement(); 
-			ResultSet rs = s.executeQuery ("select * from CLIENTES");
+			//Statement s = connection.createStatement(); 
+			//ResultSet rs = s.executeQuery ("select * from CLIENTES");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private ResultSet query(String query) {
+	public ResultSet query(String query) {
 		try {
 			Statement s = connection.createStatement();
 			return s.executeQuery(query);
