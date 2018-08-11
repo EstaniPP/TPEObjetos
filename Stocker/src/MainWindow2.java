@@ -27,6 +27,7 @@ public class MainWindow2 {
 	 */
 	public MainWindow2() {
 		initialize();
+		//hola
 	}
 
 	/**
