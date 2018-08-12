@@ -75,6 +75,11 @@ public class MainWindow {
 		frmStocker.getContentPane().add(lblStocker);
 		
 		JButton btnStock = new JButton("STOCK");
+		btnStock.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				(new FormArticulos()).setVisible(true);
+			}
+		});
 		btnStock.setBounds(128, 154, 117, 60);
 		frmStocker.getContentPane().add(btnStock);
 		
