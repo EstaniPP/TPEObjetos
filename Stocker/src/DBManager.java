@@ -19,12 +19,6 @@ public class DBManager {
 	private final String dbName = "stocker";
 	
 	
-	public static void main(String[] args) {
-		DBManager db = new DBManager();	
-		
-		//System.out.print("hola");
-	}
-	
 	public DBManager() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
