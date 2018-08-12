@@ -1,9 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.TextField;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 import javax.swing.JDesktopPane;
@@ -25,6 +28,7 @@ public class FormClientes extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTable table;
+	DefaultTableModel model = new DefaultTableModel();  
 
 	/**
 	 * Launch the application.
@@ -33,6 +37,9 @@ public class FormClientes extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	
+	
 	public FormClientes() {
 		
 		// llamado a bd
@@ -55,14 +62,35 @@ public class FormClientes extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == 10) {
+					//System.out.println(table.editCellAt(3, 0));
+					
 					// se presiono enter
 					Vector<Cliente> vector = new Vector<Cliente>();
+					// creo el filtro x nombre
+					FiltroCliente.nombre f1 = new FiltroCliente.nombre(textField.getText());
 					try {
-						vector = db.getClientes(null);
+						vector = db.getClientes(f1);
 					}catch(SQLException e1) {
 						e1.getStackTrace();
 					}
-					System.out.println(vector.size());
+					
+					// elimino todas las filas de la tabla
+					
+					for(int i = 0; i < model.getRowCount(); i++) {
+						model.removeRow(i);
+					}
+					// cargo todo en la tabla
+					for(int i = 0; i < vector.size(); i++) {
+						String[] p = new String[] {((Integer)vector.elementAt(i).getIdCliente()).toString(),
+													vector.elementAt(i).getNombre(), 
+													vector.elementAt(i).getTelefono(), 
+													vector.elementAt(i).getEmail(), 
+													((Integer) vector.elementAt(i).getTipoCliente()).toString()};
+						model.addRow(p);
+					}
+					
+					
+					table.setModel(model);
 				}
 			}
 		});
@@ -94,11 +122,21 @@ public class FormClientes extends JFrame {
 		scrollPane.setBounds(10, 81, 428, 200);
 		contentPane.add(scrollPane);
 		
-		String[] columnas = new String[] {"ID", "NOMBRE", "TELEFONO", "EMAIL", "TIPO"};
-		Object[][] clientes = new Object[][] {};
-		table = new JTable(clientes, columnas);
+		
+		
+		//String[] columnas = new String[] {"ID", "NOMBRE", "TELEFONO", "EMAIL", "TIPO"};
+		//table = new JTable(results, columnas);
+		model.addColumn("ID");
+		model.addColumn("NOMBRE");
+		model.addColumn("TELEFONO");
+		model.addColumn("EMAIL");
+		model.addColumn("TIPO");
+		
+		table = new JTable();
+		table.setModel(model);
 		table.setCellSelectionEnabled(true);
 		scrollPane.setViewportView(table);
+		
 		
 	}
 }
