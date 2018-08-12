@@ -52,7 +52,7 @@ public class FormClientes extends JFrame {
 		// llamado a bd
 		setTitle("CLIENTES");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 579, 340);
+		setBounds(100, 100, 579, 401);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,11 +92,11 @@ public class FormClientes extends JFrame {
 		contentPane.add(separator);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(6, 38, 61, 16);
+		lblNombre.setBounds(8, 36, 61, 16);
 		contentPane.add(lblNombre);
 		
 		JLabel lblIdentificador = new JLabel("ID");
-		lblIdentificador.setBounds(224, 38, 156, 16);
+		lblIdentificador.setBounds(225, 36, 156, 16);
 		contentPane.add(lblIdentificador);
 		
 		textField_1 = new JTextField();
@@ -126,7 +126,7 @@ public class FormClientes extends JFrame {
 		
 		
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(10, 81, 428, 200);
+		scrollPane.setBounds(10, 81, 428, 278);
 		contentPane.add(scrollPane);
 		
 		
@@ -144,6 +144,11 @@ public class FormClientes extends JFrame {
 		table.setCellSelectionEnabled(true);
 		
 		JButton btnNewButton = new JButton("NUEVO CLIENTE");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FormNuevoCliente nuevoC = new FormNuevoCliente();
+			}
+		});
 		btnNewButton.setBounds(450, 55, 117, 45);
 		contentPane.add(btnNewButton);
 		
