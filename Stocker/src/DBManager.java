@@ -105,5 +105,14 @@ public class DBManager {
 		this.execQuery(query);
 	}
 	
-	
+	//UPDATE `CLIENTES` SET `nombre` = 'Estanislao Perez Pena ', `telefono` = '33563563535 ', `email` = 'estanipp@gmail.com ', `tipoCliente` = '3' WHERE `CLIENTES`.`idCliente` = 3;
+	public void updateCliente(Cliente c) {
+		String query = "UPDATE `CLIENTES` SET "
+				+ "`nombre` = '" + c.getNombre() + "', "
+				+ "`telefono` = '"+c.getTelefono()+"', "
+				+ "`email` = '" + c.getEmail() + "', "
+				+ "`tipoCliente` = '" + c.getTipoCliente() + "' "
+				+ "WHERE `CLIENTES`.`idCliente` = " + c.getIdCliente() + ";";
+		this.execQuery(query);
+	}
 }
