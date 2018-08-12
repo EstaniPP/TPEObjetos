@@ -11,10 +11,8 @@ public class Cliente {
 	String email;
 	//tipo de cliente que es. Ejemplo 1(minorista)
 	int tipoCliente;
-	//Hash con el id de cliente y su descuento asociado
-	static HashMap<Integer, Integer> descuentos;
-	//Hash con el id de cliente y su nombre asociado
-	static HashMap<Integer, String> nombreTipoCliente;
+	//Hash estatico con los tipos de clientes.
+	static HashMap<Integer,tipoCliente> tiposClientes;
 		
 		
 	public Cliente(int idCliente, String nombre, String telefono, String email, int tipoCliente) {
@@ -24,10 +22,7 @@ public class Cliente {
 		this.email = email;
 		this.tipoCliente = tipoCliente;
 	}
-	
-	public static float getDescuento(int tipoCliente) {
-		return descuentos.get(tipoCliente);
-	}
+
 	@Override
 	public boolean equals(Object obj) {
 		Cliente aux = (Cliente)obj;
@@ -70,9 +65,16 @@ public class Cliente {
 		this.tipoCliente = tipoCliente;
 	}
 	
-	public static void addTipoCliente(Integer idTipo, String nombreTipo, Integer descuento) {
-		descuentos.put(idTipo, descuento);
-		nombreTipoCliente.put(idTipo, nombreTipo);
+	public static void addTipoCliente(tipoCliente aux) {
+		tiposClientes.put(aux.getIdTipoCliente(), aux);
+	}
+	
+	public int getDescuento() {
+		if(tiposClientes.containsKey(tipoCliente)) {
+			return tiposClientes.get(tipoCliente).getDescuento();
+		}else {
+			return 0;
+		}
 	}
 	
 }
