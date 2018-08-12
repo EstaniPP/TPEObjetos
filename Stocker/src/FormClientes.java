@@ -21,14 +21,19 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 
 public class FormClientes extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	// tablas
 	private JTable table;
-	DefaultTableModel model = new DefaultTableModel();  
+	DefaultTableModel model = new DefaultTableModel(); 
+	JScrollPane scrollPane = new JScrollPane();
 
 	/**
 	 * Launch the application.
@@ -47,7 +52,7 @@ public class FormClientes extends JFrame {
 		// llamado a bd
 		setTitle("CLIENTES");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 663, 340);
+		setBounds(100, 100, 579, 340);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -61,7 +66,7 @@ public class FormClientes extends JFrame {
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == 10) {
+				if(e.getKeyCode() == 10 && !textField.getText().isEmpty()) {
 					//System.out.println(table.editCellAt(3, 0));
 					
 					// se presiono enter
@@ -73,24 +78,7 @@ public class FormClientes extends JFrame {
 					}catch(SQLException e1) {
 						e1.getStackTrace();
 					}
-					
-					// elimino todas las filas de la tabla
-					
-					for(int i = 0; i < model.getRowCount(); i++) {
-						model.removeRow(i);
-					}
-					// cargo todo en la tabla
-					for(int i = 0; i < vector.size(); i++) {
-						String[] p = new String[] {((Integer)vector.elementAt(i).getIdCliente()).toString(),
-													vector.elementAt(i).getNombre(), 
-													vector.elementAt(i).getTelefono(), 
-													vector.elementAt(i).getEmail(), 
-													((Integer) vector.elementAt(i).getTipoCliente()).toString()};
-						model.addRow(p);
-					}
-					
-					
-					table.setModel(model);
+					fillTable(vector);
 				}
 			}
 		});
@@ -112,12 +100,31 @@ public class FormClientes extends JFrame {
 		contentPane.add(lblIdentificador);
 		
 		textField_1 = new JTextField();
+		textField_1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				System.out.println(textField_1.getText());
+				if(e.getKeyCode() == 10 && !textField_1.getText().isEmpty()) {
+					// se presiono enter
+					Vector<Cliente> vector = new Vector<Cliente>();
+					// creo el filtro x nombre
+					FiltroCliente.idCliente f1 = new FiltroCliente.idCliente(Integer.valueOf(textField_1.getText()));
+					try {
+						vector = db.getClientes(f1);
+					}catch(SQLException e1) {
+						e1.getStackTrace();
+					}
+					fillTable(vector);
+				}
+			}
+		});
+		
 		textField_1.setToolTipText("NOMBRE");
 		textField_1.setColumns(10);
 		textField_1.setBounds(224, 51, 217, 30);
 		contentPane.add(textField_1);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(10, 81, 428, 200);
 		contentPane.add(scrollPane);
@@ -126,6 +133,7 @@ public class FormClientes extends JFrame {
 		
 		//String[] columnas = new String[] {"ID", "NOMBRE", "TELEFONO", "EMAIL", "TIPO"};
 		//table = new JTable(results, columnas);
+		
 		model.addColumn("ID");
 		model.addColumn("NOMBRE");
 		model.addColumn("TELEFONO");
@@ -133,10 +141,37 @@ public class FormClientes extends JFrame {
 		model.addColumn("TIPO");
 		
 		table = new JTable();
-		table.setModel(model);
 		table.setCellSelectionEnabled(true);
+		
+		JButton btnNewButton = new JButton("NUEVO CLIENTE");
+		btnNewButton.setBounds(450, 55, 117, 45);
+		contentPane.add(btnNewButton);
+		
+		JButton btnModificarSeleccionado = new JButton("MODIFICAR");
+		btnModificarSeleccionado.setBounds(450, 99, 117, 45);
+		contentPane.add(btnModificarSeleccionado);
+		fillTable(null);
+		
+		
+	}
+	public void fillTable(Vector<Cliente> vector) {
+		
+		// elimino todas las filas de la tabla
+		for(int i = 0; i < model.getRowCount(); i++) {
+			model.removeRow(i);
+		}
+		// cargo todo en la tabla
+		if(vector != null) {
+			for(int i = 0; i < vector.size(); i++) {
+				String[] p = new String[] {((Integer)vector.elementAt(i).getIdCliente()).toString(),
+											vector.elementAt(i).getNombre(), 
+											vector.elementAt(i).getTelefono(), 
+											vector.elementAt(i).getEmail(), 
+											((Integer) vector.elementAt(i).getTipoCliente()).toString()};
+				model.addRow(p);
+			}
+		}
+		table.setModel(model);
 		scrollPane.setViewportView(table);
-		
-		
 	}
 }
