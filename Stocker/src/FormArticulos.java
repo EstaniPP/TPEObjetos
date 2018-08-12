@@ -36,6 +36,7 @@ public class FormArticulos extends JFrame {
 	private JTable table;
 	DefaultTableModel model = new DefaultTableModel(); 
 	JScrollPane scrollPane = new JScrollPane();
+	private JTable table_1;
 
 	/**
 	 * Create the frame.
@@ -116,6 +117,9 @@ public class FormArticulos extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 98, 457, 308);
 		contentPane.add(scrollPane);
+		
+		table_1 = new JTable();
+		scrollPane.setColumnHeaderView(table_1);
 		
 		JButton btnNewButton = new JButton("Modificar articulo");
 		btnNewButton.setBounds(481, 107, 143, 38);
