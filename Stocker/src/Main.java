@@ -6,12 +6,13 @@ public class Main {
 	public static void main(String[] args) throws SQLException {
 		DBManager db = new DBManager();	
 
-		FiltroArticulo.idInterno f1 = new FiltroArticulo.idInterno(2);
-		FiltroArticulo.descripcion f2 = new FiltroArticulo.descripcion("des");
-		Vector<Articulo> va = db.getArticulos(f2);
+		FiltroArticulo.descripcion f2 = new FiltroArticulo.descripcion("FSDFDF");
+		FiltroArticulo.descripcion f3 = new FiltroArticulo.descripcion("khkjkgj");
+		FiltroCompuesto.Or f4 = new FiltroCompuesto.Or(f2, f3);
+		Vector<Articulo> va = db.getArticulos(f4);
 		for(Articulo a : va) {
-			System.out.println(a.getCodigoBarras());
+			System.out.println(a.getDescripcion());
 		}
-		System.out.println("EXITO");
+		System.out.println(va.size());
 	}
 }

@@ -27,6 +27,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dialog.ModalExclusionType;
+import javax.swing.JMenu;
 
 public class MainWindow {
 
@@ -74,7 +75,7 @@ public class MainWindow {
 		frmStocker.getContentPane().add(lblStocker);
 		
 		JButton btnStock = new JButton("STOCK");
-		btnStock.setBounds(128, 154, 117, 29);
+		btnStock.setBounds(128, 154, 117, 60);
 		frmStocker.getContentPane().add(btnStock);
 		
 		JButton button = new JButton("CLIENTES");
@@ -82,12 +83,21 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button.setBounds(354, 154, 117, 29);
+		button.setBounds(354, 154, 117, 60);
 		frmStocker.getContentPane().add(button);
 		
 		JButton button_1 = new JButton("VENTAS");
-		button_1.setBounds(241, 154, 117, 29);
+		button_1.setBounds(241, 154, 117, 60);
 		frmStocker.getContentPane().add(button_1);
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmStocker.setJMenuBar(menuBar);
+		
+		JMenu mnStocker = new JMenu("Stocker");
+		menuBar.add(mnStocker);
+		
+		JMenuItem mntmConfiguracion = new JMenuItem("Configuracion");
+		mnStocker.add(mntmConfiguracion);
 		
 		//headers for the table
         String[] columns = new String[] {
