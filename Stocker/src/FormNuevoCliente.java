@@ -92,6 +92,7 @@ public class FormNuevoCliente extends JDialog {
 						// aniadir el cliente a la bd
 						//String nombre, String telefono, String email, int tipoCliente
 						Cliente temp = new Cliente(textnombre.getText(), texttelefono.getText(), textemail.getText(), combotipo.getSelectedIndex() + 1);
+						//System.out.println(temp.getTelefono());
 						db.addCliente(temp);
 						JOptionPane.showMessageDialog(null, "Cliente agregado con exito.");
 						cancel();
