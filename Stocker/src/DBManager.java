@@ -73,7 +73,7 @@ public class DBManager {
 			query += "WHERE" + f.getStatement();
 		}
 		Vector<Articulo> vTemp = new Vector<Articulo>();
-		System.out.println(query);
+		//System.out.println(query);
 		ResultSet rs = dataQuery(query);
 		while(rs.next()) {
 			Articulo a = new Articulo();
@@ -82,6 +82,24 @@ public class DBManager {
 			a.setFamilia(rs.getInt("familia"));
 			a.setPrecioUnitario(rs.getDouble("precioUnitario"));
 			a.setStock(rs.getInt("stock"));
+			vTemp.add(a);
+		}
+		return vTemp;
+	}
+	
+	// funcionalidad clientes
+	
+	public Vector<Cliente> getClientes(Filtro f) throws SQLException{
+		// Cliente(int idCliente, String nombre, String telefono, String email, int tipoCliente) 
+		String query = "SELECT * FROM CLIENTES ";
+		if(f != null) {
+			query += "WHERE" + f.getStatement();
+		}
+		Vector<Cliente> vTemp = new Vector<Cliente>();
+		//System.out.println(query);
+		ResultSet rs = dataQuery(query);
+		while(rs.next()) {
+			Cliente a = new Cliente(rs.getInt("idCliente"), rs.getString("nombre"), rs.getString("telefono"), rs.getString("email"), rs.getInt("tipoCliente"));
 			vTemp.add(a);
 		}
 		return vTemp;
