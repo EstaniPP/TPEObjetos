@@ -78,12 +78,11 @@ public class FormArticulos extends JFrame {
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				System.out.println(textField.getText());
 				if(e.getKeyCode() == 10 && !textField.getText().isEmpty()) {
 					// se presiono enter
 					Vector<Articulo> vector = new Vector<Articulo>();
 					// creo el filtro x nombre
-					FiltroArticulo.descripcion f1 = new FiltroArticulo.descripcion(textField_1.getText());
+					FiltroArticulo.descripcion f1 = new FiltroArticulo.descripcion(textField.getText());
 					try {
 						vector = db.getArticulos(f1);
 					}catch(SQLException e1) {
@@ -138,6 +137,7 @@ public class FormArticulos extends JFrame {
 		
 		table = new JTable();
 		table.setCellSelectionEnabled(true);
+		table.setModel(model);
 	}
 	
 	public void fillTable(Vector<Articulo> vector) {

@@ -13,6 +13,15 @@ public class Articulo {
 	// cantidad en stock
 	int stock;
 	
+	public Articulo(int idInterno, String codigoBarras,	String descripcion, int familia, double precioUnitario, int stock) {
+		this.idInterno =idInterno;
+		this.codigoBarras = codigoBarras;
+		this.descripcion = descripcion;
+		this.familia = familia;
+		this.precioUnitario = precioUnitario;
+		this.stock = stock;
+	}
+	
 	public int getIdInterno() {
 		return idInterno;
 	}

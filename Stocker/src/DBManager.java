@@ -65,17 +65,13 @@ public class DBManager {
 			query += "WHERE" + f.getStatement();
 		}
 		Vector<Articulo> vTemp = new Vector<Articulo>();
-		//System.out.println(query);
+		System.out.println(query);
 		ResultSet rs = dataQuery(query);
 		while(rs.next()) {
-			Articulo a = new Articulo();
-			a.setCodigoBarras(rs.getString("codigoBarras"));
-			a.setDescripcion(rs.getString("descripcion"));
-			a.setFamilia(rs.getInt("familia"));
-			a.setPrecioUnitario(rs.getDouble("precioUnitario"));
-			a.setStock(rs.getInt("stock"));
+			Articulo a = new Articulo(rs.getInt("idInterno"), rs.getString("codigoBarras"), rs.getString("descripcion"), rs.getInt("familia"), rs.getDouble("precioUnitario"), rs.getInt("stock"));
 			vTemp.add(a);
 		}
+		System.out.println(vTemp.size());
 		return vTemp;
 	}
 	
