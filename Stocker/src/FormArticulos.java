@@ -157,7 +157,7 @@ public class FormArticulos extends JFrame {
 				String[] p = new String[] {((Integer)vector.elementAt(i).getIdInterno()).toString(),
 											vector.elementAt(i).getCodigoBarras(), 
 											vector.elementAt(i).getDescripcion(), 
-											db.getFamilia(vector.elementAt(i).getFamilia()), 
+											/*db.getFamilia(vector.elementAt(i).getFamilia())*/"a", 
 											((Double)vector.elementAt(i).getPrecioUnitario()).toString(),
 											((Integer)vector.elementAt(i).getStock()).toString()};
 				model.addRow(p);
