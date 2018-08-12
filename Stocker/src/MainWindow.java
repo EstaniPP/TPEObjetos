@@ -81,6 +81,7 @@ public class MainWindow {
 		JButton button = new JButton("CLIENTES");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				(new FormClientes()).setVisible(true);
 			}
 		});
 		button.setBounds(354, 154, 117, 60);
