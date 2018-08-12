@@ -115,4 +115,6 @@ public class DBManager {
 		// ejecuto la consulta
 		this.execQuery(query);
 	}
+	
+	
 }

@@ -22,6 +22,13 @@ public class Cliente {
 		this.email = email;
 		this.tipoCliente = tipoCliente;
 	}
+	
+	public Cliente(String nombre, String telefono, String email, int tipoCliente) {
+		this.nombre = nombre;
+		this.telefono = nombre;
+		this.email = email;
+		this.tipoCliente = tipoCliente;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
