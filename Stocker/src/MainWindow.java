@@ -100,23 +100,7 @@ public class MainWindow {
 		JMenuItem mntmConfiguracion = new JMenuItem("Configuracion");
 		mnStocker.add(mntmConfiguracion);
 		
-		//headers for the table
-        String[] columns = new String[] {
-            "Id", "Name", "Hourly Rate", "Part Time"
-        };
-         
-        //actual data for the table in a 2d array
-        Object[][] data = new Object[][] {
-            {1, "John", 40.0, false },
-            {2, "Rambo", 70.0, false },
-            {3, "Zorro", 60.0, true },
-        };
 		
-		TableColumn tblclmnUser = new TableColumn();
-		tblclmnUser.setResizable(false);
-		tblclmnUser.setResizable(true);
-		//tblclmnUser.setWidth(100);
-		tblclmnUser.setText("Name");
 		
 	}
 }

@@ -147,6 +147,7 @@ public class FormClientes extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FormNuevoCliente nuevoC = new FormNuevoCliente();
+				nuevoC.setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(450, 55, 117, 45);

@@ -50,7 +50,6 @@ public class DBManager {
 		try {
 			Statement s = connection.createStatement();
 			s.executeUpdate(query);
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -105,5 +104,15 @@ public class DBManager {
 		return vTemp;
 	}
 	
-	
+	//
+	public void addCliente(Cliente c) {
+		String query = "INSERT INTO `CLIENTES` (`idCliente`, `nombre`, `telefono`, `email`, `tipoCliente`) VALUES "
+				+ "(NULL, "
+				+ "'" + c.getNombre() + "', "
+				+ "'" + c.getTelefono() + "', "
+				+ "'" + c.getEmail() + "', "
+				+ "'" + c.getTipoCliente() + "');";
+		// ejecuto la consulta
+		this.execQuery(query);
+	}
 }
