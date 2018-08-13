@@ -25,7 +25,7 @@ public interface FiltroArticulo {
 			this.value = value;
 		}
 		public String getStatement() {
-			return " ARTICULOS.codigoBarras LIKE '&"+ value +"&' ";
+			return " ARTICULOS.codigoBarras = '"+ value +"' ";
 		}
 	}	
 	public static class familia implements Filtro{
