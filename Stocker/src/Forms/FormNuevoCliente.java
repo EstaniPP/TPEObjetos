@@ -146,7 +146,13 @@ public class FormNuevoCliente extends JDialog {
 			textnombre.setText(c.getNombre());
 			texttelefono.setText(c.getTelefono());
 			textemail.setText(c.getEmail());
-			combotipo.setSelectedIndex(c.getTipoCliente() - 1);
+			//combotipo.setSelectedIndex(c.getTipoCliente() - 1);
+			//combotipo.get
+			for(int i = 0; i < combotipo.getItemCount(); i++) {
+				if(c.getTipoCliente() == tiposClientes.get(combotipo.getItemAt(i))) {
+					combotipo.setSelectedIndex(i);
+				}
+			}
 		}
 	}
 }
