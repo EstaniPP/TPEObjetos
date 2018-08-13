@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 
@@ -21,7 +23,7 @@ public class FormNuevoCliente extends JDialog {
 	private JTextField textemail;
 	private JComboBox combotipo;
 	DBManager db = new DBManager();
-	
+	Hashtable<String, Integer> tiposClientes = new Hashtable<String, Integer>();
 	public void cancel() {
 		this.dispose();
 	}
@@ -76,8 +78,18 @@ public class FormNuevoCliente extends JDialog {
 			contentPanel.add(lblTipoDeCliente);
 		}
 		
+		
+		
 		combotipo = new JComboBox();
-		combotipo.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6"}));
+		Vector<TipoCliente> tipos = db.getTiposCliente();
+		String[] aux = new String[tipos.size()];
+		
+		for(int i=0; i<tipos.size(); i++) {
+			aux[i] = tipos.get(i).getNombreTipoCliente();
+			tiposClientes.put(tipos.get(i).getNombreTipoCliente(), tipos.get(i).getIdTipoCliente());
+		}
+		
+		combotipo.setModel(new DefaultComboBoxModel(aux));
 		combotipo.setBounds(6, 165, 258, 27);
 		
 		contentPanel.add(combotipo);
@@ -90,17 +102,18 @@ public class FormNuevoCliente extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// chequeo q no sea edicion
+						int tipoClienteCombo = tiposClientes.get(combotipo.getItemAt(combotipo.getSelectedIndex()));
 						if(c == null) {
 							// aniadir el cliente a la bd
 							//String nombre, String telefono, String email, int tipoCliente
-							Cliente temp = new Cliente(textnombre.getText(), texttelefono.getText(), textemail.getText(), combotipo.getSelectedIndex() + 1);
+							Cliente temp = new Cliente(textnombre.getText(), texttelefono.getText(), textemail.getText(), tipoClienteCombo);
 							//System.out.println(temp.getTelefono());
 							db.addCliente(temp);
 							JOptionPane.showMessageDialog(null, "Cliente agregado con exito.");
 							cancel();
 						}else {
 							//Cliente(int idCliente, String nombre, String telefono, String email, int tipoCliente) 
-							Cliente updateado = new Cliente(c.getIdCliente(), textnombre.getText(), texttelefono.getText(), textemail.getText(), combotipo.getSelectedIndex() + 1);
+							Cliente updateado = new Cliente(c.getIdCliente(), textnombre.getText(), texttelefono.getText(), textemail.getText(), tipoClienteCombo);
 							db.updateCliente(updateado);
 							JOptionPane.showMessageDialog(null, "Cliente modificado con exito");
 							cancel();

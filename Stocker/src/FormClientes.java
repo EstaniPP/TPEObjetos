@@ -36,7 +36,7 @@ public class FormClientes extends JFrame {
 	private JTable table;
 	DefaultTableModel model;
 	JScrollPane scrollPane = new JScrollPane();
-
+	DBManager db = new DBManager();
 	/**
 	 * Launch the application.
 	 */
@@ -50,7 +50,7 @@ public class FormClientes extends JFrame {
 	public FormClientes() {
 		
 		// llamado a bd
-		DBManager db = new DBManager();
+		
 		
 		model = new DefaultTableModel() {
 			@Override
@@ -207,7 +207,7 @@ public class FormClientes extends JFrame {
 											vector.elementAt(i).getNombre(), 
 											vector.elementAt(i).getTelefono(), 
 											vector.elementAt(i).getEmail(), 
-											((Integer) vector.elementAt(i).getTipoCliente()).toString()};
+											db.getTipoCliente(vector.elementAt(i).getTipoCliente()).getNombreTipoCliente()};
 				model.addRow(p);
 			}
 		}

@@ -121,14 +121,18 @@ public class DBManager {
 	
 	public Vector<TipoCliente> getTiposCliente(){
 		Vector<TipoCliente> vect = new Vector<TipoCliente>();
+		
 		try {
-			ResultSet rs = dataQuery("SELECT * FROM TIPOCLIENTE");
+			ResultSet rs = dataQuery("SELECT * FROM TIPOCLIENTE ORDER BY idInterno ASC");
 			while(rs.next()) {
-				TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("descuento"), rs.getString("nombreTipoCliente"));
+				TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("porcentajeDescuento"), rs.getString("nombreTipo"));
 				vect.add(tTemp);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
+		}
+		if(vect.size() == 0) {
+			vect.add(new TipoCliente(-1, 0, "Sin resultados"));
 		}
 		return vect;
 	}
@@ -169,7 +173,7 @@ public class DBManager {
 		try {
 			ResultSet rs = dataQuery("SELECT * FROM TIPOCLIENTE WHERE idInterno = '" + tipo + "'");
 			if(rs.next()) {
-				TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("descuento"), rs.getString("nombreTipoCliente"));
+				TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("porcentajeDescuento"), rs.getString("nombreTipo"));
 				return tTemp;
 			}else {
 				TipoCliente tTemp = new TipoCliente(-1, 0, "Sin resultados");
