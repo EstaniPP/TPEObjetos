@@ -143,7 +143,6 @@ public class FormArticulos extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == 10) {
-					// se presiono enter
 					Vector<Articulo> vector = new Vector<Articulo>();
 					// creo el filtro x nombre
 					FiltroArticulo.codigoBarras f1;
