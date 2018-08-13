@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 
@@ -77,9 +79,13 @@ public class FormNuevoArticulo extends JDialog {
 			contentPanel.add(lblTipoDeCliente);
 		}
 		
-		//ArrayList<String> familias = db.getFamilias();
 		combotipo = new JComboBox();
-		combotipo.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6"}));
+		Vector<FamiliaArticulo> familias = db.getFamilias();
+		String[] aux = new String[familias.size()];
+		for(int i=0; i<familias.size(); i++) {
+			aux[i] =familias.get(i).getNombreFamilia();
+		}
+		combotipo.setModel(new DefaultComboBoxModel(aux));
 		combotipo.setBounds(6, 165, 258, 27);
 		
 		contentPanel.add(combotipo);
@@ -102,9 +108,9 @@ public class FormNuevoArticulo extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						// aniadir el articulo a la bd
 						// String codigoBarras;String descripcion;int familia;double precioUnitario;int stock;
-						Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),combotipo.getSelectedIndex(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+						Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
 						//System.out.println(temp.getTelefono());
-						//db.addCliente(temp);
+						db.addArticulo(temp);
 						JOptionPane.showMessageDialog(null, "Cliente agregado con exito.");
 						cancel();
 					}

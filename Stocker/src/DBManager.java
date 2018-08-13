@@ -133,9 +133,36 @@ public class DBManager {
 		return vect;
 	}
 	
+	public Vector<FamiliaArticulo> getFamilias(){
+		Vector<FamiliaArticulo> vect = new Vector<FamiliaArticulo>();
+		try {
+			ResultSet rs = dataQuery("SELECT * FROM FAMILIA");
+			while(rs.next()) {
+				FamiliaArticulo fTemp = new FamiliaArticulo(rs.getInt("idFamilia"), rs.getString("nombreFamilia"));
+				vect.add(fTemp);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return vect;
+	}
+	
+	public FamiliaArticulo getFamiliaArticulo(int tipo) {
+		try {
+			ResultSet rs = dataQuery("SELECT * FROM FAMILIA WHERE idFamilia = '" + tipo + "'");
+			rs.next();
+			FamiliaArticulo fTemp = new FamiliaArticulo(rs.getInt("idFamilia"), rs.getString("nombreFamilia"));
+			return fTemp;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public TipoCliente getTipoCliente(int tipo) {
 		try {
 			ResultSet rs = dataQuery("SELECT * FROM TIPOCLIENTE WHERE idInterno = '" + tipo + "'");
+			rs.next();
 			TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("descuento"), rs.getString("nombreTipoCliente"));
 			return tTemp;
 		}catch(SQLException e) {
