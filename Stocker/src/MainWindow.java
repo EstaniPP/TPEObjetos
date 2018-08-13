@@ -77,7 +77,7 @@ public class MainWindow {
 		JButton btnStock = new JButton("STOCK");
 		btnStock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				(new FormArticulos()).setVisible(true);
+				//(new FormArticulos()).setVisible(true);
 			}
 		});
 		btnStock.setBounds(128, 154, 117, 60);

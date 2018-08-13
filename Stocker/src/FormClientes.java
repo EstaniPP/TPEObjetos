@@ -87,7 +87,9 @@ public class FormClientes extends JFrame {
 					}catch(SQLException e1) {
 						e1.getStackTrace();
 					}
+					
 					fillTable(vector);
+					System.out.println(vector.size());
 				}
 			}
 		});
@@ -124,6 +126,7 @@ public class FormClientes extends JFrame {
 						e1.getStackTrace();
 					}
 					fillTable(vector);
+					
 				}
 			}
 		});
@@ -182,8 +185,6 @@ public class FormClientes extends JFrame {
 					if(vect.size() == 0) {
 						JOptionPane.showMessageDialog(null, "Se produjo un error");
 					}else {
-						// obtengo el primer y unico elemento del arreglo
-						System.out.println(vect.elementAt(0).getNombre());
 						FormNuevoCliente nuevoC = new FormNuevoCliente(vect.elementAt(0));
 						nuevoC.setVisible(true);
 					}
@@ -198,11 +199,7 @@ public class FormClientes extends JFrame {
 		
 	}
 	public void fillTable(Vector<Cliente> vector) {
-		
-		// elimino todas las filas de la tabla
-		for(int i = 0; i < model.getRowCount(); i++) {
-			model.removeRow(i);
-		}
+		model.setRowCount(0);
 		// cargo todo en la tabla
 		if(vector != null) {
 			for(int i = 0; i < vector.size(); i++) {
