@@ -31,7 +31,7 @@ public class FormNuevoArticulo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public FormNuevoArticulo() {
+	public FormNuevoArticulo(Articulo art) {
 		
 
 		setBounds(100, 100, 291, 327);
@@ -105,14 +105,25 @@ public class FormNuevoArticulo extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						// aniadir el articulo a la bd
-						// String codigoBarras;String descripcion;int familia;double precioUnitario;int stock;
-						Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
-						//System.out.println(temp.getTelefono());
-						db.addArticulo(temp);
-						JOptionPane.showMessageDialog(null, "Cliente agregado con exito.");
-						cancel();
+					public void actionPerformed(ActionEvent e) {						
+						if(art == null) {
+							// aniadir el articulo a la bd
+							// String codigoBarras;String descripcion;int familia;double precioUnitario;int stock;
+							Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+							//System.out.println(temp.getTelefono());
+							db.addArticulo(temp);
+							JOptionPane.showMessageDialog(null, "Articulo agregado con exito.");
+							cancel();
+						}else {
+							Articulo updateado = new Articulo(art.getIdInterno(),textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+							db.updateArticulo(updateado);
+							JOptionPane.showMessageDialog(null, "Articulo modificado con exito");
+							cancel();
+						}
+						
+						
+						
+						
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -129,6 +140,14 @@ public class FormNuevoArticulo extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+		
+		if(art != null) {
+			textCodigoBarras.setText(art.getCodigoBarras());
+			textDescripcion.setText(art.getDescripcion());
+			textPrecioUnitario.setText(String.valueOf(art.getPrecioUnitario()));
+			combotipo.setSelectedIndex(art.getFamilia());
+			textField.setText(String.valueOf(art.getStock()));		
 		}
 	}
 }

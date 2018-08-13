@@ -59,19 +59,33 @@ public class DBManager {
 		this.execQuery(query);
 	}
 	
+	public void updateArticulo(Articulo a) {
+		String query = "UPDATE `ARTICULOS` SET "
+				+ "`codigoBarras` = '" + a.getCodigoBarras() + "', "
+				+ "`descripcion` = '"+ a.getDescripcion() +"', "
+				+ "`familia` = '" + a.getFamilia() + "', "
+				+ "`stock` = '" + a.getStock() + "', "
+				+ "`precioUnitario` = '" + a.getPrecioUnitario() + "' "
+				+ "WHERE `ARTICULOS`.`idInterno` = " + a.getIdInterno() + ";";
+		this.execQuery(query);
+	}
+	
+	public void deleteArticulo(Articulo a) {
+		String query = "DELETE FROM `ARTICULOS` WHERE `idInterno` = " + a.getIdInterno() + ";";
+		this.execQuery(query);
+	}
+	
 	public Vector<Articulo> getArticulos(Filtro f) throws SQLException{
 		String query = "SELECT * FROM ARTICULOS ";
 		if(f != null) {
 			query += "WHERE" + f.getStatement();
 		}
 		Vector<Articulo> vTemp = new Vector<Articulo>();
-		System.out.println(query);
 		ResultSet rs = dataQuery(query);
 		while(rs.next()) {
 			Articulo a = new Articulo(rs.getInt("idInterno"), rs.getString("codigoBarras"), rs.getString("descripcion"), rs.getInt("familia"), rs.getDouble("precioUnitario"), rs.getInt("stock"));
 			vTemp.add(a);
 		}
-		System.out.println(vTemp.size());
 		return vTemp;
 	}
 	

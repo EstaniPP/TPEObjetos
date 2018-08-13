@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import java.awt.Component;
 import javax.swing.Box;
@@ -51,7 +52,7 @@ public class FormArticulos extends JFrame {
 		
 		//Elementos del frame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1032, 481);
+		setBounds(100, 100, 1032, 448);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -162,17 +163,45 @@ public class FormArticulos extends JFrame {
 		});
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 98, 835, 308);
+		scrollPane.setBounds(12, 98, 835, 293);
 		contentPane.add(scrollPane);
 		
 		JButton btnNewButton = new JButton("Modificar articulo");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// modificar seleccionado
+				int selectedRow = table_1.getSelectedRow();
+				if(selectedRow == -1) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un articulo.");
+				}else {
+					// obtengo el id del articulo seleccionado
+					int idInterno = Integer.valueOf((String) table_1.getValueAt(selectedRow, 0));
+					// obtengo articulo desde bd
+					Vector<Articulo> vect = new Vector<Articulo>();
+					try {
+						vect = db.getArticulos(new FiltroArticulo.idInterno(idInterno));
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					if(vect.size() == 0) {
+						JOptionPane.showMessageDialog(null, "Se produjo un error");
+					}else {
+						FormNuevoArticulo nuevoC = new FormNuevoArticulo(vect.elementAt(0));
+						nuevoC.setVisible(true);
+					}
+				}
+			}
+		});
+		
+		
+		
 		btnNewButton.setBounds(859, 149, 143, 38);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Agregar articulo");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FormNuevoArticulo nuevoA = new FormNuevoArticulo();
+				FormNuevoArticulo nuevoA = new FormNuevoArticulo(null);
 				nuevoA.setVisible(true);
 			}
 		});
@@ -193,6 +222,51 @@ public class FormArticulos extends JFrame {
 		table_1.setCellSelectionEnabled(true);
 		table_1.setModel(model);
 		scrollPane.setViewportView(table_1);
+		
+		JButton btnEliminarArticulo = new JButton("Eliminar articulo");
+		btnEliminarArticulo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// eliminar seleccionado
+				int selectedRow = table_1.getSelectedRow();
+				if(selectedRow == -1) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un articulo.");
+				}else {
+					// obtengo el id del articulo seleccionado
+					int idInterno = Integer.valueOf((String) table_1.getValueAt(selectedRow, 0));
+					// obtengo articulo desde bd
+					Vector<Articulo> vect = new Vector<Articulo>();
+					try {
+						vect = db.getArticulos(new FiltroArticulo.idInterno(idInterno));
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					if(vect.size() == 0) {
+						JOptionPane.showMessageDialog(null, "Se produjo un error");
+					}else {
+						db.deleteArticulo(vect.get(0));
+					}
+				}
+			}
+		});
+		btnEliminarArticulo.setBounds(859, 200, 143, 38);
+		contentPane.add(btnEliminarArticulo);
+		
+		JButton btnNewButton_2 = new JButton("Actualiza tabla");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Vector<Articulo> vector = new Vector<Articulo>();
+				FiltroArticulo.descripcion f1 = null;
+				try {
+					vector = db.getArticulos(f1);
+				}catch(SQLException e1) {
+					e1.getStackTrace();
+				}
+				fillTable(vector);
+			}
+		});
+		btnNewButton_2.setBounds(863, 353, 139, 38);
+		contentPane.add(btnNewButton_2);
+		
 		{
 			Vector<Articulo> vector = new Vector<Articulo>();
 			FiltroArticulo.descripcion f1 = null;
