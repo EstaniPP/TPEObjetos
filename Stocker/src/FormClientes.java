@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JDesktopPane;
 import javax.swing.JToolBar;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.ScrollPaneConstants;
@@ -24,6 +25,7 @@ import java.util.Vector;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import javax.swing.ListSelectionModel;
 
 public class FormClientes extends JFrame {
 
@@ -32,7 +34,7 @@ public class FormClientes extends JFrame {
 	private JTextField textField_1;
 	// tablas
 	private JTable table;
-	DefaultTableModel model = new DefaultTableModel(); 
+	DefaultTableModel model;
 	JScrollPane scrollPane = new JScrollPane();
 
 	/**
@@ -49,6 +51,15 @@ public class FormClientes extends JFrame {
 		
 		// llamado a bd
 		DBManager db = new DBManager();
+		
+		model = new DefaultTableModel() {
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		       //all cells false
+		       return false;
+		    }
+		};
+		
 		// llamado a bd
 		setTitle("CLIENTES");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -66,9 +77,7 @@ public class FormClientes extends JFrame {
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == 10 && !textField.getText().isEmpty()) {
-					//System.out.println(table.editCellAt(3, 0));
-					
+				if(e.getKeyCode() == 10 && !textField.getText().isEmpty()) {					
 					// se presiono enter
 					Vector<Cliente> vector = new Vector<Cliente>();
 					// creo el filtro x nombre
@@ -131,9 +140,6 @@ public class FormClientes extends JFrame {
 		
 		
 		
-		//String[] columnas = new String[] {"ID", "NOMBRE", "TELEFONO", "EMAIL", "TIPO"};
-		//table = new JTable(results, columnas);
-		
 		model.addColumn("ID");
 		model.addColumn("NOMBRE");
 		model.addColumn("TELEFONO");
@@ -141,12 +147,14 @@ public class FormClientes extends JFrame {
 		model.addColumn("TIPO");
 		
 		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setFillsViewportHeight(true);
 		table.setCellSelectionEnabled(true);
 		
 		JButton btnNewButton = new JButton("NUEVO CLIENTE");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FormNuevoCliente nuevoC = new FormNuevoCliente();
+				FormNuevoCliente nuevoC = new FormNuevoCliente(null);
 				nuevoC.setVisible(true);
 			}
 		});
@@ -154,6 +162,35 @@ public class FormClientes extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnModificarSeleccionado = new JButton("MODIFICAR");
+		btnModificarSeleccionado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// modificar seleccionado
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow == -1) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente.");
+				}else {
+					// obtengo el id del cliente seleccionado
+					int idCliente = Integer.valueOf((String) table.getValueAt(selectedRow, 0));
+					//System.out.print(idCliente);
+					// obtengo cliente desde bd
+					Vector<Cliente> vect = new Vector<Cliente>();
+					try {
+						vect = db.getClientes(new FiltroCliente.idCliente(idCliente));
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					if(vect.size() == 0) {
+						JOptionPane.showMessageDialog(null, "Se produjo un error");
+					}else {
+						// obtengo el primer y unico elemento del arreglo
+						System.out.println(vect.elementAt(0).getNombre());
+						FormNuevoCliente nuevoC = new FormNuevoCliente(vect.elementAt(0));
+						nuevoC.setVisible(true);
+					}
+				}
+				//System.out.println(table.getSelectedRow());
+			}
+		});
 		btnModificarSeleccionado.setBounds(450, 99, 117, 45);
 		contentPane.add(btnModificarSeleccionado);
 		fillTable(null);

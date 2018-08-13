@@ -28,7 +28,7 @@ public class FormNuevoCliente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public FormNuevoCliente() {
+	public FormNuevoCliente(Cliente c) {
 		
 
 		setBounds(100, 100, 291, 300);
@@ -89,13 +89,23 @@ public class FormNuevoCliente extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						// aniadir el cliente a la bd
-						//String nombre, String telefono, String email, int tipoCliente
-						Cliente temp = new Cliente(textnombre.getText(), texttelefono.getText(), textemail.getText(), combotipo.getSelectedIndex() + 1);
-						//System.out.println(temp.getTelefono());
-						db.addCliente(temp);
-						JOptionPane.showMessageDialog(null, "Cliente agregado con exito.");
-						cancel();
+						// chequeo q no sea edicion
+						if(c == null) {
+							// aniadir el cliente a la bd
+							//String nombre, String telefono, String email, int tipoCliente
+							Cliente temp = new Cliente(textnombre.getText(), texttelefono.getText(), textemail.getText(), combotipo.getSelectedIndex() + 1);
+							//System.out.println(temp.getTelefono());
+							db.addCliente(temp);
+							JOptionPane.showMessageDialog(null, "Cliente agregado con exito.");
+							cancel();
+						}else {
+							//Cliente(int idCliente, String nombre, String telefono, String email, int tipoCliente) 
+							Cliente updateado = new Cliente(c.getIdCliente(), textnombre.getText(), texttelefono.getText(), textemail.getText(), combotipo.getSelectedIndex() + 1);
+							db.updateCliente(updateado);
+							JOptionPane.showMessageDialog(null, "Cliente modificado con exito");
+							cancel();
+						}
+						
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -112,6 +122,12 @@ public class FormNuevoCliente extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+		}
+		if(c != null) {
+			textnombre.setText(c.getNombre());
+			texttelefono.setText(c.getTelefono());
+			textemail.setText(c.getEmail());
+			combotipo.setSelectedIndex(c.getTipoCliente() - 1);
 		}
 	}
 }
