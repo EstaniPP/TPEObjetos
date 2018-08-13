@@ -22,6 +22,14 @@ public class Articulo {
 		this.stock = stock;
 	}
 	
+	public Articulo(String codigoBarras,	String descripcion, int familia, double precioUnitario, int stock) {
+		this.codigoBarras = codigoBarras;
+		this.descripcion = descripcion;
+		this.familia = familia;
+		this.precioUnitario = precioUnitario;
+		this.stock = stock;
+	}
+	
 	public int getIdInterno() {
 		return idInterno;
 	}

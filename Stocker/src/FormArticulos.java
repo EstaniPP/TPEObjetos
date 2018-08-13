@@ -159,8 +159,8 @@ public class FormArticulos extends JFrame {
 		JButton btnNewButton_1 = new JButton("Agregar articulo");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FormNuevoCliente nuevoC = new FormNuevoCliente(null);
-				nuevoC.setVisible(true);
+				FormNuevoArticulo nuevoA = new FormNuevoArticulo();
+				nuevoA.setVisible(true);
 			}
 		});
 		btnNewButton_1.setBounds(859, 98, 143, 38);
