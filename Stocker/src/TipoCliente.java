@@ -17,7 +17,7 @@ public class TipoCliente {
 		 this.nombreTipoCliente = nombreTipoCliente;
 	}
 	public int getIdTipoCliente() {
-		return idTipoCliente;
+		return idTipoCliente;//
 	}
 	
 	public String getNombreTipoCliente() {
