@@ -168,9 +168,13 @@ public class DBManager {
 	public TipoCliente getTipoCliente(int tipo) {
 		try {
 			ResultSet rs = dataQuery("SELECT * FROM TIPOCLIENTE WHERE idInterno = '" + tipo + "'");
-			rs.next();
-			TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("descuento"), rs.getString("nombreTipoCliente"));
-			return tTemp;
+			if(rs.next()) {
+				TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("descuento"), rs.getString("nombreTipoCliente"));
+				return tTemp;
+			}else {
+				TipoCliente tTemp = new TipoCliente(-1, 0, "Sin resultados");
+				return tTemp;
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
