@@ -70,7 +70,7 @@ public class FormArticulos extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblBuscarArticulos = new JLabel("Buscar articulos");
+		JLabel lblBuscarArticulos = new JLabel("Administrar articulos");
 		lblBuscarArticulos.setBounds(12, 13, 121, 16);
 		contentPane.add(lblBuscarArticulos);
 		
