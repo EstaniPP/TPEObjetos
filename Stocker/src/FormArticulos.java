@@ -50,7 +50,6 @@ public class FormArticulos extends JFrame {
 		setTitle("ARTICULOS");		
 		
 		//Elementos del frame
-		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1032, 481);
 		
@@ -79,11 +78,16 @@ public class FormArticulos extends JFrame {
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == 10 && !textField.getText().isEmpty()) {
+				if(e.getKeyCode() == 10) {
 					// se presiono enter
 					Vector<Articulo> vector = new Vector<Articulo>();
 					// creo el filtro x nombre
-					FiltroArticulo.descripcion f1 = new FiltroArticulo.descripcion(textField.getText());
+					FiltroArticulo.descripcion f1;
+					if(!textField.getText().isEmpty()) {
+						f1 = new FiltroArticulo.descripcion(textField.getText());
+					}else {
+						f1 = null;
+					}
 					try {
 						vector = db.getArticulos(f1);
 					}catch(SQLException e1) {
@@ -106,11 +110,16 @@ public class FormArticulos extends JFrame {
 		textField_1.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == 10 && !textField_1.getText().isEmpty()) {
+				if(e.getKeyCode() == 10) {
 					// se presiono enter
 					Vector<Articulo> vector = new Vector<Articulo>();
 					// creo el filtro x ID
-					FiltroArticulo.idInterno f1 = new FiltroArticulo.idInterno(Integer.valueOf(textField_1.getText()));
+					FiltroArticulo.idInterno f1;
+					if(!textField_1.getText().isEmpty()) {
+						f1 = new FiltroArticulo.idInterno(Integer.valueOf(textField_1.getText()));
+					}else {
+						f1 = null;
+					}
 					try {
 						vector = db.getArticulos(f1);
 					}catch(SQLException e1) {
@@ -133,11 +142,16 @@ public class FormArticulos extends JFrame {
 		textField_2.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == 10 && !textField_2.getText().isEmpty()) {
+				if(e.getKeyCode() == 10) {
 					// se presiono enter
 					Vector<Articulo> vector = new Vector<Articulo>();
 					// creo el filtro x nombre
-					FiltroArticulo.codigoBarras f1 = new FiltroArticulo.codigoBarras(textField_2.getText());
+					FiltroArticulo.codigoBarras f1;
+					if(!textField_2.getText().isEmpty()) {
+						f1 = new FiltroArticulo.codigoBarras(textField_2.getText());
+					}else {
+						f1 = null;
+					}
 					try {
 						vector = db.getArticulos(f1);
 					}catch(SQLException e1) {
@@ -180,6 +194,16 @@ public class FormArticulos extends JFrame {
 		table_1.setCellSelectionEnabled(true);
 		table_1.setModel(model);
 		scrollPane.setViewportView(table_1);
+		{
+			Vector<Articulo> vector = new Vector<Articulo>();
+			FiltroArticulo.descripcion f1 = null;
+			try {
+				vector = db.getArticulos(f1);
+			}catch(SQLException e1) {
+				e1.getStackTrace();
+			}
+			fillTable(vector);
+		}
 	}
 	
 	public void fillTable(Vector<Articulo> vector) {
@@ -189,8 +213,9 @@ public class FormArticulos extends JFrame {
 		// llamado a bd
 		setTitle("ARTICULOS");		
 		// elimino todas las filas de la tabla
-		for(int i = 0; i < model.getRowCount(); i++) {
-			model.removeRow(i);
+		int j = model.getRowCount(); 
+		for(int i = 0; i < j; i++) {
+			model.removeRow(0);
 		}
 		// cargo todo en la tabla
 		if(vector != null) {
@@ -198,7 +223,7 @@ public class FormArticulos extends JFrame {
 				String[] p = new String[] {((Integer)vector.elementAt(i).getIdInterno()).toString(),
 											vector.elementAt(i).getCodigoBarras(), 
 											vector.elementAt(i).getDescripcion(), 
-											/*db.getFamilia(vector.elementAt(i).getFamilia())*/"a", 
+											/*db.getFamilia(vector.elementAt(i).getFamilia())*/"1", 
 											((Double)vector.elementAt(i).getPrecioUnitario()).toString(),
 											((Integer)vector.elementAt(i).getStock()).toString()};
 				model.addRow(p);
