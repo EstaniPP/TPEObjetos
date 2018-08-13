@@ -150,8 +150,12 @@ public class DBManager {
 	public FamiliaArticulo getFamiliaArticulo(int tipo) {
 		try {
 			ResultSet rs = dataQuery("SELECT * FROM FAMILIA WHERE idFamilia = '" + tipo + "'");
-			rs.next();
-			FamiliaArticulo fTemp = new FamiliaArticulo(rs.getInt("idFamilia"), rs.getString("nombreFamilia"));
+			FamiliaArticulo fTemp = null;
+			if(rs.next()) {
+				fTemp = new FamiliaArticulo(rs.getInt("idFamilia"), rs.getString("nombreFamilia"));
+			}else {
+				fTemp = new FamiliaArticulo(tipo,"Sin familia");
+			}
 			return fTemp;
 		}catch(SQLException e) {
 			e.printStackTrace();
