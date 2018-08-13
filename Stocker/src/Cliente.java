@@ -12,7 +12,7 @@ public class Cliente {
 	//tipo de cliente que es. Ejemplo 1(minorista)
 	int tipoCliente;
 	//Hash estatico con los tipos de clientes.
-	static HashMap<Integer,tipoCliente> tiposClientes;
+	static HashMap<Integer,TipoCliente> tiposClientes;
 		
 		
 	public Cliente(int idCliente, String nombre, String telefono, String email, int tipoCliente) {
@@ -72,16 +72,10 @@ public class Cliente {
 		this.tipoCliente = tipoCliente;
 	}
 	
-	public static void addTipoCliente(tipoCliente aux) {
+	public static void addTipoCliente(TipoCliente aux) {
 		tiposClientes.put(aux.getIdTipoCliente(), aux);
 	}
 	
-	public int getDescuento() {
-		if(tiposClientes.containsKey(tipoCliente)) {
-			return tiposClientes.get(tipoCliente).getDescuento();
-		}else {
-			return 0;
-		}
-	}
+	
 	
 }

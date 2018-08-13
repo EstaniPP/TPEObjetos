@@ -15,6 +15,6 @@ public class VentaConCliente extends Venta{
 	
 	@Override
 	public float getPrecioAPagar() {
-		return getPrecioTotal() * cliente.getDescuento();
+		return 0;
 	}
 }

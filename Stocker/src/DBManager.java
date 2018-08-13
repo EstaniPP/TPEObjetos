@@ -115,4 +115,32 @@ public class DBManager {
 				+ "WHERE `CLIENTES`.`idCliente` = " + c.getIdCliente() + ";";
 		this.execQuery(query);
 	}
+	
+	
+	// tipo de clientes
+	
+	public Vector<TipoCliente> getTiposCliente(){
+		Vector<TipoCliente> vect = new Vector<TipoCliente>();
+		try {
+			ResultSet rs = dataQuery("SELECT * FROM TIPOCLIENTE");
+			while(rs.next()) {
+				TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("descuento"), rs.getString("nombreTipoCliente"));
+				vect.add(tTemp);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return vect;
+	}
+	
+	public TipoCliente getTipoCliente(int tipo) {
+		try {
+			ResultSet rs = dataQuery("SELECT * FROM TIPOCLIENTE WHERE idInterno = '" + tipo + "'");
+			TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("descuento"), rs.getString("nombreTipoCliente"));
+			return tTemp;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

@@ -1,18 +1,21 @@
 import java.util.HashMap;
 
-public class tipoCliente {
+public class TipoCliente {
 	int idTipoCliente;
 	//descuento asociado a ese tipo de cliente
-	int descuento;
+	double descuento;
 	//nombre asociado a ese tipo de cliente. Ej Minorista, mayorista.
 	String nombreTipoCliente;
 	
-	public tipoCliente(int idTipoCliente, int descuento, String nombreTipoCliente) {
+	public TipoCliente(int idTipoCliente, double descuento, String nombreTipoCliente) {
 		 this.idTipoCliente = idTipoCliente;
 		 this.descuento = descuento;
 		 this.nombreTipoCliente = nombreTipoCliente;
 	}
-	 
+	public TipoCliente(int descuento, String nombreTipoCliente) {
+		 this.descuento = descuento;
+		 this.nombreTipoCliente = nombreTipoCliente;
+	}
 	public int getIdTipoCliente() {
 		return idTipoCliente;
 	}
@@ -21,7 +24,7 @@ public class tipoCliente {
 		return nombreTipoCliente;
 	}
 	
-	public int getDescuento() {
+	public double getDescuento() {
 		return descuento;
 	}
 }
