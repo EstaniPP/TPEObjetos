@@ -1,3 +1,4 @@
+package Filtros;
 import java.sql.Date;
 
 public interface FiltroVenta {

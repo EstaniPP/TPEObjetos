@@ -1,4 +1,7 @@
+package Ventas;
 import java.sql.Date;
+
+import Cliente.Cliente;
 
 public class VentaSinCliente extends Venta{
 	static final int IDNOCLIENTE = -1;

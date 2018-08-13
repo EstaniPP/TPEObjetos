@@ -1,3 +1,4 @@
+package DataBase;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +10,12 @@ import java.util.Vector;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
+
+import Articulos.Articulo;
+import Articulos.FamiliaArticulo;
+import Cliente.Cliente;
+import Cliente.TipoCliente;
+import Filtros.Filtro;
 
 public class DBManager {
 	private Connection connection;

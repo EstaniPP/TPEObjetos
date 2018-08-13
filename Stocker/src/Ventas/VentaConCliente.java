@@ -1,4 +1,7 @@
+package Ventas;
 import java.sql.Date;
+
+import Cliente.Cliente;
 
 public class VentaConCliente extends Venta{	
 	Cliente cliente;

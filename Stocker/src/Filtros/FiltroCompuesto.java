@@ -1,4 +1,4 @@
-
+package Filtros;
 public interface FiltroCompuesto {
 	public static class And implements Filtro{
 		Filtro f1;

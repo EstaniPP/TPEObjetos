@@ -1,6 +1,9 @@
+package Ventas;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import Articulos.*;
+import Articulos.Articulo;
 
 public abstract class Venta {
 	static final int IDVENTANUEVA= -1;
@@ -36,7 +39,7 @@ public abstract class Venta {
 	
 	public boolean agregarArticulo(Articulo art, Integer cant) {
 		if(articulos.contains(art)) {
-			cantidadArticulos.put(art.getIdInterno(), cant+cantidadArticulos.get(art.idInterno));
+			cantidadArticulos.put(art.getIdInterno(), cant+cantidadArticulos.get(art.getIdInterno()));
 		}else {
 			articulos.add(art);
 			cantidadArticulos.put(art.getIdInterno(), cant);

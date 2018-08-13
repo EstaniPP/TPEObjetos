@@ -1,3 +1,4 @@
+package Articulos;
 
 public class FamiliaArticulo {
 	int idFamilia;

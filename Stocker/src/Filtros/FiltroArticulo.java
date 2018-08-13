@@ -1,4 +1,4 @@
-
+package Filtros;
 public interface FiltroArticulo {
 	
 	public static class descripcion implements Filtro{
@@ -25,9 +25,9 @@ public interface FiltroArticulo {
 			this.value = value;
 		}
 		public String getStatement() {
-			return " ARTICULOS.codigoBarras = "+ value +" ";
+			return " ARTICULOS.codigoBarras LIKE '&"+ value +"&' ";
 		}
-	}
+	}	
 	public static class familia implements Filtro{
 		private String value;
 		public familia(String value) {

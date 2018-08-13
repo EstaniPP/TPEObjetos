@@ -1,3 +1,4 @@
+package Forms;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -5,6 +6,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import Articulos.Articulo;
+import Cliente.Cliente;
+import DataBase.DBManager;
+import Filtros.FiltroArticulo;
+import Filtros.FiltroCliente;
+import Filtros.FiltroArticulo.codigoBarras;
+import Filtros.FiltroArticulo.descripcion;
+import Filtros.FiltroArticulo.idInterno;
+
 import javax.swing.JScrollPane;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
@@ -148,7 +159,9 @@ public class FormArticulos extends JFrame {
 					// creo el filtro x nombre
 					FiltroArticulo.codigoBarras f1;
 					if(!textField_2.getText().isEmpty()) {
+						System.out.println(textField_2.getText());
 						f1 = new FiltroArticulo.codigoBarras(textField_2.getText());
+						System.out.println(f1.getStatement());
 					}else {
 						f1 = null;
 					}
@@ -157,11 +170,12 @@ public class FormArticulos extends JFrame {
 					}catch(SQLException e1) {
 						e1.getStackTrace();
 					}
+					System.out.println(vector.size());
 					fillTable(vector);
 				}
 			}
 		});
-		
+				
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 98, 835, 293);
 		contentPane.add(scrollPane);

@@ -1,4 +1,4 @@
-
+package Filtros;
 public interface FiltroCliente {
 
 	public static class idCliente implements Filtro{

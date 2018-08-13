@@ -1,3 +1,4 @@
+package Forms;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.TextField;
@@ -7,6 +8,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import Cliente.Cliente;
+import DataBase.DBManager;
+import Filtros.FiltroCliente;
+import Filtros.FiltroCliente.idCliente;
+import Filtros.FiltroCliente.nombre;
+
 import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
 import javax.swing.JDesktopPane;

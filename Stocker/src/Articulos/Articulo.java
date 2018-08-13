@@ -1,3 +1,4 @@
+package Articulos;
 
 public class Articulo {
 	// id del auto increment de la base de datos
