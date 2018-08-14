@@ -257,7 +257,18 @@ public class FormArticulos extends JFrame {
 					if(vect.size() == 0) {
 						JOptionPane.showMessageDialog(null, "Se produjo un error");
 					}else {
-						db.deleteArticulo(vect.get(0));
+						if(vect.get(0).getIdInterno() != -1) {
+							int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar a " + vect.get(0).getDescripcion(), "Confirmar borrado", JOptionPane.YES_NO_OPTION);
+							if(dialogResult == JOptionPane.YES_OPTION){
+								try {
+									db.deleteArticulo(vect.get(0));
+									JOptionPane.showConfirmDialog(null, "Articulo eliminado", "OK", JOptionPane.DEFAULT_OPTION);
+									((DefaultTableModel) table_1.getModel()).removeRow(table_1.getSelectedRow());
+								}catch(SQLException e2){
+									e2.printStackTrace();
+								}
+							}
+						}
 					}
 				}
 			}
@@ -265,7 +276,7 @@ public class FormArticulos extends JFrame {
 		btnEliminarArticulo.setBounds(859, 200, 143, 38);
 		contentPane.add(btnEliminarArticulo);
 		
-		JButton btnNewButton_2 = new JButton("Actualiza tabla");
+		JButton btnNewButton_2 = new JButton("Ver todos");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Vector<Articulo> vector = new Vector<Articulo>();

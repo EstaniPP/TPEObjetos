@@ -65,6 +65,12 @@ public class Articulo {
 		this.stock = stock;
 	}
 	
-	
+	public void update(Articulo art) {
+		this.codigoBarras = art.getCodigoBarras();
+		this.descripcion = art.getDescripcion();
+		this.familia = art.getFamilia();
+		this.precioUnitario = art.getPrecioUnitario();
+		this.stock = art.getStock();
+	}
 	
 }

@@ -78,7 +78,7 @@ public class DBManager {
 		this.execQuery(query);
 	}
 	
-	public void deleteArticulo(Articulo a) {
+	public void deleteArticulo(Articulo a) throws SQLException {
 		String query = "DELETE FROM `ARTICULOS` WHERE `idInterno` = " + a.getIdInterno() + ";";
 		this.execQuery(query);
 	}
