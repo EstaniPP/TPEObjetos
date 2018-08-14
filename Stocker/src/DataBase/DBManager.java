@@ -16,6 +16,7 @@ import Articulos.FamiliaArticulo;
 import Cliente.Cliente;
 import Cliente.TipoCliente;
 import Filtros.Filtro;
+import Filtros.FiltroCliente;
 
 public class DBManager {
 	private Connection connection;
@@ -114,6 +115,15 @@ public class DBManager {
 		return vTemp;
 	}
 	
+	public Cliente getClienteById(int idCliente) throws SQLException {
+		FiltroCliente.idCliente f1 = new FiltroCliente.idCliente(idCliente);
+		Vector<Cliente> vect = getClientes(f1);
+		if(vect.size() != 0) {
+			return vect.elementAt(0);
+		}else {
+			return Cliente.getClienteError();
+		}
+	}
 	//
 	public void addCliente(Cliente c) {
 		String query = "INSERT INTO `CLIENTES` (`idCliente`, `nombre`, `telefono`, `email`, `tipoCliente`) VALUES "
@@ -188,6 +198,10 @@ public class DBManager {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void deleteCliente(Cliente c) throws SQLException {
+		execQuery("DELETE FROM `CLIENTES` WHERE `CLIENTES`.`idCliente` = " + c.getIdCliente() + "");
 	}
 	
 	public TipoCliente getTipoCliente(int tipo) {

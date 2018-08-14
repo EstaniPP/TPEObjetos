@@ -14,7 +14,8 @@ public class Cliente {
 	int tipoCliente;
 	//Hash estatico con los tipos de clientes.
 	static HashMap<Integer,TipoCliente> tiposClientes;
-		
+	
+
 		
 	public Cliente(int idCliente, String nombre, String telefono, String email, int tipoCliente) {
 		this.idCliente = idCliente;
@@ -75,6 +76,10 @@ public class Cliente {
 	
 	public static void addTipoCliente(TipoCliente aux) {
 		tiposClientes.put(aux.getIdTipoCliente(), aux);
+	}
+
+	public static Cliente getClienteError1() {
+		return new Cliente(-1, "Error", "Error", "Error", -1);
 	}
 	
 	

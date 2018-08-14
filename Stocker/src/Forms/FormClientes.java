@@ -34,6 +34,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.ListSelectionModel;
+import java.awt.Color;
+import java.awt.SystemColor;
+import javax.swing.UIManager;
 
 public class FormClientes extends JFrame {
 
@@ -71,7 +74,7 @@ public class FormClientes extends JFrame {
 		// llamado a bd
 		setTitle("CLIENTES");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 579, 401);
+		setBounds(100, 100, 722, 401);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -146,7 +149,7 @@ public class FormClientes extends JFrame {
 		
 		
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(10, 81, 428, 278);
+		scrollPane.setBounds(10, 81, 577, 278);
 		contentPane.add(scrollPane);
 		
 		
@@ -169,7 +172,7 @@ public class FormClientes extends JFrame {
 				nuevoC.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(450, 55, 117, 45);
+		btnNewButton.setBounds(599, 51, 117, 45);
 		contentPane.add(btnNewButton);
 		
 		JButton btnModificarSeleccionado = new JButton("MODIFICAR");
@@ -200,8 +203,33 @@ public class FormClientes extends JFrame {
 				//System.out.println(table.getSelectedRow());
 			}
 		});
-		btnModificarSeleccionado.setBounds(450, 99, 117, 45);
+		btnModificarSeleccionado.setBounds(599, 94, 117, 45);
 		contentPane.add(btnModificarSeleccionado);
+		
+		JButton btnBorrar = new JButton("BORRAR");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int idSeleccionado = (Integer) table.getValueAt(table.getSelectedRow(), 0);
+				Cliente c = Cliente.getClienteError;
+				try {
+					c = db.getClienteById(idSeleccionado);
+				}catch(SQLException e1) {
+					e1.printStackTrace();
+				}
+				if(c.getIdCliente() != -1) {
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar a ", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
+					if(dialogResult == JOptionPane.YES_OPTION){
+						try {
+							
+						}
+					}
+				}
+			}
+		});
+		btnBorrar.setForeground(Color.RED);
+		btnBorrar.setBackground(UIManager.getColor("Button.background"));
+		btnBorrar.setBounds(599, 138, 117, 45);
+		contentPane.add(btnBorrar);
 		fillTable(null);
 		
 		
@@ -219,7 +247,9 @@ public class FormClientes extends JFrame {
 				model.addRow(p);
 			}
 		}
+		//table.getColumnModel().getColumn(0).setPreferredWidth(500);
 		table.setModel(model);
+		table.getColumnModel().getColumn(1).setPreferredWidth(250);
 		scrollPane.setViewportView(table);
 	}
 }
