@@ -209,18 +209,25 @@ public class FormClientes extends JFrame {
 		JButton btnBorrar = new JButton("BORRAR");
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int idSeleccionado = (Integer) table.getValueAt(table.getSelectedRow(), 0);
-				Cliente c = Cliente.getClienteError;
-				try {
-					c = db.getClienteById(idSeleccionado);
-				}catch(SQLException e1) {
-					e1.printStackTrace();
-				}
-				if(c.getIdCliente() != -1) {
-					int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar a ", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
-					if(dialogResult == JOptionPane.YES_OPTION){
-						try {
-							
+				int selectedIndex = table.getSelectedRow();
+				if(selectedIndex != -1) {
+					int idSeleccionado = Integer.valueOf(table.getValueAt(selectedIndex, 0).toString());
+					Cliente c = Cliente.getClienteError();
+					try {
+						c = db.getClienteById(idSeleccionado);
+					}catch(SQLException e1) {
+						e1.printStackTrace();
+					}
+					if(c.getIdCliente() != -1) {
+						int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar a " + c.getNombre(), "Confirmar borrado", JOptionPane.YES_NO_OPTION);
+						if(dialogResult == JOptionPane.YES_OPTION){
+							try {
+								db.deleteCliente(c);
+								JOptionPane.showConfirmDialog(null, "Cliente eliminado", "OK", JOptionPane.DEFAULT_OPTION);
+								((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
+							}catch(SQLException e2){
+								e2.printStackTrace();
+							}
 						}
 					}
 				}

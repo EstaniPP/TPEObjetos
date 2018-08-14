@@ -77,11 +77,9 @@ public class Cliente {
 	public static void addTipoCliente(TipoCliente aux) {
 		tiposClientes.put(aux.getIdTipoCliente(), aux);
 	}
-
-	public static Cliente getClienteError1() {
+	
+	public static Cliente getClienteError() {
 		return new Cliente(-1, "Error", "Error", "Error", -1);
 	}
-	
-	
 	
 }
