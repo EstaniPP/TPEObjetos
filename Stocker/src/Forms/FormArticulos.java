@@ -206,7 +206,8 @@ public class FormArticulos extends JFrame {
 				}
 			}
 		});
-	
+		
+		
 		
 		
 		btnNewButton.setBounds(859, 149, 143, 38);

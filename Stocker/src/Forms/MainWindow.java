@@ -107,6 +107,14 @@ public class MainWindow {
 		JMenuItem mntmConfiguracion = new JMenuItem("Configuracion");
 		mnStocker.add(mntmConfiguracion);
 		
+		JMenuItem mntmFamiliasDeArticulos = new JMenuItem("Familias de articulos");
+		mntmFamiliasDeArticulos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				(new FormFamilias()).setVisible(true);
+			}
+		});
+		mnStocker.add(mntmFamiliasDeArticulos);
+		
 		
 		
 	}
