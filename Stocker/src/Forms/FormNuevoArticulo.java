@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
@@ -127,10 +128,6 @@ public class FormNuevoArticulo extends JDialog {
 							JOptionPane.showMessageDialog(null, "Articulo modificado con exito");
 							cancel();
 						}
-						
-						
-						
-						
 					}
 				});
 				okButton.setActionCommand("OK");

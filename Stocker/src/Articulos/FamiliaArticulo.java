@@ -9,6 +9,10 @@ public class FamiliaArticulo {
 		this.nombreFamilia = nombreFamilia;
 	}
 	
+	public FamiliaArticulo(String nombreFamilia) {
+		this.nombreFamilia = nombreFamilia;
+	}
+	
 	public int getIdFamilia() {
 		return idFamilia;
 	}

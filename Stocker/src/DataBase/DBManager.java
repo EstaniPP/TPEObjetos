@@ -168,6 +168,27 @@ public class DBManager {
 		return vect;
 	}
 	
+	public void deleteCliente(Cliente c) throws SQLException {
+		execQuery("DELETE FROM `CLIENTES` WHERE `CLIENTES`.`idCliente` = " + c.getIdCliente() + "");
+	}
+	
+	public TipoCliente getTipoCliente(int tipo) {
+		try {
+			ResultSet rs = dataQuery("SELECT * FROM TIPOCLIENTE WHERE idInterno = '" + tipo + "'");
+			if(rs.next()) {
+				TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("porcentajeDescuento"), rs.getString("nombreTipo"));
+				return tTemp;
+			}else {
+				TipoCliente tTemp = new TipoCliente(-1, 0, "Sin resultados");
+				return tTemp;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	// Funcionalidad familias de articulos
 	public Vector<FamiliaArticulo> getFamilias(){
 		Vector<FamiliaArticulo> vect = new Vector<FamiliaArticulo>();
 		FamiliaArticulo fTemp2 = new FamiliaArticulo(-1, "Ninguna");
@@ -200,23 +221,31 @@ public class DBManager {
 		return null;
 	}
 	
-	public void deleteCliente(Cliente c) throws SQLException {
-		execQuery("DELETE FROM `CLIENTES` WHERE `CLIENTES`.`idCliente` = " + c.getIdCliente() + "");
+	public void updateFamilia(FamiliaArticulo a) {
+		String query = "UPDATE `FAMILIAS` SET "
+				+ "`idFamilia` = '" + a.getIdFamilia() + "', "
+				+ "`nombreFamilia` = '"+ a.getNombreFamilia() +"' "
+				+ "WHERE `FAMILIAS`.`idFamilia` = " + a.getIdFamilia() + ";";
+		this.execQuery(query);
 	}
 	
-	public TipoCliente getTipoCliente(int tipo) {
-		try {
-			ResultSet rs = dataQuery("SELECT * FROM TIPOCLIENTE WHERE idInterno = '" + tipo + "'");
-			if(rs.next()) {
-				TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("porcentajeDescuento"), rs.getString("nombreTipo"));
-				return tTemp;
-			}else {
-				TipoCliente tTemp = new TipoCliente(-1, 0, "Sin resultados");
-				return tTemp;
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public void deleteFamilia(FamiliaArticulo a) throws SQLException {
+		String query = "DELETE FROM `FAMILIAS` WHERE `idFamilia` = " + a.getIdFamilia() + ";";
+		this.execQuery(query);
 	}
+	
+	public void addFamiliaArticulo(FamiliaArticulo c) {
+		String query = "INSERT INTO `FAMILIAS` (`idFamilia `, `nombreFamilia`) VALUES "
+				+ "(NULL, "
+				+ "'" + c.getNombreFamilia() + "');";
+		// ejecuto la consulta
+		this.execQuery(query);
+	}
+	
+	//Fin funcionalidad familia de articulos
+	
+	
+	
+	
+	
 }

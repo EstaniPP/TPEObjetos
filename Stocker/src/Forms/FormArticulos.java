@@ -238,6 +238,9 @@ public class FormArticulos extends JFrame {
 		table_1.setModel(model);
 		scrollPane.setViewportView(table_1);
 		
+		
+		//Fin modelo de tabla
+		
 		JButton btnEliminarArticulo = new JButton("Eliminar articulo");
 		btnEliminarArticulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
