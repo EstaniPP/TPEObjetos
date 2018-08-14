@@ -122,7 +122,7 @@ public class FormNuevoArticulo extends JDialog {
 							cancel();
 						}else {
 							Articulo updateado = new Articulo(art.getIdInterno(),textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
-							art.update(updateado);						
+							art.update(updateado); 						
 							db.updateArticulo(updateado);
 							JOptionPane.showMessageDialog(null, "Articulo modificado con exito");
 							cancel();

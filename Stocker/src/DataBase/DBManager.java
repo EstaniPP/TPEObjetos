@@ -66,7 +66,7 @@ public class DBManager {
 		// ejecuto la consulta
 		this.execQuery(query);
 	}
-	
+	 
 	public void updateArticulo(Articulo a) {
 		String query = "UPDATE `ARTICULOS` SET "
 				+ "`codigoBarras` = '" + a.getCodigoBarras() + "', "

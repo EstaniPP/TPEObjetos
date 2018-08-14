@@ -48,7 +48,7 @@ public class Articulo {
 	}
 	public int getFamilia() {
 		return familia;
-	}
+	} 
 	public void setFamilia(int familia) {
 		this.familia = familia;
 	}
