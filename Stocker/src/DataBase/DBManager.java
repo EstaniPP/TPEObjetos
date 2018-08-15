@@ -146,10 +146,20 @@ public class DBManager {
 				+ "WHERE `CLIENTES`.`idCliente` = " + c.getIdCliente() + ";";
 		this.execQuery(query);
 	}
+	public void deleteCliente(Cliente c) throws SQLException {
+		execQuery("DELETE FROM `CLIENTES` WHERE `CLIENTES`.`idCliente` = " + c.getIdCliente() + "");
+	}
 	
 	
 	// tipo de clientes
 	
+	public void updateTipoCliente(TipoCliente c) {
+		String query = "UPDATE `TIPOCLIENTE` SET "
+				+ "`nombreTipo` = '" + c.getNombreTipoCliente()+ "', "
+				+ "`porcentajeDescuento` = '"+ c.getDescuento() +"' "
+				+ "WHERE `TIPOCLIENTE`.`idInterno` = " + c.getIdTipoCliente()+ ";";
+		this.execQuery(query);
+	}
 	public Vector<TipoCliente> getTiposCliente(){
 		Vector<TipoCliente> vect = new Vector<TipoCliente>();
 		
@@ -168,8 +178,9 @@ public class DBManager {
 		return vect;
 	}
 	
-	public void deleteCliente(Cliente c) throws SQLException {
-		execQuery("DELETE FROM `CLIENTES` WHERE `CLIENTES`.`idCliente` = " + c.getIdCliente() + "");
+	
+	public void deleteTipoCliente(TipoCliente c) throws SQLException {
+		execQuery("DELETE FROM `TIPOCLIENTE` WHERE `TIPOCLIENTE`.`idInterno` = " + c.getIdTipoCliente() + "");
 	}
 	
 	public TipoCliente getTipoCliente(int tipo) {
@@ -204,7 +215,14 @@ public class DBManager {
 		}
 		return vect;
 	}
-	
+	public void addTipoCliente(TipoCliente c) {
+		String query = "INSERT INTO `TIPOCLIENTE` (`idInterno`, `nombreTipo`, porcentajeDescuento) VALUES "
+				+ "(NULL, "
+				+ "'" + c.getNombreTipoCliente() + "',"
+				+ c.getDescuento() + ");";
+		// ejecuto la consulta
+		this.execQuery(query);
+	}
 	public FamiliaArticulo getFamiliaArticulo(int tipo) {
 		try {
 			ResultSet rs = dataQuery("SELECT * FROM FAMILIA WHERE idFamilia = '" + tipo + "'");

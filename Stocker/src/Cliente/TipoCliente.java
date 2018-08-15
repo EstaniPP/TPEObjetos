@@ -13,6 +13,10 @@ public class TipoCliente {
 		 this.descuento = descuento;
 		 this.nombreTipoCliente = nombreTipoCliente;
 	}
+	public TipoCliente(double descuento, String nombreTipoCliente) {
+		 this.descuento = descuento;
+		 this.nombreTipoCliente = nombreTipoCliente;
+	}
 	public TipoCliente(int descuento, String nombreTipoCliente) {
 		 this.descuento = descuento;
 		 this.nombreTipoCliente = nombreTipoCliente;

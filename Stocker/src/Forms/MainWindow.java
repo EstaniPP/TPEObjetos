@@ -115,6 +115,14 @@ public class MainWindow {
 		});
 		mnStocker.add(mntmFamiliasDeArticulos);
 		
+		JMenuItem mntmTiposDeClientes = new JMenuItem("Tipos de clientes");
+		mntmTiposDeClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				(new FormTipos()).setVisible(true);
+			}
+		});
+		mnStocker.add(mntmTiposDeClientes);
+		
 		
 		
 	}
