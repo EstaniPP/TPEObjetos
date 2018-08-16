@@ -160,11 +160,17 @@ public class FormClientes extends JFrame {
 		model.addColumn("EMAIL");
 		model.addColumn("TIPO");
 		
+		model.addColumn("hidden");
+		
+		
+		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setFillsViewportHeight(true);
 		table.setCellSelectionEnabled(true);
+		fillTable(null);
 		
+		table.removeColumn(table.getColumnModel().getColumn(5));
 		JButton btnNewButton = new JButton("NUEVO CLIENTE");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -196,8 +202,7 @@ public class FormClientes extends JFrame {
 					if(vect.size() == 0) {
 						JOptionPane.showMessageDialog(null, "Se produjo un error");
 					}else {
-						FormNuevoCliente nuevoC = new FormNuevoCliente(vect.elementAt(0));
-						nuevoC.setVisible(true);
+						(new FormNuevoCliente((Cliente)table.getModel().getValueAt(table.getSelectedRow(), 5))).setVisible(true);
 					}
 				}
 				//System.out.println(table.getSelectedRow());
@@ -237,7 +242,10 @@ public class FormClientes extends JFrame {
 		btnBorrar.setBackground(UIManager.getColor("Button.background"));
 		btnBorrar.setBounds(599, 138, 117, 45);
 		contentPane.add(btnBorrar);
-		fillTable(null);
+		
+		
+		
+		
 		
 		
 	}
@@ -246,15 +254,15 @@ public class FormClientes extends JFrame {
 		// cargo todo en la tabla
 		if(vector != null) {
 			for(int i = 0; i < vector.size(); i++) {
-				String[] p = new String[] {((Integer)vector.elementAt(i).getIdCliente()).toString(),
+				Object[] p = new Object[] {((Integer)vector.elementAt(i).getIdCliente()).toString(),
 											vector.elementAt(i).getNombre(), 
 											vector.elementAt(i).getTelefono(), 
 											vector.elementAt(i).getEmail(), 
-											db.getTipoCliente(vector.elementAt(i).getTipoCliente()).getNombreTipoCliente()};
+											db.getTipoCliente(vector.elementAt(i).getTipoCliente()).getNombreTipoCliente(),
+											vector.elementAt(i)};
 				model.addRow(p);
 			}
 		}
-		//table.getColumnModel().getColumn(0).setPreferredWidth(500);
 		table.setModel(model);
 		table.getColumnModel().getColumn(1).setPreferredWidth(250);
 		scrollPane.setViewportView(table);

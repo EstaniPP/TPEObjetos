@@ -78,7 +78,8 @@ public class FormTipos extends JFrame {
 		btnModificarFamilia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() != -1) {
-					(new FormNuevoTipo(db.getTipoCliente(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0))), FormTipos.this)).setVisible(true);
+					//(new FormNuevoTipo(db.getTipoCliente(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0))), FormTipos.this)).setVisible(true);
+					(new FormNuevoTipo((TipoCliente) model.getValueAt(table.getSelectedRow(), 3), FormTipos.this)).setVisible(true);
 				}else {
 					JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo.");
 				}
@@ -121,6 +122,10 @@ public class FormTipos extends JFrame {
 		model.addColumn("ID FAMILIA");
 		model.addColumn("NOMBRE FAMILIA");
 		model.addColumn("DESCUENTO");
+		
+		model.addColumn("hidden");
+		
+		table.removeColumn(table.getColumnModel().getColumn(3));
 		//Fin modelo de la tabal
 		//LLenado inicial de la tabla
 		{
@@ -133,19 +138,13 @@ public class FormTipos extends JFrame {
 	}
 	
 	public void fillTable(Vector<TipoCliente> vector) {
-
-		// llamado a bd
-		
-		
 		// elimino todas las filas de la tabla
-		int j = model.getRowCount(); 
-		for(int i = 0; i < j; i++) {
-			model.removeRow(0);
-		}
+		
+		model.setRowCount(0);
 		// cargo todo en la tabla
 		if(vector != null) {
 			for(int i = 0; i < vector.size(); i++) {
-				String[] p = {String.valueOf(vector.elementAt(i).getIdTipoCliente()) , String.valueOf(vector.elementAt(i).getNombreTipoCliente()), String.valueOf(vector.elementAt(i).getDescuento()) };
+				Object[] p = {String.valueOf(vector.elementAt(i).getIdTipoCliente()) , String.valueOf(vector.elementAt(i).getNombreTipoCliente()), String.valueOf(vector.elementAt(i).getDescuento()), vector.elementAt(i) };
 				model.addRow(p);
 			}
 		}
