@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Articulos.Articulo;
 import Articulos.FamiliaArticulo;
@@ -38,7 +39,7 @@ public class FormNuevoArticulo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public FormNuevoArticulo(Articulo art) {
+	public FormNuevoArticulo(Articulo art, FormArticulos fa) {
 		
 
 		setBounds(100, 100, 291, 327);
@@ -112,21 +113,35 @@ public class FormNuevoArticulo extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {						
-						if(art == null) {
-							// aniadir el articulo a la bd
-							// String codigoBarras;String descripcion;int familia;double precioUnitario;int stock;
-							Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
-							//System.out.println(temp.getTelefono());
-							db.addArticulo(temp);
-							JOptionPane.showMessageDialog(null, "Articulo agregado con exito.");
-							cancel();
+					public void actionPerformed(ActionEvent e) {
+						if(!textCodigoBarras.getText().isEmpty() &&  !textDescripcion.getText().isEmpty() && !textPrecioUnitario.getText().isEmpty()) {
+							if(!textField.getText().isEmpty() && isDouble(textPrecioUnitario.getText())){
+									if (isDouble(textField.getText())) {
+										if(art == null) {
+											Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+											db.addArticulo(temp);
+											JOptionPane.showMessageDialog(null, "Articulo agregado con exito.");
+											cancel();
+										}else {
+											Articulo updateado = new Articulo(art.getIdInterno(),textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+											art.update(updateado); 						
+											db.updateArticulo(updateado);
+											JOptionPane.showMessageDialog(null, "Articulo modificado con exito");
+											cancel();
+										}
+										try {
+											fa.fillTable(db.getArticulos(null));
+										}catch(SQLException e2){
+											e2.printStackTrace();
+										}
+									}else {
+										JOptionPane.showMessageDialog(null, "El stock debe ser un numero valido.");
+									}
+							}else {
+								JOptionPane.showMessageDialog(null, "El precio unitario debe ser un numero valido.");	
+							}
 						}else {
-							Articulo updateado = new Articulo(art.getIdInterno(),textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
-							art.update(updateado); 						
-							db.updateArticulo(updateado);
-							JOptionPane.showMessageDialog(null, "Articulo modificado con exito");
-							cancel();
+							JOptionPane.showMessageDialog(null, "Debe completar todos los campos.");
 						}
 					}
 				});
@@ -154,4 +169,18 @@ public class FormNuevoArticulo extends JDialog {
 			textField.setText(String.valueOf(art.getStock()));		
 		}
 	}
+	
+	private static boolean isDouble(String s) {
+	      boolean isValidInteger = false;
+	      try
+	      {
+	         Double.parseDouble(s);
+	         isValidInteger = true;
+	      }
+	      catch (NumberFormatException ex)
+	      {
+	      }
+	 
+	      return isValidInteger;
+	   }
 }

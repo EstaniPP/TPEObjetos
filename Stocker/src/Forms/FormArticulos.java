@@ -200,7 +200,7 @@ public class FormArticulos extends JFrame {
 					if(vect.size() == 0) {
 						JOptionPane.showMessageDialog(null, "Se produjo un error");
 					}else {
-						FormNuevoArticulo nuevoC = new FormNuevoArticulo(vect.elementAt(0));
+						FormNuevoArticulo nuevoC = new FormNuevoArticulo(vect.elementAt(0),FormArticulos.this);
 						nuevoC.setVisible(true);
 					}
 				}
@@ -216,7 +216,7 @@ public class FormArticulos extends JFrame {
 		JButton btnNewButton_1 = new JButton("Agregar articulo");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FormNuevoArticulo nuevoA = new FormNuevoArticulo(null);
+				FormNuevoArticulo nuevoA = new FormNuevoArticulo(null,FormArticulos.this);
 				nuevoA.setVisible(true);
 			}
 		});
