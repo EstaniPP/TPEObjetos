@@ -184,9 +184,9 @@ public class DBManager {
 		Vector<Promocion> vect = new Vector<Promocion>();
 		
 		try {
-			ResultSet rs = dataQuery("SELECT * FROM PROMOCIONES ORDER BY idInterno ASC");
+			ResultSet rs = dataQuery("SELECT * FROM PROMOCIONES ORDER BY idPromocion ASC");
 			while(rs.next()) {
-				Promocion tTemp = new Promocion(rs.getInt("idInterno"), this.getFamiliaArticulo(rs.getInt("idFamilia")), rs.getDouble("porcentajeDescuento"));
+				Promocion tTemp = new Promocion(rs.getInt("idPromocion"), this.getFamiliaArticulo(rs.getInt("idFamilia")), rs.getDouble("descuento"));
 				vect.add(tTemp);
 			}
 		}catch(SQLException e) {
@@ -195,8 +195,30 @@ public class DBManager {
 		return vect;
 	}
 	
+	public void updatePromocion(Promocion c) {
+		String query = "UPDATE `PROMOCIONES` SET "
+				+ "`idPromcion` = '" + c.getIdPromocion() + "', "
+				+ "`idFamilia` = '"+ c.getFamilia().getIdFamilia() +"' "
+				+ "`descuento` = '" + c.getDescuento() + "', "
+				+ "WHERE `PROMOCIONES`.`idInterno` = " + c.getIdPromocion() + ";";
+		this.execQuery(query);
+	}
+	
+	public void addPromocion(Promocion promo) {
+		String query = "INSERT INTO `PROMOCIONES` (`idPromocion`, `idFamilia`, `descuento`) VALUES "
+				+ "(NULL, "
+				+ "'" + promo.getFamilia().getIdFamilia() + "', "
+				+ "'" + promo.getDescuento() + "');";
+		// ejecuto la consulta
+		this.execQuery(query);
+	}
+	
 	public void deleteTipoCliente(TipoCliente c) throws SQLException {
 		execQuery("DELETE FROM `TIPOCLIENTE` WHERE `TIPOCLIENTE`.`idInterno` = " + c.getIdTipoCliente() + "");
+	}
+	
+	public void deletePromocion(Promocion c) throws SQLException {
+		execQuery("DELETE FROM `PROMOCIONES` WHERE `PROMOCIONES`.`idPromocion` = " + c.getIdPromocion() + "");
 	}
 	
 	public TipoCliente getTipoCliente(int tipo) {

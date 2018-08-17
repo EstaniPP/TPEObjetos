@@ -123,7 +123,7 @@ public class MainWindow {
 		JMenuItem mntmConfiguracion = new JMenuItem("Promociones");
 		mntmConfiguracion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				(new FormFamilias()).setVisible(true);
+				(new FormPromociones()).setVisible(true);
 			}
 		});
 		mnStocker.add(mntmConfiguracion);

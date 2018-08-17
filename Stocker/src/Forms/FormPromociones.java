@@ -45,7 +45,7 @@ public class FormPromociones extends JFrame {
 	 */
 	public FormPromociones() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 443, 358);
+		setBounds(100, 100, 472, 357);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -56,7 +56,7 @@ public class FormPromociones extends JFrame {
 		contentPane.add(lblAdministrarPromociones);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(12, 31, 410, 12);
+		separator.setBounds(12, 31, 430, 12);
 		contentPane.add(separator);
 		
 		scrollPane = new JScrollPane();
@@ -72,20 +72,20 @@ public class FormPromociones extends JFrame {
 				(new FormNuevaPromocion(null, FormPromociones.this)).setVisible(true);
 			}
 		});
-		btnAgregarPromociones.setBounds(279, 42, 143, 38);
+		btnAgregarPromociones.setBounds(279, 42, 163, 38);
 		contentPane.add(btnAgregarPromociones);
 		
 		JButton btnModificarPromociones = new JButton("Modificar promocion");
 		btnModificarPromociones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() != -1) {
-					(new FormNuevaPromocion(null, FormPromociones.this)).setVisible(true);
+					(new FormNuevaPromocion((Promocion) model.getValueAt(table.getSelectedRow(), 3), FormPromociones.this)).setVisible(true);
 				}else {
 					JOptionPane.showMessageDialog(null, "Debe seleccionar una promocion.");
 				}
 			}
 		});
-		btnModificarPromociones.setBounds(279, 93, 143, 38);
+		btnModificarPromociones.setBounds(279, 93, 163, 38);
 		contentPane.add(btnModificarPromociones);
 		
 		JButton btnEliminarPromociones = new JButton("Eliminar promocion");
@@ -96,11 +96,11 @@ public class FormPromociones extends JFrame {
 				if(selectedRow == -1) {
 					JOptionPane.showMessageDialog(null, "Debe seleccionar una promocion.");
 				}else {
-					TipoCliente eliminado = new TipoCliente(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0)), 0.0, "");
-					int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar la promocion de " + eliminado.getNombreTipoCliente() , "Confirmar borrado", JOptionPane.YES_NO_OPTION);
+					Promocion eliminado = (Promocion) model.getValueAt(table.getSelectedRow(), 3);
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar la promocion de " + eliminado.getFamilia().getNombreFamilia() , "Confirmar borrado", JOptionPane.YES_NO_OPTION);
 					if(dialogResult == JOptionPane.YES_OPTION){
 						try {
-							db.deleteTipoCliente(eliminado);
+							db.deletePromocion(eliminado);
 							JOptionPane.showMessageDialog(null, "Promocion eliminada con exito");
 							fillTable(db.getPromociones());
 						}catch (NumberFormatException | SQLException e1) {
@@ -111,7 +111,7 @@ public class FormPromociones extends JFrame {
 			}
 		});
 		btnEliminarPromociones.setForeground(Color.RED);
-		btnEliminarPromociones.setBounds(279, 144, 143, 38);
+		btnEliminarPromociones.setBounds(279, 144, 163, 38);
 		contentPane.add(btnEliminarPromociones);
 		
 		
@@ -139,7 +139,7 @@ public class FormPromociones extends JFrame {
 			fillTable(vector);
 		}
 		//Fin llenado inicial de la tabla
-		setTitle("TIPOS CLIENTE");
+		setTitle("PROMOCIONES");
 		
 	}
 	
