@@ -121,6 +121,11 @@ public class MainWindow {
 		menuBar.add(mnStocker);
 		
 		JMenuItem mntmConfiguracion = new JMenuItem("Promociones");
+		mntmConfiguracion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				(new FormFamilias()).setVisible(true);
+			}
+		});
 		mnStocker.add(mntmConfiguracion);
 		
 		JMenuItem mntmFamiliasDeArticulos = new JMenuItem("Familias de articulos");
