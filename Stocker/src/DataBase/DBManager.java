@@ -240,20 +240,19 @@ public class DBManager {
 	}
 	
 	public void updateFamilia(FamiliaArticulo a) {
-		String query = "UPDATE `FAMILIAS` SET "
-				+ "`idFamilia` = '" + a.getIdFamilia() + "', "
+		String query = "UPDATE `FAMILIA` SET "
 				+ "`nombreFamilia` = '"+ a.getNombreFamilia() +"' "
-				+ "WHERE `FAMILIAS`.`idFamilia` = " + a.getIdFamilia() + ";";
+				+ "WHERE `FAMILIA`.`idFamilia` = " + a.getIdFamilia() + ";";
 		this.execQuery(query);
 	}
 	
 	public void deleteFamilia(FamiliaArticulo a) throws SQLException {
-		String query = "DELETE FROM `FAMILIAS` WHERE `idFamilia` = " + a.getIdFamilia() + ";";
+		String query = "DELETE FROM `FAMILIA` WHERE `idFamilia` = " + a.getIdFamilia() + ";";
 		this.execQuery(query);
 	}
 	
 	public void addFamiliaArticulo(FamiliaArticulo c) {
-		String query = "INSERT INTO `FAMILIAS` (`idFamilia `, `nombreFamilia`) VALUES "
+		String query = "INSERT INTO `FAMILIA` (`idFamilia`, `nombreFamilia`) VALUES "
 				+ "(NULL, "
 				+ "'" + c.getNombreFamilia() + "');";
 		// ejecuto la consulta
