@@ -81,7 +81,6 @@ public class MainWindow {
 		lblStocker.setBounds(166, 39, 267, 103);
 		frmStocker.getContentPane().add(lblStocker);
 		
-		
 		JButton btnStock = new JButton("STOCK");
 		btnStock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

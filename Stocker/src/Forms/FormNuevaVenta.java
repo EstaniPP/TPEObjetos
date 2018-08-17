@@ -8,10 +8,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class FormNuevaVenta extends JFrame {
 
 	private JPanel contentPane;
+	private JTable table;
 
 	
 	public FormNuevaVenta() {
@@ -30,5 +32,8 @@ public class FormNuevaVenta extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(16, 36, 518, 200);
 		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setColumnHeaderView(table);
 	}
 }
