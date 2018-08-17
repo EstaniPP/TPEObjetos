@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -243,6 +244,7 @@ public class FormArticulos extends JFrame {
 		//Fin modelo de tabla
 		
 		JButton btnEliminarArticulo = new JButton("Eliminar articulo");
+		btnEliminarArticulo.setForeground(Color.RED);
 		btnEliminarArticulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// eliminar seleccionado

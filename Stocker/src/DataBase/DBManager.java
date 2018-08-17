@@ -17,6 +17,7 @@ import Cliente.Cliente;
 import Cliente.TipoCliente;
 import Filtros.Filtro;
 import Filtros.FiltroCliente;
+import Ventas.Promocion;
 
 public class DBManager {
 	private Connection connection;
@@ -160,6 +161,7 @@ public class DBManager {
 				+ "WHERE `TIPOCLIENTE`.`idInterno` = " + c.getIdTipoCliente()+ ";";
 		this.execQuery(query);
 	}
+	
 	public Vector<TipoCliente> getTiposCliente(){
 		Vector<TipoCliente> vect = new Vector<TipoCliente>();
 		
@@ -178,6 +180,20 @@ public class DBManager {
 		return vect;
 	}
 	
+	public Vector<Promocion> getPromociones(){
+		Vector<Promocion> vect = new Vector<Promocion>();
+		
+		try {
+			ResultSet rs = dataQuery("SELECT * FROM PROMOCIONES ORDER BY idInterno ASC");
+			while(rs.next()) {
+				Promocion tTemp = new Promocion(rs.getInt("idInterno"), this.getFamiliaArticulo(rs.getInt("idFamilia")), rs.getDouble("porcentajeDescuento"));
+				vect.add(tTemp);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return vect;
+	}
 	
 	public void deleteTipoCliente(TipoCliente c) throws SQLException {
 		execQuery("DELETE FROM `TIPOCLIENTE` WHERE `TIPOCLIENTE`.`idInterno` = " + c.getIdTipoCliente() + "");
@@ -198,6 +214,7 @@ public class DBManager {
 		}
 		return null;
 	}
+
 	
 	// Funcionalidad familias de articulos
 	public Vector<FamiliaArticulo> getFamilias(){

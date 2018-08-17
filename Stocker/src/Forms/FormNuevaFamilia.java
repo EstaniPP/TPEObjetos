@@ -34,7 +34,7 @@ public class FormNuevaFamilia extends JFrame {
 	 */
 	public FormNuevaFamilia(FamiliaArticulo fam, FormFamilias ff) {
 		DBManager db = new DBManager();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 316, 162);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

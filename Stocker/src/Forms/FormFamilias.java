@@ -1,6 +1,7 @@
 package Forms;
 import DataBase.*;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +40,7 @@ public class FormFamilias extends JFrame {
 	 * Create the frame.
 	 */
 	public FormFamilias() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 443, 358);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -89,17 +90,23 @@ public class FormFamilias extends JFrame {
 		JButton btnEliminarFamilia = new JButton("Eliminar familia");
 		btnEliminarFamilia.setBounds(279, 144, 143, 38);
 		contentPane.add(btnEliminarFamilia);
+		btnEliminarFamilia.setForeground(Color.RED);
 		btnEliminarFamilia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FamiliaArticulo eliminado = (FamiliaArticulo) model.getValueAt(table.getSelectedRow(), 2);
-				int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar la familia " + eliminado.getNombreFamilia() , "Confirmar borrado", JOptionPane.YES_NO_OPTION);
-				if(dialogResult == JOptionPane.YES_OPTION){
-					try {
-						db.deleteFamilia(eliminado);
-						JOptionPane.showMessageDialog(null, "Familia eliminada con exito");
-						fillTable(db.getFamilias());
-					}catch (NumberFormatException | SQLException e1) {
-						e1.printStackTrace();
+			public void actionPerformed(ActionEvent e) {	
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow == -1) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una familia.");
+				}else {
+					FamiliaArticulo eliminado = (FamiliaArticulo) model.getValueAt(table.getSelectedRow(), 2);
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar la familia " + eliminado.getNombreFamilia() , "Confirmar borrado", JOptionPane.YES_NO_OPTION);
+					if(dialogResult == JOptionPane.YES_OPTION){
+						try {
+							db.deleteFamilia(eliminado);
+							JOptionPane.showMessageDialog(null, "Familia eliminada con exito");
+							fillTable(db.getFamilias());
+						}catch (NumberFormatException | SQLException e1) {
+							e1.printStackTrace();
+						}
 					}
 				}
 			}

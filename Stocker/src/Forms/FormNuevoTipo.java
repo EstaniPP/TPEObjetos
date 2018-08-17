@@ -43,7 +43,7 @@ public class FormNuevoTipo extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNombreFamilia = new JLabel("NOMBRE FAMILIA");
+		JLabel lblNombreFamilia = new JLabel("NOMBRE TIPO");
 		lblNombreFamilia.setBounds(14, 13, 148, 16);
 		contentPane.add(lblNombreFamilia);
 		
@@ -60,18 +60,26 @@ public class FormNuevoTipo extends JFrame {
 		JButton button = new JButton("OK");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(tc == null) {
-					TipoCliente temp = new TipoCliente(Double.valueOf(textField.getText()), txtNombreFamilia.getText());
-					db.addTipoCliente(temp);
-					JOptionPane.showMessageDialog(null, "Tipo de cliente agregado con exito.");
-					cancel();
+				if(!textField.getText().isEmpty() && !txtNombreFamilia.getText().isEmpty()) {
+					if(isDouble(textField.getText())){
+						if(tc == null) {
+							TipoCliente temp = new TipoCliente(Double.valueOf(textField.getText()), txtNombreFamilia.getText());
+							db.addTipoCliente(temp);
+							JOptionPane.showMessageDialog(null, "Tipo de cliente agregado con exito.");
+							cancel();
+						}else {
+							TipoCliente updateado = new TipoCliente(tc.getIdTipoCliente(), Double.valueOf(textField.getText()), txtNombreFamilia.getText());
+							db.updateTipoCliente(updateado);
+							JOptionPane.showMessageDialog(null, "Tipo de cliente modificado con exito");
+							cancel();
+						}
+						tipos.fillTable(db.getTiposCliente());
+					}else {
+						JOptionPane.showMessageDialog(null, "El descuento debe ser un numero.");
+					}
 				}else {
-					TipoCliente updateado = new TipoCliente(tc.getIdTipoCliente(), Double.valueOf(textField.getText()), txtNombreFamilia.getText());
-					db.updateTipoCliente(updateado);
-					JOptionPane.showMessageDialog(null, "Tipo de cliente modificado con exito");
-					cancel();
+					JOptionPane.showMessageDialog(null, "Debe completar todos los campos.");
 				}
-				tipos.fillTable(db.getTiposCliente());
 			}
 		});
 		button.setActionCommand("OK");
@@ -104,4 +112,18 @@ public class FormNuevoTipo extends JFrame {
 	public void cancel() {
 		this.dispose();
 	}
+	
+	private static boolean isDouble(String s) {
+	      boolean isValidInteger = false;
+	      try
+	      {
+	         Double.parseDouble(s);
+	         isValidInteger = true;
+	      }
+	      catch (NumberFormatException ex)
+	      {
+	      }
+	 
+	      return isValidInteger;
+	 }
 }

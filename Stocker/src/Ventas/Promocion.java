@@ -9,28 +9,40 @@ import Articulos.FamiliaArticulo;
 public class Promocion {
 	
 	
-	HashMap<Integer,Integer> promos;
+	FamiliaArticulo familia;
+	Double descuento;
+	int idPromocion;
 	
-	public Promocion() {
-		promos = new HashMap<Integer,Integer>();
+	public Promocion(FamiliaArticulo familia, Double descuento) {
+		this.familia = familia;
+		this.descuento = descuento;
 	}
 	
-	public void setPromo(FamiliaArticulo familia, Integer descuento) {
-		if(promos.containsKey(familia)){
-			promos.put(familia.getIdFamilia(),descuento+promos.get(familia));
-		}else {
-			promos.put(familia.getIdFamilia(),descuento);
-		}
+	public Promocion(int idPromocion, FamiliaArticulo familia, Double descuento) {
+		this.familia = familia;
+		this.descuento = descuento;
+		this.idPromocion = idPromocion;
 	}
 	
+	public FamiliaArticulo getFamilia() {
+		return familia;
+	}
+	
+	public int getIdPromocion() {
+		return idPromocion;
+	}
+	
+	public double getDescuento(){
+		return descuento;
+	}
 	public double getDescuento(Venta venta) {
-		double descuento = 0;
+		double desc = 0;
 		Vector<Articulo> vect = venta.getArticulos();
 		for(int i =0;i<vect.size();i++) {
-			if(promos.containsKey(vect.get(i).getFamilia())){
-				descuento += promos.get(vect.get(i).getFamilia())*venta.getCantidadArticulo(vect.get(i));
+			if(familia.getIdFamilia() == vect.get(i).getFamilia()){
+				desc += descuento*venta.getCantidadArticulo(vect.get(i));
 			}
 		}
-		return descuento;
+		return desc;
 	}
 }

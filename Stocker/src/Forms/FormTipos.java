@@ -89,17 +89,23 @@ public class FormTipos extends JFrame {
 		contentPane.add(btnModificarFamilia);
 		
 		JButton btnEliminarFamilia = new JButton("Eliminar tipo");
+		btnEliminarFamilia.setForeground(Color.RED);
 		btnEliminarFamilia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TipoCliente eliminado = new TipoCliente(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0)), 0.0, "");
-				int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar el tipo " + eliminado.getNombreTipoCliente() , "Confirmar borrado", JOptionPane.YES_NO_OPTION);
-				if(dialogResult == JOptionPane.YES_OPTION){
-					try {
-						db.deleteTipoCliente(eliminado);
-						JOptionPane.showMessageDialog(null, "Tipo eliminado con exito");
-						fillTable(db.getTiposCliente());
-					}catch (NumberFormatException | SQLException e1) {
-						e1.printStackTrace();
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow == -1) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de cliente.");
+				}else {
+					TipoCliente eliminado = new TipoCliente(Integer.valueOf((String) table.getValueAt(table.getSelectedRow(), 0)), 0.0, "");
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar el tipo " + eliminado.getNombreTipoCliente() , "Confirmar borrado", JOptionPane.YES_NO_OPTION);
+					if(dialogResult == JOptionPane.YES_OPTION){
+						try {
+							db.deleteTipoCliente(eliminado);
+							JOptionPane.showMessageDialog(null, "Tipo eliminado con exito");
+							fillTable(db.getTiposCliente());
+						}catch (NumberFormatException | SQLException e1) {
+							e1.printStackTrace();
+						}
 					}
 				}
 			}
@@ -119,8 +125,8 @@ public class FormTipos extends JFrame {
 		
 		scrollPane.setViewportView(table);
 		
-		model.addColumn("ID FAMILIA");
-		model.addColumn("NOMBRE FAMILIA");
+		model.addColumn("ID TIPO");
+		model.addColumn("NOMBRE");
 		model.addColumn("DESCUENTO");
 		
 		model.addColumn("hidden");
