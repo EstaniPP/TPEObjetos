@@ -46,6 +46,7 @@ public class MainWindow {
 			public void run() {
 				try {
 					MainWindow window = new MainWindow();
+					window.frmStocker.setLocationRelativeTo(null);
 					window.frmStocker.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,7 +85,9 @@ public class MainWindow {
 		JButton btnStock = new JButton("STOCK");
 		btnStock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new FormArticulos().setVisible(true);
+				FormArticulos fventas = new FormArticulos();
+				fventas.setLocationRelativeTo(null);
+				fventas.setVisible(true);
 			}
 		});
 		btnStock.setBounds(128, 154, 117, 60);
@@ -93,7 +96,9 @@ public class MainWindow {
 		JButton button = new JButton("CLIENTES");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				(new FormClientes()).setVisible(true);
+				FormClientes fventas = new FormClientes();
+				fventas.setLocationRelativeTo(null);
+				fventas.setVisible(true);
 			}
 		});
 		button.setBounds(354, 154, 117, 60);
@@ -102,7 +107,9 @@ public class MainWindow {
 		JButton button_1 = new JButton("VENTAS");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				(new FormVentas()).setVisible(true);
+				FormVentas fventas = new FormVentas();
+				fventas.setLocationRelativeTo(null);
+				fventas.setVisible(true);
 			}
 		});
 		button_1.setBounds(241, 154, 117, 60);

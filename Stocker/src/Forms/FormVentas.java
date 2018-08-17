@@ -48,12 +48,13 @@ public class FormVentas extends JFrame {
 	 */
 	private void initialize() {
 		
+		//this.setLocationRelativeTo();
 		
 		this.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		this.setTitle("VENTAS");
 		this.setResizable(false);
 		this.setBounds(100, 100, 600, 300);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.getContentPane().setLayout(null);
 		
 		JLabel lblStocker = new JLabel("SECCION VENTAS");
@@ -66,7 +67,9 @@ public class FormVentas extends JFrame {
 		btnStock.setForeground(new Color(0, 128, 0));
 		btnStock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				FormNuevaVenta nv = new FormNuevaVenta();
+				nv.setLocationRelativeTo(null);
+				nv.setVisible(true);
 			}
 		});
 		btnStock.setBounds(171, 154, 117, 60);
