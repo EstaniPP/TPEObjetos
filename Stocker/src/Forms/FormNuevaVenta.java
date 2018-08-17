@@ -24,6 +24,7 @@ public class FormNuevaVenta extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+	
 		
 		JLabel lblNuevaVenta = new JLabel("Nueva venta");
 		lblNuevaVenta.setFont(new Font("Lucida Grande", Font.BOLD, 13));
