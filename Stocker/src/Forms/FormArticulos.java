@@ -200,7 +200,7 @@ public class FormArticulos extends JFrame {
 					if(vect.size() == 0) {
 						JOptionPane.showMessageDialog(null, "Se produjo un error");
 					}else {
-						FormNuevoArticulo nuevoC = new FormNuevoArticulo(vect.elementAt(0),FormArticulos.this);
+						FormNuevoArticulo nuevoC = new FormNuevoArticulo((Articulo)table_1.getModel().getValueAt(table_1.getSelectedRow(), 6),FormArticulos.this);
 						nuevoC.setVisible(true);
 					}
 				}
@@ -232,12 +232,13 @@ public class FormArticulos extends JFrame {
 		model.addColumn("FAMILIA");
 		model.addColumn("PRECIO X U");
 		model.addColumn("STOCK");
+		model.addColumn("hidden");
 		
 		table_1 = new JTable();
 		table_1.setCellSelectionEnabled(true);
 		table_1.setModel(model);
 		scrollPane.setViewportView(table_1);
-		
+		table_1.removeColumn(table_1.getColumnModel().getColumn(6));
 		
 		//Fin modelo de tabla
 		
@@ -249,29 +250,15 @@ public class FormArticulos extends JFrame {
 				if(selectedRow == -1) {
 					JOptionPane.showMessageDialog(null, "Debe seleccionar un articulo.");
 				}else {
-					// obtengo el id del articulo seleccionado
-					int idInterno = Integer.valueOf((String) table_1.getValueAt(selectedRow, 0));
-					// obtengo articulo desde bd
-					Vector<Articulo> vect = new Vector<Articulo>();
-					try {
-						vect = db.getArticulos(new FiltroArticulo.idInterno(idInterno));
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-					if(vect.size() == 0) {
-						JOptionPane.showMessageDialog(null, "Se produjo un error");
-					}else {
-						if(vect.get(0).getIdInterno() != -1) {
-							int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar a " + vect.get(0).getDescripcion(), "Confirmar borrado", JOptionPane.YES_NO_OPTION);
-							if(dialogResult == JOptionPane.YES_OPTION){
-								try {
-									db.deleteArticulo(vect.get(0));
-									JOptionPane.showConfirmDialog(null, "Articulo eliminado", "OK", JOptionPane.DEFAULT_OPTION);
-									((DefaultTableModel) table_1.getModel()).removeRow(table_1.getSelectedRow());
-								}catch(SQLException e2){
-									e2.printStackTrace();
-								}
-							}
+					Articulo aux = (Articulo)table_1.getModel().getValueAt(table_1.getSelectedRow(), 6);
+					int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar a " + aux.getDescripcion(), "Confirmar borrado", JOptionPane.YES_NO_OPTION);
+					if(dialogResult == JOptionPane.YES_OPTION){
+						try {
+								db.deleteArticulo(aux);
+								JOptionPane.showConfirmDialog(null, "Articulo eliminado", "OK", JOptionPane.DEFAULT_OPTION);
+								((DefaultTableModel) table_1.getModel()).removeRow(table_1.getSelectedRow());
+						}catch(SQLException e2){
+								e2.printStackTrace();
 						}
 					}
 				}
@@ -279,22 +266,6 @@ public class FormArticulos extends JFrame {
 		});
 		btnEliminarArticulo.setBounds(859, 200, 143, 38);
 		contentPane.add(btnEliminarArticulo);
-		
-		JButton btnNewButton_2 = new JButton("Ver todos");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Vector<Articulo> vector = new Vector<Articulo>();
-				FiltroArticulo.descripcion f1 = null;
-				try {
-					vector = db.getArticulos(f1);
-				}catch(SQLException e1) {
-					e1.getStackTrace();
-				}
-				fillTable(vector);
-			}
-		});
-		btnNewButton_2.setBounds(863, 353, 139, 38);
-		contentPane.add(btnNewButton_2);
 		
 		{
 			Vector<Articulo> vector = new Vector<Articulo>();
@@ -322,12 +293,12 @@ public class FormArticulos extends JFrame {
 		// cargo todo en la tabla
 		if(vector != null) {
 			for(int i = 0; i < vector.size(); i++) {
-				String[] p = new String[] {((Integer)vector.elementAt(i).getIdInterno()).toString(),
+				Object[] p = new Object[] {vector.elementAt(i).getIdInterno(),
 											vector.elementAt(i).getCodigoBarras(), 
 											vector.elementAt(i).getDescripcion(), 
 											db.getFamiliaArticulo(vector.elementAt(i).getFamilia()).getNombreFamilia(), 
-											((Double)vector.elementAt(i).getPrecioUnitario()).toString(),
-											((Integer)vector.elementAt(i).getStock()).toString()};
+											vector.elementAt(i).getPrecioUnitario(),
+											vector.elementAt(i).getStock(),vector.elementAt(i)};
 				model.addRow(p);
 			}
 		}
