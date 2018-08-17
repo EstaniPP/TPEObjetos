@@ -14,6 +14,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.AbstractListModel;
 import javax.swing.border.BevelBorder;
 
+import com.sun.javafx.tk.Toolkit;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JToolBar;
@@ -63,6 +65,8 @@ public class MainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		
 		frmStocker = new JFrame();
 		frmStocker.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		frmStocker.setTitle("STOCKER");
@@ -75,6 +79,7 @@ public class MainWindow {
 		lblStocker.setFont(new Font("Verdana", Font.BOLD, 50));
 		lblStocker.setBounds(166, 39, 267, 103);
 		frmStocker.getContentPane().add(lblStocker);
+		
 		
 		JButton btnStock = new JButton("STOCK");
 		btnStock.addActionListener(new ActionListener() {
@@ -95,6 +100,11 @@ public class MainWindow {
 		frmStocker.getContentPane().add(button);
 		
 		JButton button_1 = new JButton("VENTAS");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				(new FormVentas()).setVisible(true);
+			}
+		});
 		button_1.setBounds(241, 154, 117, 60);
 		frmStocker.getContentPane().add(button_1);
 		
