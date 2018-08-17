@@ -117,10 +117,10 @@ public class MainWindow {
 		JMenuBar menuBar = new JMenuBar();
 		frmStocker.setJMenuBar(menuBar);
 		
-		JMenu mnStocker = new JMenu("Stocker");
+		JMenu mnStocker = new JMenu("Administrar");
 		menuBar.add(mnStocker);
 		
-		JMenuItem mntmConfiguracion = new JMenuItem("Configuracion");
+		JMenuItem mntmConfiguracion = new JMenuItem("Promociones");
 		mnStocker.add(mntmConfiguracion);
 		
 		JMenuItem mntmFamiliasDeArticulos = new JMenuItem("Familias de articulos");
