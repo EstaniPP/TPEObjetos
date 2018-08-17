@@ -48,20 +48,17 @@ public class FormClientes extends JFrame {
 	DefaultTableModel model;
 	JScrollPane scrollPane = new JScrollPane();
 	DBManager db = new DBManager();
-	/**
-	 * Launch the application.
-	 */
 	
-	/**
-	 * Create the frame.
-	 */
+	FormNuevaVenta fventa = null;
+
 	
-	
+	public FormClientes(FormNuevaVenta fventa) {
+		this();
+		this.fventa = fventa;
+	}
 	
 	public FormClientes() {
-		
-		// llamado a bd
-		
+
 		
 		model = new DefaultTableModel() {
 			@Override
@@ -242,6 +239,13 @@ public class FormClientes extends JFrame {
 		btnBorrar.setBackground(UIManager.getColor("Button.background"));
 		btnBorrar.setBounds(599, 138, 117, 45);
 		contentPane.add(btnBorrar);
+		
+		if(fventa != null) {
+			JButton btnSeleccionar = new JButton("SELECCIONAR");
+			btnSeleccionar.setBounds(599, 314, 117, 45);
+			contentPane.add(btnSeleccionar);
+		}
+		
 		
 		
 		
