@@ -32,7 +32,7 @@ public class FormNuevaFamilia extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FormNuevaFamilia(FamiliaArticulo fam) {
+	public FormNuevaFamilia(FamiliaArticulo fam, FormFamilias ff) {
 		DBManager db = new DBManager();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 316, 162);
@@ -58,15 +58,21 @@ public class FormNuevaFamilia extends JFrame {
 		JButton button = new JButton("OK");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(fam == null) {
-					FamiliaArticulo temp = new FamiliaArticulo(txtNombreFamilia.getText());
-					db.addFamiliaArticulo(temp);
-					JOptionPane.showMessageDialog(null, "Articulo agregado con exito.");
-					cancel();
+				if(!txtNombreFamilia.getText().isEmpty()) {
+					if(fam == null) {
+						FamiliaArticulo temp = new FamiliaArticulo(txtNombreFamilia.getText());
+						db.addFamiliaArticulo(temp);
+						JOptionPane.showMessageDialog(null, "Familia agregada con exito.");
+						cancel();
+					}else {
+						FamiliaArticulo updateado = new FamiliaArticulo(fam.getIdFamilia(),txtNombreFamilia.getText());
+						db.updateFamilia(updateado);
+						JOptionPane.showMessageDialog(null, "Familia modificada con exito");
+						cancel();
+					}
+					ff.fillTable(db.getFamilias());
 				}else {
-					FamiliaArticulo updateado = new FamiliaArticulo(txtNombreFamilia.getText());
-					JOptionPane.showMessageDialog(null, "Articulo modificado con exito");
-					cancel();
+					JOptionPane.showMessageDialog(null, "El nombre de la familia no puede ser vacio");
 				}
 			}
 		});
@@ -76,6 +82,10 @@ public class FormNuevaFamilia extends JFrame {
 		JButton button_1 = new JButton("Cancelar");
 		button_1.setActionCommand("Cancel");
 		panel.add(button_1);
+		
+		if(fam != null) {
+			txtNombreFamilia.setText(fam.getNombreFamilia());
+		}
 	}
 	
 	public void cancel() {

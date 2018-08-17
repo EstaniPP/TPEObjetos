@@ -2,6 +2,8 @@ package Forms;
 import DataBase.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -12,10 +14,12 @@ import javax.swing.table.DefaultTableModel;
 
 import Articulos.Articulo;
 import Articulos.FamiliaArticulo;
+import Cliente.TipoCliente;
 import DataBase.DBManager;
 import Filtros.FiltroArticulo;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -30,21 +34,6 @@ public class FormFamilias extends JFrame {
 	// llamado a bd
 	DBManager db = new DBManager();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FormFamilias frame = new FormFamilias();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -75,14 +64,46 @@ public class FormFamilias extends JFrame {
 		JButton btnAgregarFamilia = new JButton("Agregar familia");
 		btnAgregarFamilia.setBounds(279, 42, 143, 38);
 		contentPane.add(btnAgregarFamilia);
+		btnAgregarFamilia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FormNuevaFamilia nuevoA = new FormNuevaFamilia(null,FormFamilias.this);
+				nuevoA.setVisible(true);
+			}
+		});
 		
 		JButton btnModificarFamilia = new JButton("Modificar familia");
 		btnModificarFamilia.setBounds(279, 93, 143, 38);
 		contentPane.add(btnModificarFamilia);
+		btnModificarFamilia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(table.getSelectedRow() != -1) {
+					FormNuevaFamilia nuevoA = new FormNuevaFamilia((FamiliaArticulo) model.getValueAt(table.getSelectedRow(), 2),FormFamilias.this);
+					nuevoA.setVisible(true);
+				}else {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una familia.");
+				}
+			}
+		});
+		
 		
 		JButton btnEliminarFamilia = new JButton("Eliminar familia");
 		btnEliminarFamilia.setBounds(279, 144, 143, 38);
 		contentPane.add(btnEliminarFamilia);
+		btnEliminarFamilia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FamiliaArticulo eliminado = (FamiliaArticulo) model.getValueAt(table.getSelectedRow(), 2);
+				int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar la familia " + eliminado.getNombreFamilia() , "Confirmar borrado", JOptionPane.YES_NO_OPTION);
+				if(dialogResult == JOptionPane.YES_OPTION){
+					try {
+						db.deleteFamilia(eliminado);
+						JOptionPane.showMessageDialog(null, "Familia eliminada con exito");
+						fillTable(db.getFamilias());
+					}catch (NumberFormatException | SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		
 		
 		
@@ -90,10 +111,12 @@ public class FormFamilias extends JFrame {
 		
 		model.addColumn("ID FAMILIA");
 		model.addColumn("NOMBRE FAMILIA");
+		model.addColumn("hidden");
 		table = new JTable();
 		table.setCellSelectionEnabled(true);
 		table.setModel(model);
 		scrollPane.setViewportView(table);
+		table.removeColumn(table.getColumnModel().getColumn(2));
 		
 		//Fin modelo de la tabal
 		//LLenado inicial de la tabla
@@ -118,7 +141,7 @@ public class FormFamilias extends JFrame {
 		// cargo todo en la tabla
 		if(vector != null) {
 			for(int i = 0; i < vector.size(); i++) {
-				String[] p = {String.valueOf(vector.get(i).getIdFamilia()),vector.get(i).getNombreFamilia()};
+				Object[] p = {vector.get(i).getIdFamilia(),vector.get(i).getNombreFamilia(),vector.get(i)};
 				model.addRow(p);
 			}
 		}
