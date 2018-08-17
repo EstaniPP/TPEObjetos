@@ -204,6 +204,7 @@ public class DBManager {
 		this.execQuery(query);
 	}
 	
+	
 	public void addPromocion(Promocion promo) {
 		String query = "INSERT INTO `PROMOCIONES` (`idPromocion`, `idFamilia`, `descuento`) VALUES "
 				+ "(NULL, "
