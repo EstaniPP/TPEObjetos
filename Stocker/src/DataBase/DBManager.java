@@ -197,12 +197,13 @@ public class DBManager {
 	
 	public void updatePromocion(Promocion c) {
 		String query = "UPDATE `PROMOCIONES` SET "
-				+ "`idPromcion` = '" + c.getIdPromocion() + "', "
-				+ "`idFamilia` = '"+ c.getFamilia().getIdFamilia() +"' "
-				+ "`descuento` = '" + c.getDescuento() + "', "
-				+ "WHERE `PROMOCIONES`.`idInterno` = " + c.getIdPromocion() + ";";
+				+ "`idPromocion` = '" + c.getIdPromocion() + "', "
+				+ "`idFamilia` = '"+ c.getFamilia().getIdFamilia() +"', "
+				+ "`descuento` = '" + c.getDescuento() + "' "
+				+ "WHERE `PROMOCIONES`.`idPromocion` = " + c.getIdPromocion() + ";";
 		this.execQuery(query);
 	}
+	
 	
 	public void addPromocion(Promocion promo) {
 		String query = "INSERT INTO `PROMOCIONES` (`idPromocion`, `idFamilia`, `descuento`) VALUES "
