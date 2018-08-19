@@ -31,6 +31,9 @@ public class Articulo {
 		this.stock = stock;
 	}
 	
+	public static Articulo getArticuloError() {
+		return new Articulo(-1, "Error", "Error", -1, 0.0, -1);
+	}
 	public int getIdInterno() {
 		return idInterno;
 	}
