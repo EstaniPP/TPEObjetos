@@ -14,6 +14,7 @@ import DataBase.DBManager;
 import Filtros.FiltroCliente;
 import Filtros.FiltroCliente.idCliente;
 import Filtros.FiltroCliente.nombre;
+import Ventas.Promocion;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
@@ -71,7 +72,7 @@ public class FormClientes extends JFrame {
 		// llamado a bd
 		setTitle("CLIENTES");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 722, 401);
+		setBounds(100, 100, 788, 426);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -111,11 +112,11 @@ public class FormClientes extends JFrame {
 		contentPane.add(separator);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(8, 36, 61, 16);
+		lblNombre.setBounds(6, 35, 61, 16);
 		contentPane.add(lblNombre);
 		
 		JLabel lblIdentificador = new JLabel("ID");
-		lblIdentificador.setBounds(225, 36, 156, 16);
+		lblIdentificador.setBounds(231, 35, 156, 16);
 		contentPane.add(lblIdentificador);
 		
 		textField_1 = new JTextField();
@@ -141,14 +142,21 @@ public class FormClientes extends JFrame {
 		
 		textField_1.setToolTipText("NOMBRE");
 		textField_1.setColumns(10);
-		textField_1.setBounds(224, 51, 217, 30);
+		textField_1.setBounds(231, 51, 217, 30);
 		contentPane.add(textField_1);
 		
 		
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(10, 81, 577, 278);
+		scrollPane.setBounds(6, 85, 577, 278);
 		contentPane.add(scrollPane);
 		
+		
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setFillsViewportHeight(true);
+		table.setCellSelectionEnabled(true);		
 		
 		
 		model.addColumn("ID");
@@ -158,16 +166,7 @@ public class FormClientes extends JFrame {
 		model.addColumn("TIPO");
 		
 		model.addColumn("hidden");
-		
-		
-		
-		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setFillsViewportHeight(true);
-		table.setCellSelectionEnabled(true);
 		fillTable(null);
-		
-		table.removeColumn(table.getColumnModel().getColumn(5));
 		JButton btnNewButton = new JButton("NUEVO CLIENTE");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -175,7 +174,7 @@ public class FormClientes extends JFrame {
 				nuevoC.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(599, 51, 117, 45);
+		btnNewButton.setBounds(593, 85, 160, 45);
 		contentPane.add(btnNewButton);
 		
 		JButton btnModificarSeleccionado = new JButton("MODIFICAR");
@@ -205,7 +204,7 @@ public class FormClientes extends JFrame {
 				//System.out.println(table.getSelectedRow());
 			}
 		});
-		btnModificarSeleccionado.setBounds(599, 94, 117, 45);
+		btnModificarSeleccionado.setBounds(593, 135, 160, 45);
 		contentPane.add(btnModificarSeleccionado);
 		
 		JButton btnBorrar = new JButton("BORRAR");
@@ -237,8 +236,23 @@ public class FormClientes extends JFrame {
 		});
 		btnBorrar.setForeground(Color.RED);
 		btnBorrar.setBackground(UIManager.getColor("Button.background"));
-		btnBorrar.setBounds(599, 138, 117, 45);
+		btnBorrar.setBounds(593, 185, 160, 45);
 		contentPane.add(btnBorrar);
+		
+		JButton btnVerInfoCliente = new JButton("VER INFO CLIENTE");
+		btnVerInfoCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow == -1) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente.");
+				}else {
+					FormInfoCliente infoC = new FormInfoCliente((Cliente) model.getValueAt(table.getSelectedRow(), 5));
+					infoC.setVisible(true);
+				}
+			}
+		});
+		btnVerInfoCliente.setBounds(593, 318, 160, 45);
+		contentPane.add(btnVerInfoCliente);
 		
 		if(fventa != null) {
 			JButton btnSeleccionar = new JButton("SELECCIONAR");
@@ -246,11 +260,17 @@ public class FormClientes extends JFrame {
 			contentPane.add(btnSeleccionar);
 		}
 		
+		table.removeColumn(table.getColumnModel().getColumn(5));	
 		
-		
-		
-		
-		
+		{
+			
+			try {
+				Vector<Cliente> vect = db.getClientes(null);
+				fillTable(vect);
+			}catch(SQLException e2){
+				e2.printStackTrace();
+			}
+		}
 		
 	}
 	public void fillTable(Vector<Cliente> vector) {
@@ -269,6 +289,5 @@ public class FormClientes extends JFrame {
 		}
 		table.setModel(model);
 		table.getColumnModel().getColumn(1).setPreferredWidth(250);
-		scrollPane.setViewportView(table);
 	}
 }

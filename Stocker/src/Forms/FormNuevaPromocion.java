@@ -71,12 +71,12 @@ public class FormNuevaPromocion extends JFrame {
 						if(promo == null) {
 							Promocion temp = new Promocion(familias.get(combotipo.getSelectedIndex()), Double.valueOf(textField.getText()));
 							db.addPromocion(temp);
-							JOptionPane.showMessageDialog(null, "Tipo de cliente agregado con exito.");
+							JOptionPane.showMessageDialog(null, "Promocion agregada con exito.");
 							cancel();
 						}else {
 							Promocion updateado = new Promocion(promo.getIdPromocion(),familias.get(combotipo.getSelectedIndex()), Double.valueOf(textField.getText()));
 							db.updatePromocion(updateado);
-							JOptionPane.showMessageDialog(null, "Tipo de cliente modificado con exito");
+							JOptionPane.showMessageDialog(null, "Promocion modificada con exito");
 							cancel();
 						}
 						promos.fillTable(db.getPromociones());
