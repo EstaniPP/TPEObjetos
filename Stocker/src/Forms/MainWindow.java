@@ -127,7 +127,7 @@ public class MainWindow {
 			}
 		});
 		mnStocker.add(mntmConfiguracion);
-		
+		 
 		JMenuItem mntmFamiliasDeArticulos = new JMenuItem("Familias de articulos");
 		mntmFamiliasDeArticulos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

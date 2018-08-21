@@ -44,6 +44,7 @@ public class FormClientes extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	JButton btnselect;
 	// tablas
 	private JTable table;
 	DefaultTableModel model;
@@ -51,15 +52,16 @@ public class FormClientes extends JFrame {
 	DBManager db = new DBManager();
 	
 	FormNuevaVenta fventa = null;
-
 	
-	public FormClientes(FormNuevaVenta fventa) {
+	
+	
+	
+	public FormClientes(FormNuevaVenta venta) {
 		this();
-		this.fventa = fventa;
+		contentPane.add(btnselect);
+		this.fventa = venta;
 	}
-	
 	public FormClientes() {
-
 		
 		model = new DefaultTableModel() {
 			@Override
@@ -251,8 +253,15 @@ public class FormClientes extends JFrame {
 				}
 			}
 		});
-		btnVerInfoCliente.setBounds(593, 318, 160, 45);
+		btnVerInfoCliente.setBounds(593, 237, 160, 45);
 		contentPane.add(btnVerInfoCliente);
+		
+		btnselect = new JButton("SELECCIONAR");
+		btnselect.setForeground(new Color(50, 205, 50));
+		btnselect.setBounds(593, 321, 160, 45);
+		
+		
+		
 		
 		if(fventa != null) {
 			JButton btnSeleccionar = new JButton("SELECCIONAR");

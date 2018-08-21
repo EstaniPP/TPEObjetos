@@ -42,6 +42,8 @@ import java.sql.SQLException;
 import java.util.Vector;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class FormNuevaVenta extends JFrame {
 
@@ -112,14 +114,33 @@ public class FormNuevaVenta extends JFrame {
 		// agrego tabla al jscrollpanel
 		scrollPane.setViewportView(table);
 		
+		JButton btncliente = new JButton("CLIENTE");
+		btncliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FormClientes fc = new FormClientes(FormNuevaVenta.this);
+				fc.setVisible(true);
+			}
+		});
+		btncliente.setEnabled(false);
+		btncliente.setBounds(627, 86, 150, 56);
+		contentPane.add(btncliente);
+		
 		JCheckBox chckbxConsumidorFinal = new JCheckBox("Consumidor final");
+		chckbxConsumidorFinal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(chckbxConsumidorFinal.isSelected()) {
+					btncliente.setEnabled(false);
+				}else {
+					btncliente.setEnabled(true);
+				}
+			}
+		});
+		
 		chckbxConsumidorFinal.setSelected(true);
 		chckbxConsumidorFinal.setBounds(621, 31, 167, 23);
 		contentPane.add(chckbxConsumidorFinal);
 		
-		JButton btnNewButton = new JButton("CLIENTE");
-		btnNewButton.setBounds(627, 86, 150, 56);
-		contentPane.add(btnNewButton);
+		
 		
 		JLabel lblNewLabel = new JLabel("SELECCIONE CLIENTE");
 		lblNewLabel.setBounds(630, 66, 150, 16);
