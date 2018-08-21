@@ -14,6 +14,7 @@ import com.sun.glass.events.WindowEvent;
 import com.sun.xml.internal.ws.api.Component;
 
 import Articulos.Articulo;
+import Cliente.Cliente;
 import DataBase.DBManager;
 import Filtros.FiltroArticulo;
 
@@ -54,10 +55,17 @@ public class FormNuevaVenta extends JFrame {
 	DBManager db = new DBManager();
 	private JTextField txtcod;
 	private JTextField txtcant;
+	JLabel clientelbl;
+	Cliente clienteVenta;
 	
 	public static void main(String[] args) {
 		FormNuevaVenta fnv = new FormNuevaVenta();
 		fnv.setVisible(true);
+	}
+	
+	public void setCliente(Cliente c) {
+		clienteVenta = c;
+		clientelbl.setText(c.getNombre());
 	}
 	
 	public void agregarEstilo(DefaultTableModel model) {
@@ -142,9 +150,9 @@ public class FormNuevaVenta extends JFrame {
 		
 		
 		
-		JLabel lblNewLabel = new JLabel("SELECCIONE CLIENTE");
-		lblNewLabel.setBounds(630, 66, 150, 16);
-		contentPane.add(lblNewLabel);
+		clientelbl = new JLabel("SELECCIONE CLIENTE");
+		clientelbl.setBounds(630, 66, 150, 16);
+		contentPane.add(clientelbl);
 		
 		JButton btnRealizarFactura = new JButton("REALIZAR FACTURA");
 		btnRealizarFactura.addActionListener(new ActionListener() {
@@ -215,6 +223,14 @@ public class FormNuevaVenta extends JFrame {
 		txtcod.setBounds(16, 47, 103, 26);
 		contentPane.add(txtcod);
 		
+		
+		table.getModel().addTableModelListener(new TableModelListener() {
+		      public void tableChanged(TableModelEvent e) {
+		    	  if(e.getColumn() == 1) {
+		    		  table.setValueAt(Double.valueOf(String.valueOf(table.getValueAt(e.getLastRow(), 1))) * Double.valueOf(String.valueOf(table.getValueAt(e.getLastRow(), 3))), e.getLastRow(), 4);
+		    	  }
+		      }
+		});
 	
 		JLabel label_1 = new JLabel("CANTIDAD");
 		label_1.setBounds(124, 34, 85, 16);

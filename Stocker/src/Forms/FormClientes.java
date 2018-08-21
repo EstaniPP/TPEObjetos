@@ -260,6 +260,17 @@ public class FormClientes extends JFrame {
 		btnselect.setForeground(new Color(50, 205, 50));
 		btnselect.setBounds(593, 321, 160, 45);
 		
+		btnselect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow == -1) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente.");
+				}else {
+					fventa.setCliente((Cliente) model.getValueAt(table.getSelectedRow(), 5));
+					FormClientes.this.dispose();
+				}	
+			}
+		});
 		
 		
 		
