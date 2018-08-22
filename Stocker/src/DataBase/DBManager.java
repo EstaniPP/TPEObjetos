@@ -302,7 +302,7 @@ public class DBManager {
 	}
 	
 	//Fin funcionalidad familia de articulos
-	
+	 
 	// inicio funcionalidad de ventas
 	// retorna el ID de la venta insertada
 	public int addVenta(Venta v) throws SQLException{
