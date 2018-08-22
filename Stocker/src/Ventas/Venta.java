@@ -19,7 +19,7 @@ public class Venta {
 	Vector<Articulo> articulos;
 	//Hash con id de producto y cantidad.
 	HashMap<Integer, Integer> cantidadArticulos;
-	//id del cliente que realizo la compra (si es '-1' es una compra sin cliente)
+	// si es null es q es consumidor final
 	Cliente cliente;
 	
 	public Venta(int idVenta, Date fechaventa, Cliente cliente) {
@@ -27,6 +27,7 @@ public class Venta {
 		this.cliente = cliente;
 		this.idVenta = idVenta;
 	}
+	
 	public float getPrecioTotal() {
 		float total = 0;
 		for(int i=0;i<articulos.size();i++) {

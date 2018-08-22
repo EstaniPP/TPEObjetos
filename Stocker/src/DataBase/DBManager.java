@@ -18,6 +18,7 @@ import Cliente.TipoCliente;
 import Filtros.Filtro;
 import Filtros.FiltroCliente;
 import Ventas.Promocion;
+import Ventas.Venta;
 
 public class DBManager {
 	private Connection connection;
@@ -26,6 +27,7 @@ public class DBManager {
 	private final String dbUser = "root";
 	private final String dbPassword = "";
 	private final String dbName = "stocker";
+	
 	
 	
 	public DBManager() {
@@ -301,7 +303,18 @@ public class DBManager {
 	
 	//Fin funcionalidad familia de articulos
 	
-	
+	// inicio funcionalidad de ventas
+	// retorna el ID de la venta insertada
+	public int addVenta(Venta v) throws SQLException{
+		String query = "INSERT INTO `VENTAS` (`idVenta`, `tipoVenta`, `total`, `pagado`, `idClienteVenta`, `fechaVenta`) VALUES "
+				+ "(NULL, "
+				+ "'', "
+				+ "'2234.32', "
+				+ "'222.34', "
+				+ "'1', "
+				+ "'2018-08-21');";
+		return -1;
+	}
 	
 	
 	
