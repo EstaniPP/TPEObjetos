@@ -17,6 +17,7 @@ import Articulos.Articulo;
 import Cliente.Cliente;
 import DataBase.DBManager;
 import Filtros.FiltroArticulo;
+import Ventas.Venta;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -39,12 +40,22 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowListener;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Vector;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+
 
 public class FormNuevaVenta extends JFrame {
 
@@ -56,7 +67,8 @@ public class FormNuevaVenta extends JFrame {
 	private JTextField txtcod;
 	private JTextField txtcant;
 	JLabel clientelbl;
-	Cliente clienteVenta;
+	Cliente clienteVenta = null;
+	private JTextField total;
 	
 	public static void main(String[] args) {
 		FormNuevaVenta fnv = new FormNuevaVenta();
@@ -86,7 +98,7 @@ public class FormNuevaVenta extends JFrame {
 		// hago que algunas columnas no sean editables!
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 797, 389);
+		setBounds(100, 100, 797, 395);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -157,7 +169,19 @@ public class FormNuevaVenta extends JFrame {
 		JButton btnRealizarFactura = new JButton("REALIZAR FACTURA");
 		btnRealizarFactura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				// realizar venta
+				DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate date = java.time.LocalDate.now();
+				String fecha = date.format(formatters);
+				// guardo en una venta
+				Venta v = new Venta(fecha, clienteVenta);
+				// recorro toda la tabla
+				for(int i = 0; i < table.getModel().getRowCount(); i++) {
+					Articulo aT = (Articulo) table.getModel().getValueAt(i, 5);
+					int cant = Integer.valueOf((String)table.getModel().getValueAt(i, 1));
+					v.agregarArticulo(aT, cant);
+				}
+				v.setCliente(FormNuevaVenta.this.clienteVenta);
 			}
 		});
 		btnRealizarFactura.setForeground(new Color(34, 139, 34));
@@ -181,7 +205,8 @@ public class FormNuevaVenta extends JFrame {
 							Double.valueOf(txtcant.getText()) * articulo.getPrecioUnitario(),
 							articulo
 					});
-					
+					// actualizo el total
+					FormNuevaVenta.this.calcularTotal(false);
 					txtcod.requestFocus();
 					txtcod.setText("");
 					txtcant.setText("");
@@ -228,6 +253,7 @@ public class FormNuevaVenta extends JFrame {
 		      public void tableChanged(TableModelEvent e) {
 		    	  if(e.getColumn() == 1) {
 		    		  table.setValueAt(Double.valueOf(String.valueOf(table.getValueAt(e.getLastRow(), 1))) * Double.valueOf(String.valueOf(table.getValueAt(e.getLastRow(), 3))), e.getLastRow(), 4);
+		    		  FormNuevaVenta.this.calcularTotal(false);
 		    	  }
 		      }
 		});
@@ -244,6 +270,7 @@ public class FormNuevaVenta extends JFrame {
 					JOptionPane.showMessageDialog(null, "SELECCIONE UN PRODUCTO PARA QUITAR");
 				}else{
 					FormNuevaVenta.this.model.removeRow(selected);
+					FormNuevaVenta.this.calcularTotal(false);
 					txtcod.requestFocus();
 				}
 				
@@ -252,11 +279,37 @@ public class FormNuevaVenta extends JFrame {
 		btnEliminarProdSelec.setForeground(Color.RED);
 		btnEliminarProdSelec.setBounds(627, 223, 150, 56);
 		contentPane.add(btnEliminarProdSelec);
+		
+		// calcular total
+		
+		
+		
+		total = new JTextField();
+		total.setEnabled(false);
+		total.setColumns(10);
+		total.setBounds(515, 335, 103, 26);
+		contentPane.add(total);
+		
+		JLabel lblTotal = new JLabel("TOTAL");
+		lblTotal.setBounds(460, 340, 54, 16);
+		contentPane.add(lblTotal);
 	}
 	
 	@Override
 	public void setVisible(boolean value) {
 	    super.setVisible(value);
 	    txtcod.requestFocusInWindow();
+	}
+	
+	private double calcularTotal(boolean param) {
+		double calculo = 0;
+		for(int i = 0; i < table.getModel().getRowCount(); i++) {
+			calculo += (Double)table.getModel().getValueAt(i, 4);
+		}
+		if(!param) {
+			DecimalFormat df = new DecimalFormat("#.##");
+			total.setText(String.valueOf(df.format(calculo)));
+		}
+		return calculo;
 	}
 }

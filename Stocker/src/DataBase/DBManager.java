@@ -184,7 +184,6 @@ public class DBManager {
 	
 	public Vector<Promocion> getPromociones(){
 		Vector<Promocion> vect = new Vector<Promocion>();
-		
 		try {
 			ResultSet rs = dataQuery("SELECT * FROM PROMOCIONES ORDER BY idPromocion ASC");
 			while(rs.next()) {

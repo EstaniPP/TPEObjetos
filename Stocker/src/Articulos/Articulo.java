@@ -1,5 +1,7 @@
 package Articulos;
 
+import Ventas.Venta;
+
 public class Articulo {
 	// id del auto increment de la base de datos
 	int idInterno;
@@ -13,6 +15,10 @@ public class Articulo {
 	double precioUnitario;
 	// cantidad en stock
 	int stock;
+	
+	public boolean equals(Object o) {
+		return idInterno == ((Articulo) o).getIdInterno();
+	}
 	
 	public Articulo(int idInterno, String codigoBarras,	String descripcion, int familia, double precioUnitario, int stock) {
 		this.idInterno =idInterno;

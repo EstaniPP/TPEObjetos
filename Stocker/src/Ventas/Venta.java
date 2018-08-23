@@ -14,22 +14,39 @@ public class Venta {
 	// id del auto increment de la base de datos
 	int idVenta;
 	// fecha en que se realizo la venta
-	Date fechaVenta;
+	String fechaVenta;
 	//Productos que se vendieron
 	Vector<Articulo> articulos;
 	//Hash con id de producto y cantidad.
 	HashMap<Integer, Integer> cantidadArticulos;
 	// si es null es q es consumidor final
+	
 	Cliente cliente;
 	
-	public Venta(int idVenta, Date fechaventa, Cliente cliente) {
+	
+	public Venta() {
+		cantidadArticulos = new HashMap<Integer, Integer>();
+		articulos = new Vector<Articulo>();
+	}
+	
+	public Venta(int idVenta, String fechaventa, Cliente cliente) {
+		this();
 		this.fechaVenta = fechaventa;
 		this.cliente = cliente;
 		this.idVenta = idVenta;
 	}
+	public Venta(String fechaventa, Cliente cliente) {
+		this();
+		this.fechaVenta = fechaventa;
+		this.cliente = cliente;
+	}
 	
-	public float getPrecioTotal() {
-		float total = 0;
+	public void setCliente(Cliente c) {
+		cliente = c;
+	}
+	
+	public Double getPrecioTotal() {
+		Double total = 0.0;
 		for(int i=0;i<articulos.size();i++) {
 			total += articulos.get(i).getPrecioUnitario()*cantidadArticulos.get(articulos.get(i).getIdInterno());
 		}
@@ -41,7 +58,7 @@ public class Venta {
 	}
 	
 	public boolean agregarArticulo(Articulo art, Integer cant) {
-		if(articulos.contains(art)) {
+		if(cantidadArticulos.containsKey(art.getIdInterno())) {
 			cantidadArticulos.put(art.getIdInterno(), cant+cantidadArticulos.get(art.getIdInterno()));
 		}else {
 			articulos.add(art);
@@ -67,12 +84,15 @@ public class Venta {
 		}
 	}
 	
-	public double getPrecioAPagar(Promocion promocion) {
+	public double getPrecioAPagar(Vector<Promocion> promocion) {
 		DBManager db = new DBManager();
-		if(cliente == null) {
-			return this.getPrecioTotal();
-		}else {
-			return (getPrecioTotal() - promocion.getDescuento(this))*(db.getTipoCliente(cliente.getTipoCliente()).getDescuento() /100);
+		Double precio = this.getPrecioTotal();
+		for(int i=0;i<promocion.size();i++) {
+			precio -= promocion.get(i).getDescuento(this);
 		}
+		if(cliente != null) {
+			precio = (precio*(db.getTipoCliente(cliente.getTipoCliente()).getDescuento() /100));
+		}
+		return precio;
 	}
 }
