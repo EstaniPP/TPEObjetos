@@ -40,7 +40,13 @@ public class Venta {
 		this.fechaVenta = fechaventa;
 		this.cliente = cliente;
 	}
-	
+	// OJO
+	public void setIdVenta(int id) {
+		idVenta = id;
+	}
+	public int getIdVenta() {
+		return idVenta;
+	}
 	public void setCliente(Cliente c) {
 		cliente = c;
 	}
@@ -94,5 +100,16 @@ public class Venta {
 			precio = (precio*(db.getTipoCliente(cliente.getTipoCliente()).getDescuento() /100));
 		}
 		return precio;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public String getFechaVenta() {
+		return fechaVenta;
+	}
+	
+	public Vector<Articulo> getArticulosVenta(){
+		return articulos;
 	}
 }

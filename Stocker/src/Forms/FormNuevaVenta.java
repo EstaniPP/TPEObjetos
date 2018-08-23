@@ -181,7 +181,14 @@ public class FormNuevaVenta extends JFrame {
 					int cant = Integer.valueOf((String)table.getModel().getValueAt(i, 1));
 					v.agregarArticulo(aT, cant);
 				}
+				//System.out.println(v.getArticulos().size());
 				v.setCliente(FormNuevaVenta.this.clienteVenta);
+				try {
+					System.out.println(db.addVenta(v).getIdVenta());
+				}catch(SQLException e123) {
+					e123.printStackTrace();
+				}
+				
 			}
 		});
 		btnRealizarFactura.setForeground(new Color(34, 139, 34));

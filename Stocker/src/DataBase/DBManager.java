@@ -303,16 +303,33 @@ public class DBManager {
 	//Fin funcionalidad familia de articulos
 	 
 	// inicio funcionalidad de ventas
-	// retorna el ID de la venta insertada
-	public int addVenta(Venta v) throws SQLException{
-		String query = "INSERT INTO `VENTAS` (`idVenta`, `tipoVenta`, `total`, `pagado`, `idClienteVenta`, `fechaVenta`) VALUES "
+	// retorna la venta insertada con el id actualizado
+	public Venta addVenta(Venta v) throws SQLException {
+		Vector<Promocion> vP = this.getPromociones();
+		String query = "INSERT INTO `VENTAS` (`idVenta`, `total`, `pagado`, `idClienteVenta`, `fechaVenta`) VALUES "
 				+ "(NULL, "
-				+ "'', "
-				+ "'2234.32', "
-				+ "'222.34', "
-				+ "'1', "
-				+ "'2018-08-21');";
-		return -1;
+				+ "'" + v.getPrecioTotal() + "', "
+				+ "'" + v.getPrecioAPagar(vP) + "', "
+				+ "'" + v.getCliente().getIdCliente() + "', "
+				+ "'" + v.getFechaVenta() + "');";
+		this.execQuery(query);
+		ResultSet q = this.dataQuery("SELECT LAST_INSERT_ID() AS lid FROM VENTAS GROUP BY lid");
+		int lastID = -1;
+		if(q.next()) {
+			lastID = q.getInt("lid");
+		}
+		
+		// inserto todos los productos
+		for(Articulo a : v.getArticulos()) {
+			String qArts = "INSERT INTO `PRODUCTOSVENTA` (`idVentaProd`, `idVentaForeign`, `descripcionArticulo`, `precioArticulo`, `cantidad`) VALUES (NULL, "
+					+ "'" + lastID + "', "
+					+ "'" + a.getDescripcion() + "', "
+					+ "'" + a.getPrecioUnitario() + "', "
+					+ "'" + v.getCantidadArticulo(a) + "');";
+			this.execQuery(qArts);
+		}
+		v.setIdVenta(lastID);
+		return v;
 	}
 	
 	
