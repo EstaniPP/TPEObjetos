@@ -39,9 +39,10 @@ public class Promocion {
 		Vector<Articulo> vect = venta.getArticulos();
 		for(int i =0;i<vect.size();i++) {
 			if(familia.getIdFamilia() == vect.get(i).getFamilia()){
-				desc += descuento*venta.getCantidadArticulo(vect.get(i));
+				desc += vect.get(i).getPrecioUnitario()*descuento/100*venta.getCantidadArticulo(vect.get(i));
 			}
 		}
+		System.out.println(desc);
 		return desc;
 	}
 }
