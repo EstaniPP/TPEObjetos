@@ -190,7 +190,7 @@ public class FormArticulos extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debe seleccionar un articulo.");
 				}else {
 					// obtengo el id del articulo seleccionado
-					int idInterno = Integer.valueOf((String) table_1.getValueAt(selectedRow, 0));
+					int idInterno = (Integer)table_1.getValueAt(selectedRow, 0);
 					// obtengo articulo desde bd
 					Vector<Articulo> vect = new Vector<Articulo>();
 					try {
