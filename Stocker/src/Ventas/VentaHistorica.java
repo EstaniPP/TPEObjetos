@@ -15,3 +15,4 @@ public class VentaHistorica extends ElementoVenta{
 		return pagado;
 	}
 }
+ 
