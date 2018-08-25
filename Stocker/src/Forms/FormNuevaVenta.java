@@ -98,7 +98,7 @@ public class FormNuevaVenta extends JFrame {
 		// hago que algunas columnas no sean editables!
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 797, 395);
+		setBounds(100, 100, 797, 423);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -118,7 +118,7 @@ public class FormNuevaVenta extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
-		scrollPane.setBounds(16, 86, 599, 251);
+		scrollPane.setBounds(16, 86, 599, 242);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -181,7 +181,6 @@ public class FormNuevaVenta extends JFrame {
 					int cant = Integer.valueOf((String)table.getModel().getValueAt(i, 1));
 					v.agregarArticulo(aT, cant);
 				}
-				//System.out.println(v.getArticulos().size());
 				v.setCliente(FormNuevaVenta.this.clienteVenta);
 				try {
 					System.out.println(db.addVenta(v).getIdVenta());
@@ -294,7 +293,7 @@ public class FormNuevaVenta extends JFrame {
 		total = new JTextField();
 		total.setEnabled(false);
 		total.setColumns(10);
-		total.setBounds(515, 335, 103, 26);
+		total.setBounds(513, 335, 103, 26);
 		contentPane.add(total);
 		
 		JLabel lblTotal = new JLabel("TOTAL");
