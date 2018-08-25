@@ -22,4 +22,51 @@ public abstract class ElementoVenta {
 		articulos = new Vector<Articulo>();
 	}
 	
+	public void setCliente(Cliente c) {
+		cliente = c;
+	}
+	
+	public boolean agregarArticulo(Articulo art, Integer cant) {
+		if(cantidadArticulos.containsKey(art.getIdInterno())) {
+			cantidadArticulos.put(art.getIdInterno(), cant+cantidadArticulos.get(art.getIdInterno()));
+		}else {
+			articulos.add(art);
+			cantidadArticulos.put(art.getIdInterno(), cant);
+		}
+		return true;
+	}
+	
+	public Vector<Articulo> getArticulos() {
+		return articulos;
+	}
+	
+	public boolean borrarArticulo(Articulo art) {
+		if(articulos.contains(art)) {
+			articulos.remove(art);
+			cantidadArticulos.remove(art.getIdInterno());
+			return true;
+		}else {
+			return false;
+		}	
+	}
+	public int getCantidadArticulo(Articulo art) {
+		if(cantidadArticulos.containsKey(art.getIdInterno())){
+			return cantidadArticulos.get(art.getIdInterno());
+		}else {
+			return 0;
+		}
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public String getFechaVenta() {
+		return fechaVenta;
+	}
+	
+	public Vector<Articulo> getArticulosVenta(){
+		return articulos;
+	}
+	// abstractos
+	public abstract Double getPrecioTotal();
+	public abstract double getPrecioAPagar(Vector<Promocion> promocion);
 }

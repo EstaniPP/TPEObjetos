@@ -10,10 +10,6 @@ import Cliente.Cliente;
 import DataBase.DBManager;
 
 public class Venta extends ElementoVenta{
-	// id del auto increment de la base de datos
-	int idVenta;
-	
-
 	public Venta() {
 		super();
 	}
@@ -23,53 +19,12 @@ public class Venta extends ElementoVenta{
 		this.cliente = cliente;
 	}
 	// OJO
-	public void setIdVenta(int id) {
-		idVenta = id;
-	}
-	public int getIdVenta() {
-		return idVenta;
-	}
-	public void setCliente(Cliente c) {
-		cliente = c;
-	}
-	
 	public Double getPrecioTotal() {
 		Double total = 0.0;
 		for(int i=0;i<articulos.size();i++) {
 			total += articulos.get(i).getPrecioUnitario()*cantidadArticulos.get(articulos.get(i).getIdInterno());
 		}
 		return total;
-	}
-	
-	public Vector<Articulo> getArticulos() {
-		return articulos;
-	}
-	
-	public boolean agregarArticulo(Articulo art, Integer cant) {
-		if(cantidadArticulos.containsKey(art.getIdInterno())) {
-			cantidadArticulos.put(art.getIdInterno(), cant+cantidadArticulos.get(art.getIdInterno()));
-		}else {
-			articulos.add(art);
-			cantidadArticulos.put(art.getIdInterno(), cant);
-		}
-		return true;
-	}
-	
-	public boolean borrarArticulo(Articulo art) {
-		if(articulos.contains(art)) {
-			articulos.remove(art);
-			cantidadArticulos.remove(art.getIdInterno());
-			return true;
-		}else {
-			return false;
-		}	
-	}
-	public int getCantidadArticulo(Articulo art) {
-		if(cantidadArticulos.containsKey(art.getIdInterno())){
-			return cantidadArticulos.get(art.getIdInterno());
-		}else {
-			return 0;
-		}
 	}
 	
 	public double getPrecioAPagar(Vector<Promocion> promocion) {
@@ -85,14 +40,5 @@ public class Venta extends ElementoVenta{
 		return precio;
 	}
 	
-	public Cliente getCliente() {
-		return cliente;
-	}
-	public String getFechaVenta() {
-		return fechaVenta;
-	}
 	
-	public Vector<Articulo> getArticulosVenta(){
-		return articulos;
-	}
 }
