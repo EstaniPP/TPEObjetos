@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import Articulos.Articulo;
+import Articulos.ArticuloVenta;
 import Articulos.FamiliaArticulo;
 import DataBase.DBManager;
 
@@ -39,7 +39,7 @@ public class FormNuevoArticulo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public FormNuevoArticulo(Articulo art, FormArticulos fa) {
+	public FormNuevoArticulo(ArticuloVenta art, FormArticulos fa) {
 		
 
 		setBounds(100, 100, 291, 327);
@@ -118,12 +118,12 @@ public class FormNuevoArticulo extends JDialog {
 							if(!textField.getText().isEmpty() && isDouble(textPrecioUnitario.getText())){
 									if (isDouble(textField.getText())) {
 										if(art == null) {
-											Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+											ArticuloVenta temp = new ArticuloVenta(textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
 											db.addArticulo(temp);
 											JOptionPane.showMessageDialog(null, "Articulo agregado con exito.");
 											cancel();
 										}else {
-											Articulo updateado = new Articulo(art.getIdInterno(),textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+											ArticuloVenta updateado = new ArticuloVenta(art.getIdInterno(),textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
 											art.update(updateado); 						
 											db.updateArticulo(updateado);
 											JOptionPane.showMessageDialog(null, "Articulo modificado con exito");

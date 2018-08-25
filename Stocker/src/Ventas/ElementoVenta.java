@@ -3,7 +3,7 @@ package Ventas;
 import java.util.HashMap;
 import java.util.Vector;
 
-import Articulos.Articulo;
+import Articulos.ArticuloVenta;
 import Cliente.Cliente;
 
 public abstract class ElementoVenta {
@@ -11,7 +11,7 @@ public abstract class ElementoVenta {
 	// fecha en que se realizo la venta
 	String fechaVenta;
 	//Productos que se vendieron
-	Vector<Articulo> articulos;
+	Vector<ArticuloVenta> articulos;
 	//Hash con id de producto y cantidad.
 	HashMap<Integer, Integer> cantidadArticulos;
 	// si es null es q es consumidor final
@@ -19,14 +19,14 @@ public abstract class ElementoVenta {
 	
 	public ElementoVenta() {
 		cantidadArticulos = new HashMap<Integer, Integer>();
-		articulos = new Vector<Articulo>();
+		articulos = new Vector<ArticuloVenta>();
 	}
 	
 	public void setCliente(Cliente c) {
 		cliente = c;
 	}
 	
-	public boolean agregarArticulo(Articulo art, Integer cant) {
+	public boolean agregarArticulo(ArticuloVenta art, Integer cant) {
 		if(cantidadArticulos.containsKey(art.getIdInterno())) {
 			cantidadArticulos.put(art.getIdInterno(), cant+cantidadArticulos.get(art.getIdInterno()));
 		}else {
@@ -36,11 +36,11 @@ public abstract class ElementoVenta {
 		return true;
 	}
 	
-	public Vector<Articulo> getArticulos() {
+	public Vector<ArticuloVenta> getArticulos() {
 		return articulos;
 	}
 	
-	public boolean borrarArticulo(Articulo art) {
+	public boolean borrarArticulo(ArticuloVenta art) {
 		if(articulos.contains(art)) {
 			articulos.remove(art);
 			cantidadArticulos.remove(art.getIdInterno());
@@ -49,7 +49,7 @@ public abstract class ElementoVenta {
 			return false;
 		}	
 	}
-	public int getCantidadArticulo(Articulo art) {
+	public int getCantidadArticulo(ArticuloVenta art) {
 		if(cantidadArticulos.containsKey(art.getIdInterno())){
 			return cantidadArticulos.get(art.getIdInterno());
 		}else {
@@ -63,7 +63,7 @@ public abstract class ElementoVenta {
 		return fechaVenta;
 	}
 	
-	public Vector<Articulo> getArticulosVenta(){
+	public Vector<ArticuloVenta> getArticulosVenta(){
 		return articulos;
 	}
 	// abstractos

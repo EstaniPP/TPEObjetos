@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import Articulos.Articulo;
+import Articulos.ArticuloVenta;
 import Articulos.FamiliaArticulo;
 import Cliente.TipoCliente;
 import DataBase.DBManager;

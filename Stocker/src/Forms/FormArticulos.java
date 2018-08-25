@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import Articulos.Articulo;
+import Articulos.ArticuloVenta;
 import Cliente.Cliente;
 import DataBase.DBManager;
 import Filtros.FiltroArticulo;
@@ -93,7 +93,7 @@ public class FormArticulos extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == 10) {
 					// se presiono enter
-					Vector<Articulo> vector = new Vector<Articulo>();
+					Vector<ArticuloVenta> vector = new Vector<ArticuloVenta>();
 					// creo el filtro x nombre
 					FiltroArticulo.descripcion f1;
 					if(!textField.getText().isEmpty()) {
@@ -125,7 +125,7 @@ public class FormArticulos extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == 10) {
 					// se presiono enter
-					Vector<Articulo> vector = new Vector<Articulo>();
+					Vector<ArticuloVenta> vector = new Vector<ArticuloVenta>();
 					// creo el filtro x ID
 					FiltroArticulo.idInterno f1;
 					if(!textField_1.getText().isEmpty()) {
@@ -156,7 +156,7 @@ public class FormArticulos extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == 10) {
-					Vector<Articulo> vector = new Vector<Articulo>();
+					Vector<ArticuloVenta> vector = new Vector<ArticuloVenta>();
 					// creo el filtro x nombre
 					FiltroArticulo.codigoBarras f1;
 					if(!textField_2.getText().isEmpty()) {
@@ -192,7 +192,7 @@ public class FormArticulos extends JFrame {
 					// obtengo el id del articulo seleccionado
 					int idInterno = (Integer)table_1.getValueAt(selectedRow, 0);
 					// obtengo articulo desde bd
-					Vector<Articulo> vect = new Vector<Articulo>();
+					Vector<ArticuloVenta> vect = new Vector<ArticuloVenta>();
 					try {
 						vect = db.getArticulos(new FiltroArticulo.idInterno(idInterno));
 					} catch (SQLException e1) {
@@ -201,7 +201,7 @@ public class FormArticulos extends JFrame {
 					if(vect.size() == 0) {
 						JOptionPane.showMessageDialog(null, "Se produjo un error");
 					}else {
-						FormNuevoArticulo nuevoC = new FormNuevoArticulo((Articulo)table_1.getModel().getValueAt(table_1.getSelectedRow(), 6),FormArticulos.this);
+						FormNuevoArticulo nuevoC = new FormNuevoArticulo((ArticuloVenta)table_1.getModel().getValueAt(table_1.getSelectedRow(), 6),FormArticulos.this);
 						nuevoC.setVisible(true);
 					}
 				}
@@ -252,7 +252,7 @@ public class FormArticulos extends JFrame {
 				if(selectedRow == -1) {
 					JOptionPane.showMessageDialog(null, "Debe seleccionar un articulo.");
 				}else {
-					Articulo aux = (Articulo)table_1.getModel().getValueAt(table_1.getSelectedRow(), 6);
+					ArticuloVenta aux = (ArticuloVenta)table_1.getModel().getValueAt(table_1.getSelectedRow(), 6);
 					int dialogResult = JOptionPane.showConfirmDialog(null, "Estas a punto de borrar a " + aux.getDescripcion(), "Confirmar borrado", JOptionPane.YES_NO_OPTION);
 					if(dialogResult == JOptionPane.YES_OPTION){
 						try {
@@ -270,7 +270,7 @@ public class FormArticulos extends JFrame {
 		contentPane.add(btnEliminarArticulo);
 		
 		{
-			Vector<Articulo> vector = new Vector<Articulo>();
+			Vector<ArticuloVenta> vector = new Vector<ArticuloVenta>();
 			FiltroArticulo.descripcion f1 = null;
 			try {
 				vector = db.getArticulos(f1);
@@ -281,7 +281,7 @@ public class FormArticulos extends JFrame {
 		}
 	}
 	
-	public void fillTable(Vector<Articulo> vector) {
+	public void fillTable(Vector<ArticuloVenta> vector) {
 		
 		// llamado a bd
 		DBManager db = new DBManager();

@@ -3,7 +3,7 @@ package Ventas;
 import java.util.HashMap;
 import java.util.Vector;
 
-import Articulos.Articulo;
+import Articulos.ArticuloVenta;
 import Articulos.FamiliaArticulo;
 
 public class Promocion {
@@ -36,7 +36,7 @@ public class Promocion {
 	}
 	public double getDescuento(Venta venta) {
 		double desc = 0;
-		Vector<Articulo> vect = venta.getArticulos();
+		Vector<ArticuloVenta> vect = venta.getArticulos();
 		for(int i =0;i<vect.size();i++) {
 			if(familia.getIdFamilia() == vect.get(i).getFamilia()){
 				desc += vect.get(i).getPrecioUnitario()*descuento/100*venta.getCantidadArticulo(vect.get(i));

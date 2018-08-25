@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import Articulos.*;
-import Articulos.Articulo;
+import Articulos.ArticuloVenta;
 import Cliente.Cliente;
 import DataBase.DBManager;
 
