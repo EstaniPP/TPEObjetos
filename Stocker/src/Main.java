@@ -6,7 +6,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
-import Articulos.ArticuloVenta;
+import Articulos.Articulo;
 import DataBase.DBManager;
 import Filtros.FiltroArticulo;
 import Filtros.FiltroCompuesto;

@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Articulos.ArticuloVenta;
+import Articulos.Articulo;
 import Articulos.FamiliaArticulo;
 import Cliente.TipoCliente;
 import DataBase.DBManager;

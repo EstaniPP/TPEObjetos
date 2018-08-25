@@ -13,7 +13,7 @@ import com.sun.glass.events.KeyEvent;
 import com.sun.glass.events.WindowEvent;
 import com.sun.xml.internal.ws.api.Component;
 
-import Articulos.ArticuloVenta;
+import Articulos.Articulo;
 import Cliente.Cliente;
 import DataBase.DBManager;
 import Filtros.FiltroArticulo;
@@ -62,7 +62,7 @@ public class FormNuevaVenta extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	DefaultTableModel model;
-	ArticuloVenta articulo;
+	Articulo articulo;
 	DBManager db = new DBManager();
 	private JTextField txtcod;
 	private JTextField txtcant;
@@ -177,7 +177,7 @@ public class FormNuevaVenta extends JFrame {
 				Venta v = new Venta(fecha, clienteVenta);
 				// recorro toda la tabla
 				for(int i = 0; i < table.getModel().getRowCount(); i++) {
-					ArticuloVenta aT = (ArticuloVenta) table.getModel().getValueAt(i, 5);
+					Articulo aT = (Articulo) table.getModel().getValueAt(i, 5);
 					int cant = Integer.valueOf((String)table.getModel().getValueAt(i, 1));
 					v.agregarArticulo(aT, cant);
 				}
@@ -233,8 +233,8 @@ public class FormNuevaVenta extends JFrame {
 			public void keyPressed(java.awt.event.KeyEvent e) {
 				if(e.getKeyCode() == 10) {
 					// chequeo si existe
-					articulo = ArticuloVenta.getArticuloError();
-					Vector<ArticuloVenta> vect = new Vector<ArticuloVenta>();
+					articulo = Articulo.getArticuloError();
+					Vector<Articulo> vect = new Vector<Articulo>();
 					try {
 						vect = db.getArticulos(new FiltroArticulo.codigoBarras(txtcod.getText()));
 					}catch(SQLException esql1) {

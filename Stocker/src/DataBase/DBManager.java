@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-import Articulos.ArticuloVenta;
+import Articulos.Articulo;
 import Articulos.FamiliaArticulo;
 import Cliente.Cliente;
 import Cliente.TipoCliente;
@@ -62,7 +62,7 @@ public class DBManager {
 	
 	// funcionalidad articulos
 	
-	public void addArticulo(ArticuloVenta a) {
+	public void addArticulo(Articulo a) {
 		String query = "INSERT INTO `ARTICULOS` "
 				+ "(`idInterno`, `codigoBarras`, `descripcion`, `familia`, `precioUnitario`, `stock`) "
 				+ "VALUES (NULL, '" + a.getCodigoBarras() + "', '" + a.getDescripcion() + "', '" + a.getFamilia()+ "', '" + a.getPrecioUnitario() + "', '" + a.getStock() + "');";
@@ -70,7 +70,7 @@ public class DBManager {
 		this.execQuery(query);
 	}
 	 
-	public void updateArticulo(ArticuloVenta a) {
+	public void updateArticulo(Articulo a) {
 		String query = "UPDATE `ARTICULOS` SET "
 				+ "`codigoBarras` = '" + a.getCodigoBarras() + "', "
 				+ "`descripcion` = '"+ a.getDescripcion() +"', "
@@ -81,20 +81,20 @@ public class DBManager {
 		this.execQuery(query);
 	}
 	
-	public void deleteArticulo(ArticuloVenta a) throws SQLException {
+	public void deleteArticulo(Articulo a) throws SQLException {
 		String query = "DELETE FROM `ARTICULOS` WHERE `idInterno` = " + a.getIdInterno() + ";";
 		this.execQuery(query);
 	}
 	
-	public Vector<ArticuloVenta> getArticulos(Filtro f) throws SQLException{
+	public Vector<Articulo> getArticulos(Filtro f) throws SQLException{
 		String query = "SELECT * FROM ARTICULOS ";
 		if(f != null) {
 			query += "WHERE" + f.getStatement();
 		}
-		Vector<ArticuloVenta> vTemp = new Vector<ArticuloVenta>();
+		Vector<Articulo> vTemp = new Vector<Articulo>();
 		ResultSet rs = dataQuery(query);
 		while(rs.next()) {
-			ArticuloVenta a = new ArticuloVenta(rs.getInt("idInterno"), rs.getString("codigoBarras"), rs.getString("descripcion"), rs.getInt("familia"), rs.getDouble("precioUnitario"), rs.getInt("stock"));
+			Articulo a = new Articulo(rs.getInt("idInterno"), rs.getString("codigoBarras"), rs.getString("descripcion"), rs.getInt("familia"), rs.getDouble("precioUnitario"), rs.getInt("stock"));
 			vTemp.add(a);
 		}
 		return vTemp;
@@ -320,7 +320,7 @@ public class DBManager {
 		}
 		
 		// inserto todos los productos
-		for(ArticuloVenta a : v.getArticulos()) {
+		for(Articulo a : v.getArticulos()) {
 			String qArts = "INSERT INTO `PRODUCTOSVENTA` (`idVentaProd`, `idVentaForeign`, `descripcionArticulo`, `precioArticulo`, `cantidad`) VALUES (NULL, "
 					+ "'" + lastID + "', "
 					+ "'" + a.getDescripcion() + "', "
