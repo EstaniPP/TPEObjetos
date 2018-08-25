@@ -8,7 +8,6 @@ import Articulos.FamiliaArticulo;
 
 public class Promocion {
 	
-	
 	FamiliaArticulo familia;
 	Double descuento;
 	int idPromocion;

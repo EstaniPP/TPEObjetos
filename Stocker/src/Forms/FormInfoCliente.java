@@ -20,8 +20,6 @@ public class FormInfoCliente extends JFrame {
 	private JTable table;
 	private JTable table_1;
 
-
-
 	/**
 	 * Create the frame.
 	 */
