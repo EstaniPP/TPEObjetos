@@ -67,7 +67,7 @@ public class FormNuevaVenta extends JFrame {
 	private JTextField txtcod;
 	private JTextField txtcant;
 	JLabel clientelbl;
-	Cliente clienteVenta = null;
+	Cliente clienteVenta = Cliente.getClienteError();
 	private JTextField total;
 	
 	public static void main(String[] args) {
@@ -97,7 +97,7 @@ public class FormNuevaVenta extends JFrame {
 	public FormNuevaVenta() {
 		// hago que algunas columnas no sean editables!
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 797, 395);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

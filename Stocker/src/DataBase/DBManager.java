@@ -331,7 +331,31 @@ public class DBManager {
 		v.setIdVenta(lastID);
 		return v;
 	}
-	
-	
+	/*
+	public Vector<Venta> getVentas(Filtro f) throws SQLException{
+		String query = "SELECT * FROM VENTAS ";
+		if(f != null) {
+			query += "WHERE " + f.getStatement();
+		}
+		ResultSet rs = this.dataQuery(query);
+		while(rs.next()) {
+			// obtengo los productos de la venta
+			String q2 = "SELECT * FROM PRODUCTOSVENTA WHERE idVentaForeign = '" + rs.getInt("idVenta") + "'";
+			ResultSet rsProd = this.dataQuery(q2);
+			// get cliente venta
+			FiltroCliente.idCliente filC = new FiltroCliente.idCliente(rs.getInt("idClienteVenta"));
+			Cliente cV = this.getClientes(filC).elementAt(0);
+			// creo la venta
+			//(int idVenta, String fechaventa, Cliente cliente)
+			Venta v = new Venta(rs.getInt("idVenta"), rs.getString("fechaVenta"), cV);
+			while(rsProd.next()) {
+				//Articulo(int idInterno, String codigoBarras,	String descripcion, int familia, double precioUnitario, int stock) {
+				// VER Q HACER CON ESTO... EL -1..
+				Articulo ar = new Articulo(-1, "", rsProd.getString("descripcionArticulo"), -1, rsProd.getDouble("precioArticulo"), -1);
+				v.agregarArticulo(ar, rsProd.getInt("cantidad"));
+			}
+		}
+	}
+	*/
 	
 }
