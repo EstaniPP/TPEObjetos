@@ -25,6 +25,7 @@ public class FormVerVenta extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	DefaultTableModel model = new DefaultTableModel();
+	JScrollPane scrollPane;
 
 	public FormVerVenta(VentaHistorica v) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +40,7 @@ public class FormVerVenta extends JFrame {
 		model.addColumn("CANTIDAD");
 		model.addColumn("TOTAL");
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 114, 493, 283);
 		contentPane.add(scrollPane);
 		

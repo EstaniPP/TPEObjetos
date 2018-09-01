@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import Cliente.Cliente;
 import DataBase.DBManager;
+import Filtros.FiltroVenta;
 
 import javax.swing.JLabel;
 import java.awt.Component;
@@ -16,6 +17,8 @@ import javax.swing.Box;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FormInfoCliente extends JFrame {
 
@@ -89,8 +92,15 @@ public class FormInfoCliente extends JFrame {
 		lblLabelcantcompras.setBounds(433, 52, 135, 16);
 		contentPane.add(lblLabelcantcompras);
 		
-		JButton btnVerVenta = new JButton("VER VENTA");
-		btnVerVenta.setEnabled(false);
+		JButton btnVerVenta = new JButton("Ver ventas");
+		btnVerVenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				/*FiltroVenta.idClienteVenta filtro = new FiltroVenta.idClienteVenta(c.getIdCliente());
+				FormVerVentas nuevoFV = new FormVerVentas(filtro);
+				nuevoFV.setVisible(true);*/
+			}
+		});
+		btnVerVenta.setEnabled(true);
 		btnVerVenta.setBounds(430, 88, 135, 38);
 		contentPane.add(btnVerVenta);
 	}
