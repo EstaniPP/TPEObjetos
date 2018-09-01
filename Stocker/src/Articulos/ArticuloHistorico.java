@@ -1,6 +1,6 @@
 package Articulos;
 
-public abstract class ArticuloHistorico {
+public class ArticuloHistorico {
 	// descripcion del articulo
 	String descripcion;
 	// precio por unidad

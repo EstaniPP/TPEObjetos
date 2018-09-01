@@ -8,24 +8,27 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Cliente.Cliente;
+import DataBase.DBManager;
+
 import javax.swing.JLabel;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JButton;
 
 public class FormInfoCliente extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JTable table_1;
 
 	/**
 	 * Create the frame.
 	 */
 	public FormInfoCliente(Cliente c) {
+		DBManager db = new DBManager();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 771, 485);
+		setBounds(100, 100, 595, 485);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -55,19 +58,19 @@ public class FormInfoCliente extends JFrame {
 		lblEmail.setBounds(15, 88, 56, 16);
 		contentPane.add(lblEmail);
 		
-		JLabel lblLabelnombre = new JLabel("label_nombre");
+		JLabel lblLabelnombre = new JLabel(c.getNombre());
 		lblLabelnombre.setBounds(105, 34, 125, 16);
 		contentPane.add(lblLabelnombre);
 		
-		JLabel lblLabeltipo = new JLabel("label_tipo");
+		JLabel lblLabeltipo = new JLabel(db.getTipoCliente(c.getTipoCliente()).getNombreTipoCliente());
 		lblLabeltipo.setBounds(105, 52, 125, 16);
 		contentPane.add(lblLabeltipo);
 		
-		JLabel lblLabeltelefono = new JLabel("label_telefono");
+		JLabel lblLabeltelefono = new JLabel(c.getTelefono());
 		lblLabeltelefono.setBounds(105, 70, 125, 16);
 		contentPane.add(lblLabeltelefono);
 		
-		JLabel lblLabelemail = new JLabel("label_email");
+		JLabel lblLabelemail = new JLabel(c.getEmail());
 		lblLabelemail.setBounds(105, 88, 125, 16);
 		contentPane.add(lblLabelemail);
 		
@@ -88,33 +91,23 @@ public class FormInfoCliente extends JFrame {
 		contentPane.add(lblLabelcantcompras);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(5, 173, 347, 16);
+		separator_1.setBounds(5, 173, 563, 16);
 		contentPane.add(separator_1);
 		
 		JLabel lblCompras = new JLabel("Compras");
 		lblCompras.setBounds(5, 154, 56, 16);
 		contentPane.add(lblCompras);
 		
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(394, 173, 347, 16);
-		contentPane.add(separator_2);
-		
-		JLabel lblProductosCompra = new JLabel("Productos compra");
-		lblProductosCompra.setBounds(394, 154, 125, 16);
-		contentPane.add(lblProductosCompra);
-		
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 183, 347, 242);
+		panel.setBounds(5, 183, 371, 242);
 		contentPane.add(panel);
 		
 		table = new JTable();
 		panel.add(table);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(394, 183, 347, 242);
-		contentPane.add(panel_1);
-		
-		table_1 = new JTable();
-		panel_1.add(table_1);
+		JButton btnVerVenta = new JButton("VER VENTA");
+		btnVerVenta.setEnabled(false);
+		btnVerVenta.setBounds(388, 369, 180, 56);
+		contentPane.add(btnVerVenta);
 	}
 }

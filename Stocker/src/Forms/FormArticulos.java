@@ -178,10 +178,10 @@ public class FormArticulos extends JFrame {
 		});
 				
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 98, 835, 293);
+		scrollPane.setBounds(12, 98, 813, 293);
 		contentPane.add(scrollPane);
 		
-		JButton btnNewButton = new JButton("Modificar articulo");
+		JButton btnNewButton = new JButton("MODIFICAR ARTICULO");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// modificar seleccionado
@@ -211,17 +211,17 @@ public class FormArticulos extends JFrame {
 		
 		
 		
-		btnNewButton.setBounds(859, 149, 143, 38);
+		btnNewButton.setBounds(837, 149, 165, 38);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Agregar articulo");
+		JButton btnNewButton_1 = new JButton("AGREGAR ARTICULO");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FormNuevoArticulo nuevoA = new FormNuevoArticulo(null,FormArticulos.this);
 				nuevoA.setVisible(true);
 			}
 		});
-		btnNewButton_1.setBounds(859, 98, 143, 38);
+		btnNewButton_1.setBounds(837, 98, 165, 38);
 		contentPane.add(btnNewButton_1);		
 		
 		
@@ -243,7 +243,7 @@ public class FormArticulos extends JFrame {
 		
 		//Fin modelo de tabla
 		
-		JButton btnEliminarArticulo = new JButton("Eliminar articulo");
+		JButton btnEliminarArticulo = new JButton("ELIMINAR ARTICULO");
 		btnEliminarArticulo.setForeground(Color.RED);
 		btnEliminarArticulo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -266,7 +266,7 @@ public class FormArticulos extends JFrame {
 				}
 			}
 		});
-		btnEliminarArticulo.setBounds(859, 200, 143, 38);
+		btnEliminarArticulo.setBounds(837, 200, 165, 38);
 		contentPane.add(btnEliminarArticulo);
 		
 		{
