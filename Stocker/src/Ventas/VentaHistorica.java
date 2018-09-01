@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import Cliente.Cliente;
 
-public class VentaHistorica extends ElementoVenta{
+public class VentaHistorica{
 	int idVenta;
 	double total;
 	double pagado;

@@ -8,25 +8,23 @@ import Articulos.*;
 import Cliente.Cliente;
 import DataBase.DBManager;
 
-public class Venta extends ElementoVenta{
+public class Venta{
 	
 	// fecha en que se realizo la venta
-		String fechaVenta;
-		//Productos que se vendieron
-		Vector<ArticuloHistorico> articulos;
-		//Hash con id de producto y cantidad.
-		HashMap<Integer, Integer> cantidadArticulos;
-		// si es null es q es consumidor final
-		
-	public Venta() {
-		super();
-	}
+	String fechaVenta;
+	//Productos que se vendieron
+	Vector<Articulo> articulos;
+	//Hash con id de producto y cantidad.
+	HashMap<Integer, Integer> cantidadArticulos;
+	// si es null es q es consumidor final
+	Cliente cliente;
+	
 	public Venta(String fechaventa, Cliente cliente) {
-		super(fechaventa, cliente);
 		this.fechaVenta = fechaventa;
 		this.cliente = cliente;
 	}
 	// OJO
+	
 	public Double getPrecioTotal() {
 		Double total = 0.0;
 		for(int i=0;i<articulos.size();i++) {
@@ -47,14 +45,7 @@ public class Venta extends ElementoVenta{
 		}
 		return precio;
 	}
-	
-	public VentaHistorica getHistorica() {
-		VentaHistorica v = new VentaHistorica(this.getFechaVenta(), this.getCliente());
-		for(Articulo a: this.getArticulos()) {
-			
-		}
-	}
-	
+
 	public boolean agregarArticulo(Articulo art, Integer cant) {
 		if(cantidadArticulos.containsKey(art.getIdInterno())) {
 			cantidadArticulos.put(art.getIdInterno(), cant+cantidadArticulos.get(art.getIdInterno()));
@@ -65,9 +56,35 @@ public class Venta extends ElementoVenta{
 		return true;
 	}
 	
-	public Vector<ArticuloHistorico> getArticulos() {
+	public Vector<Articulo> getArticulos() {
 		return articulos;
 	}
 	
+	public boolean borrarArticulo(Articulo art) {
+		if(articulos.contains(art)) {
+			articulos.remove(art);
+			cantidadArticulos.remove(art.getIdInterno());
+			return true;
+		}else {
+			return false;
+		}	
+	}
+	public int getCantidadArticulo(Articulo art) {
+		if(cantidadArticulos.containsKey(art.getIdInterno())){
+			return cantidadArticulos.get(art.getIdInterno());
+		}else {
+			return 0;
+		}
+	}
 	
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public String getFechaVenta() {
+		return fechaVenta;
+	}
+	
+	public Vector<Articulo> getArticulosVenta(){
+		return articulos;
+	}
 }
