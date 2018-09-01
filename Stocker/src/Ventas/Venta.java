@@ -10,6 +10,7 @@ import DataBase.DBManager;
 
 public class Venta{
 	
+	int idVenta;
 	// fecha en que se realizo la venta
 	String fechaVenta;
 	//Productos que se vendieron
@@ -24,7 +25,12 @@ public class Venta{
 		this.cliente = cliente;
 	}
 	// OJO
-	
+	public int getIdVenta() {
+		return idVenta;
+	}
+	public void setIdVenta(int idVenta) {
+		this.idVenta = idVenta;
+	}
 	public Double getPrecioTotal() {
 		Double total = 0.0;
 		for(int i=0;i<articulos.size();i++) {
@@ -80,6 +86,10 @@ public class Venta{
 	public Cliente getCliente() {
 		return cliente;
 	}
+	
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 	public String getFechaVenta() {
 		return fechaVenta;
 	}
@@ -88,10 +98,12 @@ public class Venta{
 		return articulos;
 	}
 	
-	public VentaHistorica getHistorica() {
+	public VentaHistorica getHistorica(double pagado) {
 		Vector<ArticuloHistorico> historicos = new Vector<ArticuloHistorico>();
 		for(Articulo a: articulos) {
-			historicos.add(new ArticuloHistorico())
+			//public ArticuloHistorico(String descripcion, double precioUnitario, int cantidad) {
+			historicos.add(new ArticuloHistorico(a.getDescripcion(), a.getPrecioUnitario(), cantidadArticulos.get(a.getIdInterno())));
 		}
+		return new VentaHistorica(this.idVenta, this.getPrecioTotal(), pagado, this.getFechaVenta(), historicos, this.cliente);
 	}
 }

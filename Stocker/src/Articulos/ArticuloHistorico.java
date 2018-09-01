@@ -6,12 +6,12 @@ public class ArticuloHistorico {
 	// precio por unidad
 	double precioUnitario;
 	// cantidad en stock
-	int stock;
+	int cantidad;
 	
-	public ArticuloHistorico(String descripcion, double precioUnitario, int stock) {
+	public ArticuloHistorico(String descripcion, double precioUnitario, int cantidad) {
 		this.descripcion = descripcion;
 		this.precioUnitario = precioUnitario;
-		this.stock = stock;
+		this.cantidad = cantidad;
 	}
 	
 	public String getDescripcion() {
@@ -22,7 +22,7 @@ public class ArticuloHistorico {
 		return precioUnitario;
 	}
 	
-	public int getStock() {
-		return stock;
+	public int getCantidad() {
+		return cantidad;
 	}
 }
