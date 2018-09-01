@@ -84,6 +84,8 @@ public class Articulo{
 		this.stock = art.getStock();
 	}
 	
-	//terminar para valen public ArticuloHistorico 
+	public ArticuloHistorico getHistorico(int cantidad) {
+		return new ArticuloHistorico(descripcion, precioUnitario, cantidad);
+	}
 	
 }
