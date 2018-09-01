@@ -20,7 +20,6 @@ import javax.swing.JButton;
 public class FormInfoCliente extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
 
 	/**
 	 * Create the frame.
@@ -28,7 +27,7 @@ public class FormInfoCliente extends JFrame {
 	public FormInfoCliente(Cliente c) {
 		DBManager db = new DBManager();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 595, 485);
+		setBounds(100, 100, 595, 186);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -90,24 +89,9 @@ public class FormInfoCliente extends JFrame {
 		lblLabelcantcompras.setBounds(433, 52, 135, 16);
 		contentPane.add(lblLabelcantcompras);
 		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(5, 173, 563, 16);
-		contentPane.add(separator_1);
-		
-		JLabel lblCompras = new JLabel("Compras");
-		lblCompras.setBounds(5, 154, 56, 16);
-		contentPane.add(lblCompras);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(5, 183, 371, 242);
-		contentPane.add(panel);
-		
-		table = new JTable();
-		panel.add(table);
-		
 		JButton btnVerVenta = new JButton("VER VENTA");
 		btnVerVenta.setEnabled(false);
-		btnVerVenta.setBounds(388, 369, 180, 56);
+		btnVerVenta.setBounds(430, 88, 135, 38);
 		contentPane.add(btnVerVenta);
 	}
 }

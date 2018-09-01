@@ -27,7 +27,7 @@ public class VentaHistorica{
 	public double getPrecioTotal() {
 		return total;
 	}
-	public double getPrecioAPagar(Vector<Promocion> promocion) {
+	public double getPrecioAPagar() {
 		return pagado;
 	}
 
@@ -41,6 +41,10 @@ public class VentaHistorica{
 
 	public Vector<ArticuloHistorico> getArticulos() {
 		return articulos;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
 	}
 
 	
