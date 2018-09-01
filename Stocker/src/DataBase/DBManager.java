@@ -319,7 +319,6 @@ public class DBManager {
 		if(q.next()) {
 			lastID = q.getInt("lid");
 		}
-		
 		// inserto todos los productos
 		for(Articulo a : v.getArticulos()) {
 			String qArts = "INSERT INTO `PRODUCTOSVENTA` (`idVentaProd`, `idVentaForeign`, `descripcionArticulo`, `precioArticulo`, `cantidad`) VALUES (NULL, "
@@ -330,8 +329,9 @@ public class DBManager {
 			this.execQuery(qArts);
 		}
 		v.setIdVenta(lastID);
-		return v;
+		return v.getHistorica(vP);
 	}
+	
 	/*
 	public Vector<Venta> getVentas(Filtro f) throws SQLException{
 		String query = "SELECT * FROM VENTAS ";

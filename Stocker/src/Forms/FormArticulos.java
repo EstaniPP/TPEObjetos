@@ -1,6 +1,5 @@
 package Forms;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,20 +7,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Articulos.Articulo;
-import Cliente.Cliente;
 import DataBase.DBManager;
 import Filtros.FiltroArticulo;
-import Filtros.FiltroCliente;
-import Filtros.FiltroArticulo.codigoBarras;
-import Filtros.FiltroArticulo.descripcion;
-import Filtros.FiltroArticulo.idInterno;
+
 
 import javax.swing.JScrollPane;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import java.awt.CardLayout;
+
 import java.awt.Color;
-import java.awt.GridLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -32,14 +25,17 @@ import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import java.awt.Component;
-import javax.swing.Box;
+
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 public class FormArticulos extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Launch the application.
 	 */

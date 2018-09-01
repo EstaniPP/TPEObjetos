@@ -1,6 +1,4 @@
 package Ventas;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -20,7 +18,13 @@ public class Venta{
 	// si es null es q es consumidor final
 	Cliente cliente;
 	
+	
+	public Venta() {
+		cantidadArticulos = new HashMap<Integer, Integer>();
+		articulos = new Vector<Articulo>();
+	}
 	public Venta(String fechaventa, Cliente cliente) {
+		this();
 		this.fechaVenta = fechaventa;
 		this.cliente = cliente;
 	}
@@ -98,12 +102,12 @@ public class Venta{
 		return articulos;
 	}
 	
-	public VentaHistorica getHistorica(double pagado) {
+	public VentaHistorica getHistorica(Vector<Promocion> promociones) {
 		Vector<ArticuloHistorico> historicos = new Vector<ArticuloHistorico>();
 		for(Articulo a: articulos) {
 			//public ArticuloHistorico(String descripcion, double precioUnitario, int cantidad) {
 			historicos.add(new ArticuloHistorico(a.getDescripcion(), a.getPrecioUnitario(), cantidadArticulos.get(a.getIdInterno())));
 		}
-		return new VentaHistorica(this.idVenta, this.getPrecioTotal(), pagado, this.getFechaVenta(), historicos, this.cliente);
+		return new VentaHistorica(this.idVenta, this.getPrecioTotal(), this.getPrecioAPagar(promociones), this.getFechaVenta(), historicos, this.cliente);
 	}
 }

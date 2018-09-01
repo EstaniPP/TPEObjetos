@@ -18,6 +18,7 @@ import Cliente.Cliente;
 import DataBase.DBManager;
 import Filtros.FiltroArticulo;
 import Ventas.Venta;
+import Ventas.VentaHistorica;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -182,12 +183,14 @@ public class FormNuevaVenta extends JFrame {
 					v.agregarArticulo(aT, cant);
 				}
 				v.setCliente(FormNuevaVenta.this.clienteVenta);
+				VentaHistorica venta = null;
 				try {
-					System.out.println(db.addVenta(v).getIdVenta());
+					venta = db.addVenta(v);
 				}catch(SQLException e123) {
 					e123.printStackTrace();
 				}
 				
+				System.out.println(venta.getIdVenta());
 			}
 		});
 		btnRealizarFactura.setForeground(new Color(34, 139, 34));
