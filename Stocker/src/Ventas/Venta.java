@@ -5,16 +5,24 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import Articulos.*;
-import Articulos.Articulo;
 import Cliente.Cliente;
 import DataBase.DBManager;
 
 public class Venta extends ElementoVenta{
+	
+	// fecha en que se realizo la venta
+		String fechaVenta;
+		//Productos que se vendieron
+		Vector<ArticuloHistorico> articulos;
+		//Hash con id de producto y cantidad.
+		HashMap<Integer, Integer> cantidadArticulos;
+		// si es null es q es consumidor final
+		
 	public Venta() {
 		super();
 	}
 	public Venta(String fechaventa, Cliente cliente) {
-		this();
+		super(fechaventa, cliente);
 		this.fechaVenta = fechaventa;
 		this.cliente = cliente;
 	}
@@ -38,6 +46,27 @@ public class Venta extends ElementoVenta{
 			precio = (precio*(100-(db.getTipoCliente(cliente.getTipoCliente()).getDescuento())))/100.0;
 		}
 		return precio;
+	}
+	
+	public VentaHistorica getHistorica() {
+		VentaHistorica v = new VentaHistorica(this.getFechaVenta(), this.getCliente());
+		for(Articulo a: this.getArticulos()) {
+			
+		}
+	}
+	
+	public boolean agregarArticulo(Articulo art, Integer cant) {
+		if(cantidadArticulos.containsKey(art.getIdInterno())) {
+			cantidadArticulos.put(art.getIdInterno(), cant+cantidadArticulos.get(art.getIdInterno()));
+		}else {
+			articulos.add(art);
+			cantidadArticulos.put(art.getIdInterno(), cant);
+		}
+		return true;
+	}
+	
+	public Vector<ArticuloHistorico> getArticulos() {
+		return articulos;
 	}
 	
 	

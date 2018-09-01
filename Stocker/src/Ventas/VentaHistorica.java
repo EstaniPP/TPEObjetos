@@ -2,10 +2,19 @@ package Ventas;
 
 import java.util.Vector;
 
+import Cliente.Cliente;
+
 public class VentaHistorica extends ElementoVenta{
 	int idVenta;
 	double total;
 	double pagado;
+	
+	public VentaHistorica() {
+		super();
+	}
+	public VentaHistorica(String fechaVenta, Cliente cliente) {
+		super(fechaVenta, cliente);
+	}
 	@Override
 	public Double getPrecioTotal() {
 		return total;
@@ -14,5 +23,6 @@ public class VentaHistorica extends ElementoVenta{
 	public double getPrecioAPagar(Vector<Promocion> promocion) {
 		return pagado;
 	}
+	
 }
  

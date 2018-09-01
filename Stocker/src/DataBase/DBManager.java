@@ -304,7 +304,7 @@ public class DBManager {
 	 
 	// inicio funcionalidad de ventas
 	// retorna la venta insertada con el id actualizado
-	public Venta addVenta(Venta v) throws SQLException {
+	public VentaHistorica addVenta(Venta v) throws SQLException {
 		Vector<Promocion> vP = this.getPromociones();
 		String query = "INSERT INTO `VENTAS` (`idVenta`, `total`, `pagado`, `idClienteVenta`, `fechaVenta`) VALUES "
 				+ "(NULL, "
