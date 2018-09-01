@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 import Articulos.Articulo;
+import Articulos.ArticuloHistorico;
 import Articulos.FamiliaArticulo;
 import Cliente.Cliente;
 import Cliente.TipoCliente;
@@ -332,13 +333,14 @@ public class DBManager {
 		return v.getHistorica(vP);
 	}
 	
-	/*
-	public Vector<Venta> getVentas(Filtro f) throws SQLException{
+
+	public Vector<VentaHistorica> getVentas(Filtro f) throws SQLException{
 		String query = "SELECT * FROM VENTAS ";
 		if(f != null) {
 			query += "WHERE " + f.getStatement();
 		}
 		ResultSet rs = this.dataQuery(query);
+		Vector<VentaHistorica> vH = new Vector<VentaHistorica>();
 		while(rs.next()) {
 			// obtengo los productos de la venta
 			String q2 = "SELECT * FROM PRODUCTOSVENTA WHERE idVentaForeign = '" + rs.getInt("idVenta") + "'";
@@ -346,17 +348,17 @@ public class DBManager {
 			// get cliente venta
 			FiltroCliente.idCliente filC = new FiltroCliente.idCliente(rs.getInt("idClienteVenta"));
 			Cliente cV = this.getClientes(filC).elementAt(0);
-			// creo la venta
-			//(int idVenta, String fechaventa, Cliente cliente)
-			Venta v = new Venta(rs.getInt("idVenta"), rs.getString("fechaVenta"), cV);
+			Vector<ArticuloHistorico> arts = new Vector<ArticuloHistorico>();
 			while(rsProd.next()) {
-				//Articulo(int idInterno, String codigoBarras,	String descripcion, int familia, double precioUnitario, int stock) {
-				// VER Q HACER CON ESTO... EL -1..
-				Articulo ar = new Articulo(-1, "", rsProd.getString("descripcionArticulo"), -1, rsProd.getDouble("precioArticulo"), -1);
-				v.agregarArticulo(ar, rsProd.getInt("cantidad"));
+				ArticuloHistorico art = new ArticuloHistorico(rsProd.getString("descripcionArticulo"), rsProd.getDouble("precioArticulo"), rsProd.getInt("cantidad"));
+				arts.add(art);
 			}
+			// creo la venta
+			// VentaHistorica(int idVenta, double total, double pagado, String fechaVenta, Vector<ArticuloHistorico> articulos, Cliente cliente)
+			vH.add(new VentaHistorica(rs.getInt("idVenta"), rs.getDouble("total"), rs.getDouble("pagado"), rs.getString("fechaVenta"), arts, cV));
 		}
+		return vH;
 	}
-	*/
+	
 	
 }
