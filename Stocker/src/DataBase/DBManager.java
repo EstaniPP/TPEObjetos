@@ -19,6 +19,7 @@ import Filtros.Filtro;
 import Filtros.FiltroCliente;
 import Ventas.Promocion;
 import Ventas.Venta;
+import Ventas.VentaHistorica;
 
 public class DBManager {
 	private Connection connection;

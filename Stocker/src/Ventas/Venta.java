@@ -87,4 +87,11 @@ public class Venta{
 	public Vector<Articulo> getArticulosVenta(){
 		return articulos;
 	}
+	
+	public VentaHistorica getHistorica() {
+		Vector<ArticuloHistorico> historicos = new Vector<ArticuloHistorico>();
+		for(Articulo a: articulos) {
+			historicos.add(new ArticuloHistorico())
+		}
+	}
 }
