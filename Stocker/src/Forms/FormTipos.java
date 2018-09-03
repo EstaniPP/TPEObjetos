@@ -66,6 +66,7 @@ public class FormTipos extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JButton btnAgregarFamilia = new JButton("Agregar tipo");
+		btnAgregarFamilia.setForeground(new Color(0, 128, 0));
 		btnAgregarFamilia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				(new FormNuevoTipo(null, FormTipos.this)).setVisible(true);

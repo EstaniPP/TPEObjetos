@@ -67,6 +67,7 @@ public class FormPromociones extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JButton btnAgregarPromociones = new JButton("Agregar promocion");
+		btnAgregarPromociones.setForeground(new Color(0, 128, 0));
 		btnAgregarPromociones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				(new FormNuevaPromocion(null, FormPromociones.this)).setVisible(true);

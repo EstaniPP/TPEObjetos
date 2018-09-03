@@ -204,13 +204,11 @@ public class FormArticulos extends JFrame {
 			}
 		});
 		
-		
-		
-		
 		btnNewButton.setBounds(837, 149, 165, 38);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("AGREGAR ARTICULO");
+		btnNewButton_1.setForeground(new Color(0, 128, 0));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FormNuevoArticulo nuevoA = new FormNuevoArticulo(null,FormArticulos.this);

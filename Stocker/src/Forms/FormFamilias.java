@@ -63,6 +63,7 @@ public class FormFamilias extends JFrame {
 		scrollPane.setViewportView(table);
 		
 		JButton btnAgregarFamilia = new JButton("Agregar familia");
+		btnAgregarFamilia.setForeground(new Color(0, 128, 0));
 		btnAgregarFamilia.setBounds(279, 42, 143, 38);
 		contentPane.add(btnAgregarFamilia);
 		btnAgregarFamilia.addActionListener(new ActionListener() {
