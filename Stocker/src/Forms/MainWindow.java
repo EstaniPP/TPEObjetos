@@ -48,7 +48,7 @@ public class MainWindow{
 	public MainWindow() {
 		initialize();
 	}
-
+ 
 	/**
 	 * Initialize the contents of the frame.
 	 */
