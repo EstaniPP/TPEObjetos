@@ -347,12 +347,14 @@ public class DBManager {
 			ResultSet rsProd = this.dataQuery(q2);
 			// get cliente venta
 			FiltroCliente.idCliente filC = new FiltroCliente.idCliente(rs.getInt("idClienteVenta"));
+			
 			Cliente cV = this.getClientes(filC).elementAt(0);
 			Vector<ArticuloHistorico> arts = new Vector<ArticuloHistorico>();
 			while(rsProd.next()) {
 				ArticuloHistorico art = new ArticuloHistorico(rsProd.getString("descripcionArticulo"), rsProd.getDouble("precioArticulo"), rsProd.getInt("cantidad"));
 				arts.add(art);
 			}
+			System.out.println(arts.size());
 			// creo la venta
 			// VentaHistorica(int idVenta, double total, double pagado, String fechaVenta, Vector<ArticuloHistorico> articulos, Cliente cliente)
 			vH.add(new VentaHistorica(rs.getInt("idVenta"), rs.getDouble("total"), rs.getDouble("pagado"), rs.getString("fechaVenta"), arts, cV));

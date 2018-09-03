@@ -45,6 +45,7 @@ public class FormClientes extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	JButton btnselect;
+	JButton sv;
 	// tablas
 	private JTable table;
 	DefaultTableModel model;
@@ -52,7 +53,7 @@ public class FormClientes extends JFrame {
 	DBManager db = new DBManager();
 	
 	FormNuevaVenta fventa = null;
-	
+	FormVerVentas fventas = null;
 	
 	
 	
@@ -60,6 +61,12 @@ public class FormClientes extends JFrame {
 		this();
 		contentPane.add(btnselect);
 		this.fventa = venta;
+	}
+	
+	public FormClientes(FormVerVentas ventas) {
+		this();
+		contentPane.add(sv);
+		this.fventas = ventas;
 	}
 	public FormClientes() {
 		
@@ -168,7 +175,9 @@ public class FormClientes extends JFrame {
 		model.addColumn("TIPO");
 		
 		model.addColumn("hidden");
+		
 		fillTable(null);
+		
 		JButton btnNewButton = new JButton("NUEVO CLIENTE");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -266,12 +275,28 @@ public class FormClientes extends JFrame {
 				if(selectedRow == -1) {
 					JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente.");
 				}else {
-					fventa.setCliente((Cliente) model.getValueAt(table.getSelectedRow(), 5));
+					//fventa.setCliente((Cliente) model.getValueAt(table.getSelectedRow(), 5));
+					fventas.setCliente((Cliente) model.getValueAt(table.getSelectedRow(), 5));
 					FormClientes.this.dispose();
 				}	
 			}
 		});
 		
+		sv = new JButton("SELECCIONAR");
+		sv.setForeground(new Color(50, 205, 50));
+		sv.setBounds(593, 321, 160, 45);
+		
+		sv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow == -1) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente.");
+				}else {
+					fventas.setCliente((Cliente) model.getValueAt(table.getSelectedRow(), 5));
+					FormClientes.this.dispose();
+				}	
+			}
+		});
 		
 		
 		if(fventa != null) {
