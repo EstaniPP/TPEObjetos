@@ -1,6 +1,4 @@
 package Forms;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,54 +6,29 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-
-import com.sun.glass.events.KeyEvent;
-import com.sun.glass.events.WindowEvent;
-import com.sun.xml.internal.ws.api.Component;
-
 import Articulos.Articulo;
 import Cliente.Cliente;
 import DataBase.DBManager;
 import Filtros.FiltroArticulo;
 import Ventas.Venta;
 import Ventas.VentaHistorica;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
-import java.awt.TextField;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.JCheckBox;
-import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowListener;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.Vector;
 import java.awt.Color;
 import java.awt.event.ActionListener;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 
 
 public class FormNuevaVenta extends JFrame {

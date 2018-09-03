@@ -4,36 +4,18 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JProgressBar;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
-
-import javafx.scene.control.TableColumn;
-import javax.swing.JList;
-import java.awt.Color;
-import javax.swing.ListSelectionModel;
-import javax.swing.AbstractListModel;
-import javax.swing.border.BevelBorder;
-
-import com.sun.javafx.tk.Toolkit;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JToolBar;
+import DataBase.DBManager;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.GridLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.BoxLayout;
-import java.awt.GridBagLayout;
-import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dialog.ModalExclusionType;
 import javax.swing.JMenu;
 
-public class MainWindow {
+public class MainWindow{
 
 	private JFrame frmStocker;
 	private JTable table;
@@ -42,17 +24,22 @@ public class MainWindow {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow window = new MainWindow();
-					window.frmStocker.setLocationRelativeTo(null);
-					window.frmStocker.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+		DBManager db = new DBManager();
+		if(db.conexionExitosa()==false) {
+			JOptionPane.showMessageDialog(null, "No se ha podido establecer conexion con el servidor");
+		}else {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						MainWindow window = new MainWindow();
+						window.frmStocker.setLocationRelativeTo(null);
+						window.frmStocker.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 	/**
@@ -66,8 +53,6 @@ public class MainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
-		
 		frmStocker = new JFrame();
 		frmStocker.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		frmStocker.setTitle("STOCKER");
@@ -143,8 +128,5 @@ public class MainWindow {
 			}
 		});
 		mnStocker.add(mntmTiposDeClientes);
-		
-		
-		
 	}
 }

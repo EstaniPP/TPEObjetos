@@ -29,16 +29,22 @@ public class DBManager {
 	private final String dbUser = "root";
 	private final String dbPassword = "";
 	private final String dbName = "stocker";
-	
+	private boolean conectado;
 	
 	
 	public DBManager() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection ("jdbc:mysql://"+ dbHost +":"+ dbPort +"/"+ dbName +"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",""+ dbUser +"", dbPassword);
+			conectado = true;
 		}catch(Exception e) {
 			e.printStackTrace();
+			conectado = false;
 		}
+	}
+	
+	public boolean conexionExitosa() {
+		return conectado;
 	}
 	
 	public ResultSet dataQuery(String query) {
@@ -68,7 +74,6 @@ public class DBManager {
 		String query = "INSERT INTO `ARTICULOS` "
 				+ "(`idInterno`, `codigoBarras`, `descripcion`, `familia`, `precioUnitario`, `stock`) "
 				+ "VALUES (NULL, '" + a.getCodigoBarras() + "', '" + a.getDescripcion() + "', '" + a.getFamilia()+ "', '" + a.getPrecioUnitario() + "', '" + a.getStock() + "');";
-		// ejecuto la consulta
 		this.execQuery(query);
 	}
 	 
@@ -102,6 +107,11 @@ public class DBManager {
 		return vTemp;
 	}
 	
+	//fin funcionalidad articulo
+	
+	
+	
+	
 	// funcionalidad clientes
 	
 	public Vector<Cliente> getClientes(Filtro f) throws SQLException{
@@ -129,7 +139,7 @@ public class DBManager {
 			return Cliente.getClienteError();
 		}
 	}
-	//
+
 	public void addCliente(Cliente c) {
 		String query = "INSERT INTO `CLIENTES` (`idCliente`, `nombre`, `telefono`, `email`, `tipoCliente`) VALUES "
 				+ "(NULL, "
@@ -137,11 +147,9 @@ public class DBManager {
 				+ "'" + c.getTelefono() + "', "
 				+ "'" + c.getEmail() + "', "
 				+ "'" + c.getTipoCliente() + "');";
-		// ejecuto la consulta
 		this.execQuery(query);
 	}
 	
-	//UPDATE `CLIENTES` SET `nombre` = 'Estanislao Perez Pena ', `telefono` = '33563563535 ', `email` = 'estanipp@gmail.com ', `tipoCliente` = '3' WHERE `CLIENTES`.`idCliente` = 3;
 	public void updateCliente(Cliente c) {
 		String query = "UPDATE `CLIENTES` SET "
 				+ "`nombre` = '" + c.getNombre() + "', "
@@ -153,10 +161,17 @@ public class DBManager {
 	}
 	public void deleteCliente(Cliente c) throws SQLException {
 		execQuery("DELETE FROM `CLIENTES` WHERE `CLIENTES`.`idCliente` = " + c.getIdCliente() + "");
+		execQuery("UPDATE `VENTAS` SET "
+				+ "`idClienteVenta` = '" + "NULL" + "' "
+				+ "WHERE `VENTAS`.`idClienteVenta` = " + c.getIdCliente()+ ";");
 	}
 	
+	//fin funcionalidad clientes
 	
-	// tipo de clientes
+	
+	
+	
+	// funcionalidad tipo de clientes
 	
 	public void updateTipoCliente(TipoCliente c) {
 		String query = "UPDATE `TIPOCLIENTE` SET "
@@ -183,6 +198,41 @@ public class DBManager {
 		}
 		return vect;
 	}
+	
+	public void deleteTipoCliente(TipoCliente c) throws SQLException {
+		execQuery("DELETE FROM `TIPOCLIENTE` WHERE `TIPOCLIENTE`.`idInterno` = " + c.getIdTipoCliente() + "");
+	}
+	
+	public TipoCliente getTipoCliente(int tipo) {
+		try {
+			ResultSet rs = dataQuery("SELECT * FROM TIPOCLIENTE WHERE idInterno = '" + tipo + "'");
+			if(rs.next()) {
+				TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("porcentajeDescuento"), rs.getString("nombreTipo"));
+				return tTemp;
+			}else {
+				TipoCliente tTemp = new TipoCliente(-1, 0, "Sin resultados");
+				return tTemp;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void addTipoCliente(TipoCliente c) {
+		String query = "INSERT INTO `TIPOCLIENTE` (`idInterno`, `nombreTipo`, porcentajeDescuento) VALUES "
+				+ "(NULL, "
+				+ "'" + c.getNombreTipoCliente() + "',"
+				+ c.getDescuento() + ");";
+		this.execQuery(query);
+	}
+	
+	
+	//fin funcionalidad tipos de cliente
+	
+	
+	
+	//funcionalidad promociones
 	
 	public Vector<Promocion> getPromociones(){
 		Vector<Promocion> vect = new Vector<Promocion>();
@@ -217,32 +267,16 @@ public class DBManager {
 		this.execQuery(query);
 	}
 	
-	public void deleteTipoCliente(TipoCliente c) throws SQLException {
-		execQuery("DELETE FROM `TIPOCLIENTE` WHERE `TIPOCLIENTE`.`idInterno` = " + c.getIdTipoCliente() + "");
-	}
-	
 	public void deletePromocion(Promocion c) throws SQLException {
 		execQuery("DELETE FROM `PROMOCIONES` WHERE `PROMOCIONES`.`idPromocion` = " + c.getIdPromocion() + "");
 	}
+	//fin funcionalidad promociones
 	
-	public TipoCliente getTipoCliente(int tipo) {
-		try {
-			ResultSet rs = dataQuery("SELECT * FROM TIPOCLIENTE WHERE idInterno = '" + tipo + "'");
-			if(rs.next()) {
-				TipoCliente tTemp = new TipoCliente(rs.getInt("idInterno"), rs.getDouble("porcentajeDescuento"), rs.getString("nombreTipo"));
-				return tTemp;
-			}else {
-				TipoCliente tTemp = new TipoCliente(-1, 0, "Sin resultados");
-				return tTemp;
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
+	
+	
 	
 	// Funcionalidad familias de articulos
+	
 	public Vector<FamiliaArticulo> getFamilias(){
 		Vector<FamiliaArticulo> vect = new Vector<FamiliaArticulo>();
 		FamiliaArticulo fTemp2 = new FamiliaArticulo(-1, "Ninguna");
@@ -258,14 +292,7 @@ public class DBManager {
 		}
 		return vect;
 	}
-	public void addTipoCliente(TipoCliente c) {
-		String query = "INSERT INTO `TIPOCLIENTE` (`idInterno`, `nombreTipo`, porcentajeDescuento) VALUES "
-				+ "(NULL, "
-				+ "'" + c.getNombreTipoCliente() + "',"
-				+ c.getDescuento() + ");";
-		// ejecuto la consulta
-		this.execQuery(query);
-	}
+
 	public FamiliaArticulo getFamiliaArticulo(int tipo) {
 		try {
 			ResultSet rs = dataQuery("SELECT * FROM FAMILIA WHERE idFamilia = '" + tipo + "'");
@@ -304,6 +331,9 @@ public class DBManager {
 	
 	//Fin funcionalidad familia de articulos
 	 
+	
+	
+	
 	// inicio funcionalidad de ventas
 	// retorna la venta insertada con el id actualizado
 	public VentaHistorica addVenta(Venta v) throws SQLException {
@@ -320,7 +350,6 @@ public class DBManager {
 		if(q.next()) {
 			lastID = q.getInt("lid");
 		}
-		// inserto todos los productos
 		for(Articulo a : v.getArticulos()) {
 			String qArts = "INSERT INTO `PRODUCTOSVENTA` (`idVentaProd`, `idVentaForeign`, `descripcionArticulo`, `precioArticulo`, `cantidad`) VALUES (NULL, "
 					+ "'" + lastID + "', "
