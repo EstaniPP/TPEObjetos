@@ -14,6 +14,7 @@ public class VentaHistorica{
 	String fechaVenta;
 	Vector<ArticuloHistorico> articulos;
 	Cliente cliente;
+	
 	public VentaHistorica(int idVenta, double total, double pagado, String fechaVenta, Vector<ArticuloHistorico> articulos, Cliente cliente) {
 		this.idVenta = idVenta;
 		this.total = total;

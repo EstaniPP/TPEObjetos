@@ -338,6 +338,7 @@ public class DBManager {
 	// retorna la venta insertada con el id actualizado
 	public VentaHistorica addVenta(Venta v) throws SQLException {
 		Vector<Promocion> vP = this.getPromociones();
+		
 		String query = "INSERT INTO `VENTAS` (`idVenta`, `total`, `pagado`, `idClienteVenta`, `fechaVenta`) VALUES "
 				+ "(NULL, "
 				+ "'" + v.getPrecioTotal() + "', "
@@ -345,11 +346,13 @@ public class DBManager {
 				+ "'" + v.getCliente().getIdCliente() + "', "
 				+ "'" + v.getFechaVenta() + "');";
 		this.execQuery(query);
+		
 		ResultSet q = this.dataQuery("SELECT LAST_INSERT_ID() AS lid FROM VENTAS GROUP BY lid");
 		int lastID = -1;
 		if(q.next()) {
 			lastID = q.getInt("lid");
 		}
+		
 		for(Articulo a : v.getArticulos()) {
 			String qArts = "INSERT INTO `PRODUCTOSVENTA` (`idVentaProd`, `idVentaForeign`, `descripcionArticulo`, `precioArticulo`, `cantidad`) VALUES (NULL, "
 					+ "'" + lastID + "', "
@@ -357,9 +360,15 @@ public class DBManager {
 					+ "'" + a.getPrecioUnitario() + "', "
 					+ "'" + v.getCantidadArticulo(a) + "');";
 			this.execQuery(qArts);
+			// descontar stock
+			//
+			a.setStock(a.getStock() - v.getCantidadArticulo(a));
+			this.updateArticulo(a);
+			
 		}
 		v.setIdVenta(lastID);
 		return v.getHistorica(vP);
+		
 	}
 	
 
@@ -383,7 +392,7 @@ public class DBManager {
 				ArticuloHistorico art = new ArticuloHistorico(rsProd.getString("descripcionArticulo"), rsProd.getDouble("precioArticulo"), rsProd.getInt("cantidad"));
 				arts.add(art);
 			}
-			System.out.println(arts.size());
+			//System.out.println(arts.size());
 			// creo la venta
 			// VentaHistorica(int idVenta, double total, double pagado, String fechaVenta, Vector<ArticuloHistorico> articulos, Cliente cliente)
 			vH.add(new VentaHistorica(rs.getInt("idVenta"), rs.getDouble("total"), rs.getDouble("pagado"), rs.getString("fechaVenta"), arts, cV));

@@ -44,8 +44,8 @@ public class FormNuevaVenta extends JFrame {
 	private JTextField total;
 	
 	public static void main(String[] args) {
-		FormNuevaVenta fnv = new FormNuevaVenta();
-		fnv.setVisible(true);
+		//FormNuevaVenta fnv = new FormNuevaVenta();
+		//fnv.setVisible(true);
 	}
 	
 	public void setCliente(Cliente c) {
@@ -68,6 +68,7 @@ public class FormNuevaVenta extends JFrame {
 		table.getColumnModel().getColumn(2).setPreferredWidth(200);
 	}
 	public FormNuevaVenta() {
+		setLocationRelativeTo(null);
 		// hago que algunas columnas no sean editables!
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -154,15 +155,18 @@ public class FormNuevaVenta extends JFrame {
 					int cant = Integer.valueOf((String)table.getModel().getValueAt(i, 1));
 					v.agregarArticulo(aT, cant);
 				}
+				
 				v.setCliente(FormNuevaVenta.this.clienteVenta);
 				VentaHistorica venta = null;
+				
 				try {
 					venta = db.addVenta(v);
 				}catch(SQLException e123) {
 					e123.printStackTrace();
 				}
-				
-				System.out.println(venta.getIdVenta());
+				(new FormVerVenta(venta)).setVisible(true);
+				FormNuevaVenta.this.dispose();
+				//System.out.println(venta.getIdVenta());
 			}
 		});
 		btnRealizarFactura.setForeground(new Color(34, 139, 34));

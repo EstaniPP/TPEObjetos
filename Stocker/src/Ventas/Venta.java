@@ -46,7 +46,6 @@ public class Venta{
 	public double getPrecioAPagar(Vector<Promocion> promocion) {
 		DBManager db = new DBManager();
 		Double precio = this.getPrecioTotal();
-		System.out.println(precio);
 		for(int i=0;i<promocion.size();i++) {
 			precio -= promocion.get(i).getDescuento(this);
 		}

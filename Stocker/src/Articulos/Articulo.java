@@ -50,7 +50,7 @@ public class Articulo{
 		this.codigoBarras = codigoBarras;
 	}
 	public void setDescripcion(String descripcion) {
-		descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 	public int getFamilia() {
 		return familia;
@@ -73,7 +73,7 @@ public class Articulo{
 		precioUnitario = d;
 	}
 	public void setStock(int stock) {
-		stock = stock;
+		this.stock = stock;
 	}
 	
 	public void update(Articulo art) {

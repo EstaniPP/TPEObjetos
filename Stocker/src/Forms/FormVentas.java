@@ -18,6 +18,8 @@ import com.sun.javafx.tk.Toolkit;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+
 import javax.swing.JToolBar;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -78,7 +80,12 @@ public class FormVentas extends JFrame {
 		JButton btnVerVentas = new JButton("VER VENTAS");
 		btnVerVentas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					(new FormVerVentas()).setVisible(true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnVerVentas.setBounds(300, 154, 117, 60);

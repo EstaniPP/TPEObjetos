@@ -42,7 +42,7 @@ public class Promocion {
 				desc += vect.get(i).getPrecioUnitario()*descuento/100*venta.getCantidadArticulo(vect.get(i));
 			}
 		}
-		System.out.println(desc);
+		//System.out.println(desc);
 		return desc;
 	}
 }
