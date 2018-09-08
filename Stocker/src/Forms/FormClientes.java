@@ -276,7 +276,8 @@ public class FormClientes extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente.");
 				}else {
 					//fventa.setCliente((Cliente) model.getValueAt(table.getSelectedRow(), 5));
-					fventas.setCliente((Cliente) model.getValueAt(table.getSelectedRow(), 5));
+					//System.out.println(().getEmail());
+					FormClientes.this.fventa.setCliente((Cliente) model.getValueAt(table.getSelectedRow(), 5));
 					FormClientes.this.dispose();
 				}	
 			}
