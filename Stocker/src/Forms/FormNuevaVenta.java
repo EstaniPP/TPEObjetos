@@ -72,7 +72,7 @@ public class FormNuevaVenta extends JFrame {
 		// hago que algunas columnas no sean editables!
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 797, 423);
+		setBounds(100, 100, 804, 423);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -102,7 +102,6 @@ public class FormNuevaVenta extends JFrame {
 		agregarEstilo(model);
 		
 		table.setModel(model);
-		
 		
 		
 		// agrego tabla al jscrollpanel
@@ -174,14 +173,15 @@ public class FormNuevaVenta extends JFrame {
 		contentPane.add(btnRealizarFactura);
 		
 		JLabel label = new JLabel("COD. BARRAS");
-		label.setBounds(19, 34, 85, 16);
+		label.setBounds(19, 32, 85, 16);
 		contentPane.add(label);
 
 		txtcant = new JTextField();
+		txtcant.setEnabled(false);
 		txtcant.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(java.awt.event.KeyEvent e) {
-				if(e.getKeyCode() == 10) {
+				if(e.getKeyCode() == 10 && isDouble(txtcant.getText())) {
 					FormNuevaVenta.this.model.addRow(new Object[] {
 							articulo.getCodigoBarras(),
 							txtcant.getText(),
@@ -195,6 +195,7 @@ public class FormNuevaVenta extends JFrame {
 					txtcod.requestFocus();
 					txtcod.setText("");
 					txtcant.setText("");
+					txtcant.setEnabled(false);
 				}
 			}
 		});
@@ -223,6 +224,7 @@ public class FormNuevaVenta extends JFrame {
 						JOptionPane.showMessageDialog(null, "EL PRODUCTO NO EXISTE");
 					}else {
 						articulo = vect.elementAt(0);
+						txtcant.setEnabled(true);
 						txtcant.requestFocus();
 					}
 				}
@@ -244,7 +246,7 @@ public class FormNuevaVenta extends JFrame {
 		});
 	
 		JLabel label_1 = new JLabel("CANTIDAD");
-		label_1.setBounds(124, 34, 85, 16);
+		label_1.setBounds(124, 32, 85, 16);
 		contentPane.add(label_1);
 		
 		JButton btnEliminarProdSelec = new JButton("QUITAR PRODUCTO");
@@ -278,6 +280,30 @@ public class FormNuevaVenta extends JFrame {
 		JLabel lblTotal = new JLabel("TOTAL");
 		lblTotal.setBounds(460, 340, 54, 16);
 		contentPane.add(lblTotal);
+		
+		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(isDouble(txtcant.getText())) {
+					FormNuevaVenta.this.model.addRow(new Object[] {
+							articulo.getCodigoBarras(),
+							txtcant.getText(),
+							articulo.getDescripcion(),
+							articulo.getPrecioUnitario(),
+							Double.valueOf(txtcant.getText()) * articulo.getPrecioUnitario(),
+							articulo
+					});
+					// actualizo el total
+					FormNuevaVenta.this.calcularTotal(false);
+					txtcod.requestFocus();
+					txtcod.setText("");
+					txtcant.setText("");
+					txtcant.setEnabled(false);
+				}
+			}
+		});
+		btnAgregar.setBounds(237, 48, 97, 25);
+		contentPane.add(btnAgregar);
 	}
 	
 	@Override
@@ -297,4 +323,18 @@ public class FormNuevaVenta extends JFrame {
 		}
 		return calculo;
 	}
+	
+	private static boolean isDouble(String s) {
+	      boolean isValidInteger = false;
+	      try
+	      {
+	         Double.parseDouble(s);
+	         isValidInteger = true;
+	      }
+	      catch (NumberFormatException ex)
+	      {
+	      }
+	 
+	      return isValidInteger;
+	 }
 }

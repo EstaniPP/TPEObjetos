@@ -64,14 +64,14 @@ public class FormVerVentas extends JFrame {
 		    }
 		};
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 669, 335);
+		setBounds(100, 100, 686, 352);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(16, 54, 475, 241);
+		scrollPane.setBounds(15, 54, 475, 241);
 		contentPane.add(scrollPane);
 		
 		scrollPane.setColumnHeaderView(table);
@@ -111,11 +111,11 @@ public class FormVerVentas extends JFrame {
 				fC.setVisible(true);
 			}
 		});
-		btnVerVentasDe.setBounds(10, 23, 171, 29);
+		btnVerVentasDe.setBounds(14, 23, 171, 29);
 		contentPane.add(btnVerVentasDe);
 		
 		lblNewLabel = new JLabel("Sin cliente seleccionado");
-		lblNewLabel.setBounds(180, 28, 160, 16);
+		lblNewLabel.setBounds(185, 28, 160, 16);
 		contentPane.add(lblNewLabel);
 	}
 	

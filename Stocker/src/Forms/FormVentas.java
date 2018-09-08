@@ -83,7 +83,6 @@ public class FormVentas extends JFrame {
 				try {
 					(new FormVerVentas()).setVisible(true);
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
