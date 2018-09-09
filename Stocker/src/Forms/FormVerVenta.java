@@ -29,13 +29,14 @@ public class FormVerVenta extends JFrame {
 
 	public FormVerVenta(VentaHistorica v) {
 		setTitle("Informacion de venta");
-		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 531, 449);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
 		
 		model.addColumn("DESCRIPCION");
 		model.addColumn("PRECIO UNITARIO");

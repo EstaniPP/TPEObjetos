@@ -30,12 +30,15 @@ public class FormInfoCliente extends JFrame {
 	public FormInfoCliente(Cliente c) {
 		setTitle("Informacion de cliente");
 		DBManager db = new DBManager();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 595, 186);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		
 		
 		JLabel lblInformacionDeCliente = new JLabel("Informacion de cliente");
 		lblInformacionDeCliente.setBounds(5, 5, 743, 16);

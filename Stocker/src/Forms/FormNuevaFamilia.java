@@ -35,12 +35,15 @@ public class FormNuevaFamilia extends JFrame {
 	public FormNuevaFamilia(FamiliaArticulo fam, FormFamilias ff) {
 		setTitle("Agregar familia");
 		DBManager db = new DBManager();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 316, 162);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		
 		
 		JLabel lblNombreFamilia = new JLabel("Nombre familia");
 		lblNombreFamilia.setBounds(14, 13, 107, 16);

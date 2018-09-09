@@ -37,12 +37,15 @@ public class FormNuevoTipo extends JFrame {
 	public FormNuevoTipo(TipoCliente tc, FormTipos tipos) {
 		setTitle("Nuevo tipo de producto");
 		DBManager db = new DBManager();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 343, 160);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		
 		
 		JLabel lblNombreFamilia = new JLabel("Nombre tipo");
 		lblNombreFamilia.setBounds(14, 13, 148, 16);

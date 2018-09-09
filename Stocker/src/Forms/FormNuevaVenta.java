@@ -73,13 +73,14 @@ public class FormNuevaVenta extends JFrame {
 		setLocationRelativeTo(null);
 		// hago que algunas columnas no sean editables!
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 804, 423);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);		
 		
 		model = new DefaultTableModel() {
 			public boolean isCellEditable(int row, int column) {

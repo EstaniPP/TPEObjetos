@@ -80,12 +80,15 @@ public class FormClientes extends JFrame {
 		
 		// llamado a bd
 		setTitle("Clientes");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 788, 426);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		
 		
 		JLabel lblBuscarClientes = new JLabel("Buscar clientes");
 		lblBuscarClientes.setBounds(6, 6, 121, 16);

@@ -37,12 +37,15 @@ public class FormNuevaPromocion extends JFrame {
 	public FormNuevaPromocion(Promocion promo, FormPromociones promos) {
 		setTitle("Agregar promocion");
 		DBManager db = new DBManager();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 333, 162);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		
 		
 		JComboBox combotipo = new JComboBox();
 		combotipo.setBounds(14, 31, 133, 26);
@@ -111,7 +114,11 @@ public class FormNuevaPromocion extends JFrame {
 		contentPane.add(textField);
 		
 		if(promo != null) {
-			combotipo.setSelectedIndex(promo.getFamilia().getIdFamilia());
+			int i=0;
+			while(i<aux.length && familias.get(i).getIdFamilia() != promo.getFamilia().getIdFamilia()) {
+				i++;
+			}
+				combotipo.setSelectedIndex(i);
 			textField.setText(String.valueOf(promo.getDescuento()));
 		}
 	}

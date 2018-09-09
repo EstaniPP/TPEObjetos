@@ -50,9 +50,6 @@ public class FormVentas extends JFrame {
 	 */
 	private void initialize() {
 		
-		//this.setLocationRelativeTo();
-		
-		
 		this.setTitle("Seccion ventas");
 		this.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		this.setResizable(false);

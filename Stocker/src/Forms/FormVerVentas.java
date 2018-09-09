@@ -37,11 +37,6 @@ public class FormVerVentas extends JFrame {
 	JScrollPane scrollPane = new JScrollPane();
 	DBManager db = new DBManager();
 	Cliente cliente = null;
-
-	/**
-	 * Launch the application.
-	 */
-	
 	
 	public void setCliente(Cliente c) {
 		cliente = c;
@@ -53,10 +48,6 @@ public class FormVerVentas extends JFrame {
 		}
 	}
 
-	/**
-	 * Create the frame.
-	 * @throws SQLException 
-	 */
 	public FormVerVentas() throws SQLException {
 		setTitle("Ver ventas");
 		model = new DefaultTableModel() {
@@ -65,12 +56,14 @@ public class FormVerVentas extends JFrame {
 		       return false;
 		    }
 		};
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 686, 374);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(17, 79, 475, 241);

@@ -40,12 +40,14 @@ public class FormFamilias extends JFrame {
 	 * Create the frame.
 	 */
 	public FormFamilias() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 464, 358);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
 		
 		JLabel lblAdministrarFamilias = new JLabel("Administrar familias");
 		lblAdministrarFamilias.setBounds(12, 13, 410, 16);

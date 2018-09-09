@@ -44,12 +44,15 @@ public class FormPromociones extends JFrame {
 	 * Create the frame.
 	 */
 	public FormPromociones() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 484, 357);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		
 		
 		JLabel lblAdministrarPromociones = new JLabel("Administrar promociones");
 		lblAdministrarPromociones.setBounds(12, 13, 410, 16);
@@ -75,19 +78,6 @@ public class FormPromociones extends JFrame {
 		});
 		btnAgregarPromociones.setBounds(279, 42, 177, 38);
 		contentPane.add(btnAgregarPromociones);
-		
-		JButton btnModificarPromociones = new JButton("MODIFICAR PROMOCION");
-		btnModificarPromociones.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(table.getSelectedRow() != -1) {
-					(new FormNuevaPromocion((Promocion) model.getValueAt(table.getSelectedRow(), 3), FormPromociones.this)).setVisible(true);
-				}else {
-					JOptionPane.showMessageDialog(null, "Debe seleccionar una promocion.");
-				}
-			}
-		});
-		btnModificarPromociones.setBounds(279, 93, 177, 38);
-		contentPane.add(btnModificarPromociones);
 		
 		JButton btnEliminarPromociones = new JButton("ELIMINAR PROMOCION");
 		btnEliminarPromociones.setForeground(Color.RED);
@@ -128,12 +118,27 @@ public class FormPromociones extends JFrame {
 		
 		model.addColumn("ID PROMO");
 		model.addColumn("FAMILIA");
-		model.addColumn("DESCUENTO");
-		
+		model.addColumn("DESC");
 		model.addColumn("hidden");
 		
-		table.removeColumn(table.getColumnModel().getColumn(3));
+		//table.removeColumn(table.getColumnModel().getColumn(3));
+		
 		//Fin modelo de la tabal
+		
+		JButton btnModificarPromociones = new JButton("MODIFICAR PROMOCION");
+		btnModificarPromociones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(table.getSelectedRow() != -1) {
+					FormNuevaPromocion fnp = new FormNuevaPromocion((Promocion) model.getValueAt(table.getSelectedRow(),3), FormPromociones.this);
+					fnp.setVisible(true);
+				}else {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una promocion.");
+				}
+			}
+		});
+		btnModificarPromociones.setBounds(279, 93, 177, 38);
+		contentPane.add(btnModificarPromociones);
+
 		//LLenado inicial de la tabla
 		{
 			Vector<Promocion> vector = db.getPromociones();
@@ -156,7 +161,6 @@ public class FormPromociones extends JFrame {
 			}
 		}
 		table.setModel(model);
-		table.getColumnModel().getColumn(1).setPreferredWidth(100);
 		scrollPane.setViewportView(table);
 	}
 }

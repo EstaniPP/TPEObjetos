@@ -1,6 +1,7 @@
 package Forms;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GraphicsEnvironment;
 import java.awt.Dialog.ModalExclusionType;
 
 import javax.swing.JButton;
@@ -42,13 +43,13 @@ public class FormNuevoArticulo extends JDialog {
 	 */
 	public FormNuevoArticulo(Articulo art, FormArticulos fa) {
 		setTitle("Agregar articulo");
-		
-
 		setBounds(100, 100, 291, 327);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setResizable(false);
+		setLocationRelativeTo(null);
 		{
 			JLabel lblCodigoDeBarras = new JLabel("Codigo de barras");
 			lblCodigoDeBarras.setBounds(8, 6, 253, 16);
@@ -91,10 +92,13 @@ public class FormNuevoArticulo extends JDialog {
 		
 		combotipo = new JComboBox();
 		Vector<FamiliaArticulo> familias = db.getFamilias();
-		String[] aux = new String[familias.size()];
+		String[] aux = new String[familias.size()+1];
+		FamiliaArticulo ninguna = new FamiliaArticulo(-1,"Ninguna");
+		aux[0] = ninguna.getNombreFamilia();
 		for(int i=0; i<familias.size(); i++) {
-			aux[i] =familias.get(i).getNombreFamilia();
+			aux[i+1] =familias.get(i).getNombreFamilia();
 		}
+		
 		combotipo.setModel(new DefaultComboBoxModel(aux));
 		combotipo.setBounds(6, 165, 258, 27);
 		
@@ -119,13 +123,17 @@ public class FormNuevoArticulo extends JDialog {
 						if(!textCodigoBarras.getText().isEmpty() &&  !textDescripcion.getText().isEmpty() && !textPrecioUnitario.getText().isEmpty()) {
 							if(!textField.getText().isEmpty() && isDouble(textPrecioUnitario.getText())){
 									if (isDouble(textField.getText())) {
+										int idfam = -1;
+										if(combotipo.getSelectedIndex()!=0){
+											idfam = familias.get(combotipo.getSelectedIndex()-1).getIdFamilia();
+										}
 										if(art == null) {
-											Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+											Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),idfam,Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
 											db.addArticulo(temp);
 											JOptionPane.showMessageDialog(null, "Articulo agregado con exito.");
 											cancel();
 										}else {
-											Articulo updateado = new Articulo(art.getIdInterno(),textCodigoBarras.getText(),textDescripcion.getText(),familias.get(combotipo.getSelectedIndex()).getIdFamilia(),Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+											Articulo updateado = new Articulo(art.getIdInterno(),textCodigoBarras.getText(),textDescripcion.getText(),idfam,Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
 											art.update(updateado); 						
 											db.updateArticulo(updateado);
 											JOptionPane.showMessageDialog(null, "Articulo modificado con exito");
@@ -162,12 +170,19 @@ public class FormNuevoArticulo extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		
 		if(art != null) {
 			textCodigoBarras.setText(art.getCodigoBarras());
 			textDescripcion.setText(art.getDescripcion());
 			textPrecioUnitario.setText(String.valueOf(art.getPrecioUnitario()));
-			combotipo.setSelectedIndex(art.getFamilia());
+			if(art.getFamilia()==-1) {
+				combotipo.setSelectedIndex(0);
+			}else {
+				int i=0;
+				while(i<aux.length-1 && familias.get(i).getIdFamilia() != art.getFamilia()) {
+					i++;
+				}
+				combotipo.setSelectedIndex(i+1);
+			}
 			textField.setText(String.valueOf(art.getStock()));		
 		}
 	}

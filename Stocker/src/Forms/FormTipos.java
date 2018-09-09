@@ -36,12 +36,15 @@ public class FormTipos extends JFrame {
 	DBManager db = new DBManager();
 
 	public FormTipos() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 443, 358);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		
 		
 		JLabel lblAdministrarFamilias = new JLabel("Administrar tipos de cliente");
 		lblAdministrarFamilias.setBounds(12, 13, 410, 16);
