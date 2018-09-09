@@ -79,7 +79,7 @@ public class FormClientes extends JFrame {
 		};
 		
 		// llamado a bd
-		setTitle("CLIENTES");
+		setTitle("Clientes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 788, 426);
 		contentPane = new JPanel();
@@ -117,7 +117,7 @@ public class FormClientes extends JFrame {
 		textField.setColumns(10);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(6, 24, 525, 12);
+		separator.setBounds(6, 24, 747, 12);
 		contentPane.add(separator);
 		
 		JLabel lblNombre = new JLabel("Nombre");
@@ -179,6 +179,7 @@ public class FormClientes extends JFrame {
 		fillTable(null);
 		
 		JButton btnNewButton = new JButton("NUEVO CLIENTE");
+		btnNewButton.setForeground(new Color(0, 128, 0));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FormNuevoCliente nuevoC = new FormNuevoCliente(null);

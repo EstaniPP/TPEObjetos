@@ -279,8 +279,6 @@ public class DBManager {
 	
 	public Vector<FamiliaArticulo> getFamilias(){
 		Vector<FamiliaArticulo> vect = new Vector<FamiliaArticulo>();
-		FamiliaArticulo fTemp2 = new FamiliaArticulo(-1, "Ninguna");
-		vect.add(fTemp2);
 		try {
 			ResultSet rs = dataQuery("SELECT * FROM FAMILIA");
 			while(rs.next()) {
@@ -289,6 +287,10 @@ public class DBManager {
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
+		}
+		if(vect.size()==0) {
+			FamiliaArticulo fTemp2 = new FamiliaArticulo(-1, "Ninguna");
+			vect.add(fTemp2);
 		}
 		return vect;
 	}

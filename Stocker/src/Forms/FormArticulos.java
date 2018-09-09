@@ -56,7 +56,7 @@ public class FormArticulos extends JFrame {
 		// llamado a bd
 		DBManager db = new DBManager();
 		// llamado a bd
-		setTitle("ARTICULOS");		
+		setTitle("Articulos");		
 		
 		//Elementos del frame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

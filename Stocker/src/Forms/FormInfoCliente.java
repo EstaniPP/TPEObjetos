@@ -28,6 +28,7 @@ public class FormInfoCliente extends JFrame {
 	 * Create the frame.
 	 */
 	public FormInfoCliente(Cliente c) {
+		setTitle("Informacion de cliente");
 		DBManager db = new DBManager();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 595, 186);
@@ -41,7 +42,7 @@ public class FormInfoCliente extends JFrame {
 		contentPane.add(lblInformacionDeCliente);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(5, 21, 743, 16);
+		separator.setBounds(5, 21, 560, 16);
 		contentPane.add(separator);
 		
 		JLabel lblNombre = new JLabel("Nombre:");

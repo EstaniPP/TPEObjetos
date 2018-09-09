@@ -28,6 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Vector;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import javax.swing.JSeparator;
 
 
 public class FormNuevaVenta extends JFrame {
@@ -68,6 +69,7 @@ public class FormNuevaVenta extends JFrame {
 		table.getColumnModel().getColumn(2).setPreferredWidth(200);
 	}
 	public FormNuevaVenta() {
+		setTitle("Venta nueva");
 		setLocationRelativeTo(null);
 		// hago que algunas columnas no sean editables!
 		
@@ -84,11 +86,6 @@ public class FormNuevaVenta extends JFrame {
 				return column == 1;
 			}
 		};
-		
-		JLabel lblNuevaVenta = new JLabel("Nueva venta");
-		lblNuevaVenta.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		lblNuevaVenta.setBounds(16, 6, 174, 16);
-		contentPane.add(lblNuevaVenta);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -135,7 +132,7 @@ public class FormNuevaVenta extends JFrame {
 		
 		
 		
-		clientelbl = new JLabel("SELECCIONE CLIENTE");
+		clientelbl = new JLabel("Seleccione cliente");
 		clientelbl.setBounds(630, 66, 150, 16);
 		contentPane.add(clientelbl);
 		
@@ -172,9 +169,9 @@ public class FormNuevaVenta extends JFrame {
 		btnRealizarFactura.setBounds(627, 281, 150, 56);
 		contentPane.add(btnRealizarFactura);
 		
-		JLabel label = new JLabel("COD. BARRAS");
-		label.setBounds(19, 32, 85, 16);
-		contentPane.add(label);
+		JLabel lblCodigoDeBarras = new JLabel("Codigo de barras");
+		lblCodigoDeBarras.setBounds(19, 32, 100, 16);
+		contentPane.add(lblCodigoDeBarras);
 
 		txtcant = new JTextField();
 		txtcant.setEnabled(false);
@@ -245,9 +242,9 @@ public class FormNuevaVenta extends JFrame {
 		      }
 		});
 	
-		JLabel label_1 = new JLabel("CANTIDAD");
-		label_1.setBounds(124, 32, 85, 16);
-		contentPane.add(label_1);
+		JLabel lblCantidad = new JLabel("Cantidad");
+		lblCantidad.setBounds(124, 32, 85, 16);
+		contentPane.add(lblCantidad);
 		
 		JButton btnEliminarProdSelec = new JButton("QUITAR PRODUCTO");
 		btnEliminarProdSelec.addActionListener(new ActionListener() {
@@ -277,11 +274,11 @@ public class FormNuevaVenta extends JFrame {
 		total.setBounds(513, 335, 103, 26);
 		contentPane.add(total);
 		
-		JLabel lblTotal = new JLabel("TOTAL");
+		JLabel lblTotal = new JLabel("Total");
 		lblTotal.setBounds(460, 340, 54, 16);
 		contentPane.add(lblTotal);
 		
-		JButton btnAgregar = new JButton("Agregar");
+		JButton btnAgregar = new JButton("AGREGAR");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(isDouble(txtcant.getText())) {
@@ -304,6 +301,14 @@ public class FormNuevaVenta extends JFrame {
 		});
 		btnAgregar.setBounds(237, 48, 97, 25);
 		contentPane.add(btnAgregar);
+		
+		JLabel lblCrearVenta = new JLabel("Crear venta");
+		lblCrearVenta.setBounds(16, 1, 761, 16);
+		contentPane.add(lblCrearVenta);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(16, 19, 761, 12);
+		contentPane.add(separator);
 	}
 	
 	@Override

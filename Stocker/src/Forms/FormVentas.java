@@ -52,11 +52,12 @@ public class FormVentas extends JFrame {
 		
 		//this.setLocationRelativeTo();
 		
+		
+		this.setTitle("Seccion ventas");
 		this.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
-		this.setTitle("VENTAS");
 		this.setResizable(false);
-		this.setBounds(100, 100, 600, 300);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setBounds(100, 100, 600, 300);
 		this.getContentPane().setLayout(null);
 		
 		JLabel lblStocker = new JLabel("SECCION VENTAS");

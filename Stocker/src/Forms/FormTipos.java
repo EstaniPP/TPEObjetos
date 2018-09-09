@@ -35,13 +35,6 @@ public class FormTipos extends JFrame {
 	// llamado a bd
 	DBManager db = new DBManager();
 
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the frame.
-	 */
 	public FormTipos() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 443, 358);
@@ -65,7 +58,7 @@ public class FormTipos extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		JButton btnAgregarFamilia = new JButton("Agregar tipo");
+		JButton btnAgregarFamilia = new JButton("AGREGAR TIPO");
 		btnAgregarFamilia.setForeground(new Color(0, 128, 0));
 		btnAgregarFamilia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -75,7 +68,7 @@ public class FormTipos extends JFrame {
 		btnAgregarFamilia.setBounds(279, 42, 143, 38);
 		contentPane.add(btnAgregarFamilia);
 		
-		JButton btnModificarFamilia = new JButton("Modificar tipo");
+		JButton btnModificarFamilia = new JButton("MODIFICAR TIPO");
 		btnModificarFamilia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() != -1) {
@@ -89,7 +82,7 @@ public class FormTipos extends JFrame {
 		btnModificarFamilia.setBounds(279, 93, 143, 38);
 		contentPane.add(btnModificarFamilia);
 		
-		JButton btnEliminarFamilia = new JButton("Eliminar tipo");
+		JButton btnEliminarFamilia = new JButton("ELIMINAR TIPO");
 		btnEliminarFamilia.setForeground(Color.RED);
 		btnEliminarFamilia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -140,7 +133,7 @@ public class FormTipos extends JFrame {
 			fillTable(vector);
 		}
 		//Fin llenado inicial de la tabla
-		setTitle("TIPOS CLIENTE");
+		setTitle("Tipos de clientes");
 		
 	}
 	

@@ -41,7 +41,7 @@ public class FormFamilias extends JFrame {
 	 */
 	public FormFamilias() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 443, 358);
+		setBounds(100, 100, 464, 358);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -52,7 +52,7 @@ public class FormFamilias extends JFrame {
 		contentPane.add(lblAdministrarFamilias);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(12, 31, 410, 12);
+		separator.setBounds(12, 31, 422, 12);
 		contentPane.add(separator);
 		
 		scrollPane = new JScrollPane();
@@ -62,9 +62,9 @@ public class FormFamilias extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		JButton btnAgregarFamilia = new JButton("Agregar familia");
+		JButton btnAgregarFamilia = new JButton("AGREGAR FAMILIA");
 		btnAgregarFamilia.setForeground(new Color(0, 128, 0));
-		btnAgregarFamilia.setBounds(279, 42, 143, 38);
+		btnAgregarFamilia.setBounds(279, 42, 155, 38);
 		contentPane.add(btnAgregarFamilia);
 		btnAgregarFamilia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -73,8 +73,8 @@ public class FormFamilias extends JFrame {
 			}
 		});
 		
-		JButton btnModificarFamilia = new JButton("Modificar familia");
-		btnModificarFamilia.setBounds(279, 93, 143, 38);
+		JButton btnModificarFamilia = new JButton("MODIFICAR FAMILIA");
+		btnModificarFamilia.setBounds(279, 93, 155, 38);
 		contentPane.add(btnModificarFamilia);
 		btnModificarFamilia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -88,8 +88,8 @@ public class FormFamilias extends JFrame {
 		});
 		
 		
-		JButton btnEliminarFamilia = new JButton("Eliminar familia");
-		btnEliminarFamilia.setBounds(279, 144, 143, 38);
+		JButton btnEliminarFamilia = new JButton("ELIMINAR FAMILIA");
+		btnEliminarFamilia.setBounds(279, 144, 155, 38);
 		contentPane.add(btnEliminarFamilia);
 		btnEliminarFamilia.setForeground(Color.RED);
 		btnEliminarFamilia.addActionListener(new ActionListener() {
@@ -140,7 +140,7 @@ public class FormFamilias extends JFrame {
 	public void fillTable(Vector<FamiliaArticulo> vector) {
 
 		// llamado a bd
-		setTitle("FAMILIA ARTICULOS");		
+		setTitle("Familia articulos");		
 		// elimino todas las filas de la tabla
 		int j = model.getRowCount(); 
 		for(int i = 0; i < j; i++) {

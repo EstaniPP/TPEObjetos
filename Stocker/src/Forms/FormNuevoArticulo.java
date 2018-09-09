@@ -1,6 +1,7 @@
 package Forms;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Dialog.ModalExclusionType;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -40,6 +41,7 @@ public class FormNuevoArticulo extends JDialog {
 	 * Create the dialog.
 	 */
 	public FormNuevoArticulo(Articulo art, FormArticulos fa) {
+		setTitle("Agregar articulo");
 		
 
 		setBounds(100, 100, 291, 327);
@@ -48,7 +50,7 @@ public class FormNuevoArticulo extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblCodigoDeBarras = new JLabel("CODIGO DE BARRAS");
+			JLabel lblCodigoDeBarras = new JLabel("Codigo de barras");
 			lblCodigoDeBarras.setBounds(8, 6, 253, 16);
 			contentPanel.add(lblCodigoDeBarras);
 		}
@@ -60,7 +62,7 @@ public class FormNuevoArticulo extends JDialog {
 			textCodigoBarras.setColumns(10);
 		}
 		{
-			JLabel lblDescripcion = new JLabel("DESCRIPCION");
+			JLabel lblDescripcion = new JLabel("Descripcion");
 			lblDescripcion.setBounds(8, 52, 107, 16);
 			contentPanel.add(lblDescripcion);
 		}
@@ -71,7 +73,7 @@ public class FormNuevoArticulo extends JDialog {
 			contentPanel.add(textDescripcion);
 		}
 		{
-			JLabel lblPrecioUnitario = new JLabel("PRECIO UNITARIO");
+			JLabel lblPrecioUnitario = new JLabel("Precio unitario");
 			lblPrecioUnitario.setBounds(8, 99, 107, 16);
 			contentPanel.add(lblPrecioUnitario);
 		}
@@ -82,7 +84,7 @@ public class FormNuevoArticulo extends JDialog {
 			contentPanel.add(textPrecioUnitario);
 		}
 		{
-			JLabel lblTipoDeCliente = new JLabel("FAMILIA");
+			JLabel lblTipoDeCliente = new JLabel("Familia");
 			lblTipoDeCliente.setBounds(8, 146, 107, 16);
 			contentPanel.add(lblTipoDeCliente);
 		}
@@ -98,7 +100,7 @@ public class FormNuevoArticulo extends JDialog {
 		
 		contentPanel.add(combotipo);
 		
-		JLabel lblStock = new JLabel("STOCK");
+		JLabel lblStock = new JLabel("Cantidad");
 		lblStock.setBounds(8, 195, 107, 16);
 		contentPanel.add(lblStock);
 		
@@ -150,7 +152,7 @@ public class FormNuevoArticulo extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancelar");
+				JButton cancelButton = new JButton("CANCELAR");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						cancel();

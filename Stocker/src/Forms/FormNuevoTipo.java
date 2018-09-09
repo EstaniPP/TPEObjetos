@@ -35,15 +35,16 @@ public class FormNuevoTipo extends JFrame {
 	 * Create the frame.
 	 */
 	public FormNuevoTipo(TipoCliente tc, FormTipos tipos) {
+		setTitle("Nuevo tipo de producto");
 		DBManager db = new DBManager();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 309, 146);
+		setBounds(100, 100, 343, 160);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNombreFamilia = new JLabel("NOMBRE TIPO");
+		JLabel lblNombreFamilia = new JLabel("Nombre tipo");
 		lblNombreFamilia.setBounds(14, 13, 148, 16);
 		contentPane.add(lblNombreFamilia);
 		
@@ -53,7 +54,7 @@ public class FormNuevoTipo extends JFrame {
 		contentPane.add(txtNombreFamilia);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(14, 73, 286, 35);
+		panel.setBounds(14, 73, 303, 35);
 		contentPane.add(panel);
 		panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
@@ -85,22 +86,22 @@ public class FormNuevoTipo extends JFrame {
 		button.setActionCommand("OK");
 		panel.add(button);
 		
-		JButton button_1 = new JButton("Cancelar");
-		button_1.addActionListener(new ActionListener() {
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cancel();
 			}
 		});
-		button_1.setActionCommand("Cancel");
-		panel.add(button_1);
+		btnCancelar.setActionCommand("Cancel");
+		panel.add(btnCancelar);
 		
-		JLabel lblDescuento = new JLabel("DESCUENTO");
+		JLabel lblDescuento = new JLabel("Descuento");
 		lblDescuento.setBounds(162, 13, 148, 16);
 		contentPane.add(lblDescuento);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(159, 31, 141, 26);
+		textField.setBounds(159, 31, 159, 26);
 		contentPane.add(textField);
 		
 		if(tc != null) {

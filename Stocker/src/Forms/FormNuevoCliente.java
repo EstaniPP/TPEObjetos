@@ -37,6 +37,7 @@ public class FormNuevoCliente extends JDialog {
 	 * Create the dialog.
 	 */
 	public FormNuevoCliente(Cliente c) {
+		setTitle("Agregar cliente");
 		
 
 		setBounds(100, 100, 291, 300);
@@ -45,7 +46,7 @@ public class FormNuevoCliente extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblNombre = new JLabel("NOMBRE");
+			JLabel lblNombre = new JLabel("Nombre");
 			lblNombre.setBounds(8, 6, 61, 16);
 			contentPanel.add(lblNombre);
 		}
@@ -57,7 +58,7 @@ public class FormNuevoCliente extends JDialog {
 			textnombre.setColumns(10);
 		}
 		{
-			JLabel lblTelefono = new JLabel("TELEFONO");
+			JLabel lblTelefono = new JLabel("Telefono");
 			lblTelefono.setBounds(8, 52, 107, 16);
 			contentPanel.add(lblTelefono);
 		}
@@ -68,7 +69,7 @@ public class FormNuevoCliente extends JDialog {
 			contentPanel.add(texttelefono);
 		}
 		{
-			JLabel lblEmail = new JLabel("EMAIL");
+			JLabel lblEmail = new JLabel("Email");
 			lblEmail.setBounds(8, 99, 107, 16);
 			contentPanel.add(lblEmail);
 		}
@@ -79,7 +80,7 @@ public class FormNuevoCliente extends JDialog {
 			contentPanel.add(textemail);
 		}
 		{
-			JLabel lblTipoDeCliente = new JLabel("TIPO DE CLIENTE");
+			JLabel lblTipoDeCliente = new JLabel("Tipo de cliente");
 			lblTipoDeCliente.setBounds(8, 146, 107, 16);
 			contentPanel.add(lblTipoDeCliente);
 		}
@@ -132,7 +133,7 @@ public class FormNuevoCliente extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancelar");
+				JButton cancelButton = new JButton("CANCELAR");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						cancel();

@@ -28,6 +28,7 @@ public class FormVerVenta extends JFrame {
 	JScrollPane scrollPane;
 
 	public FormVerVenta(VentaHistorica v) {
+		setTitle("Informacion de venta");
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 531, 449);

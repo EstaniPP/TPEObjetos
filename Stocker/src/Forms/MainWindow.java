@@ -20,9 +20,6 @@ public class MainWindow{
 	private JFrame frmStocker;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		DBManager db = new DBManager();
 		if(db.conexionExitosa()==false) {
@@ -42,20 +39,14 @@ public class MainWindow{
 		}
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public MainWindow() {
 		initialize();
 	}
  
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmStocker = new JFrame();
 		frmStocker.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
-		frmStocker.setTitle("STOCKER");
+		frmStocker.setTitle("Stocker");
 		frmStocker.setResizable(false);
 		frmStocker.setBounds(100, 100, 600, 300);
 		frmStocker.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

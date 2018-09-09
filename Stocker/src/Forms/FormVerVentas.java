@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JSeparator;
 
 public class FormVerVentas extends JFrame {
 
@@ -57,6 +58,7 @@ public class FormVerVentas extends JFrame {
 	 * @throws SQLException 
 	 */
 	public FormVerVentas() throws SQLException {
+		setTitle("Ver ventas");
 		model = new DefaultTableModel() {
 			@Override
 		    public boolean isCellEditable(int row, int column) {
@@ -64,14 +66,14 @@ public class FormVerVentas extends JFrame {
 		    }
 		};
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 686, 352);
+		setBounds(100, 100, 686, 374);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(15, 54, 475, 241);
+		scrollPane.setBounds(17, 79, 475, 241);
 		contentPane.add(scrollPane);
 		
 		scrollPane.setColumnHeaderView(table);
@@ -91,17 +93,13 @@ public class FormVerVentas extends JFrame {
 		
 		table.removeColumn(table.getColumnModel().getColumn(4));
 		
-		JLabel lblVerVentas = new JLabel("Ventas realizadas");
-		lblVerVentas.setBounds(16, 6, 113, 16);
-		contentPane.add(lblVerVentas);
-		
 		JButton btnVerVenta = new JButton("VER VENTA");
 		btnVerVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				(new FormVerVenta((VentaHistorica) model.getValueAt(table.getSelectedRow(), 4))).setVisible(true);
 			}
 		});
-		btnVerVenta.setBounds(501, 54, 160, 45);
+		btnVerVenta.setBounds(504, 79, 160, 45);
 		contentPane.add(btnVerVenta);
 		
 		JButton btnVerVentasDe = new JButton("SELECCIONAR CLIENTE");
@@ -111,12 +109,20 @@ public class FormVerVentas extends JFrame {
 				fC.setVisible(true);
 			}
 		});
-		btnVerVentasDe.setBounds(14, 23, 171, 29);
+		btnVerVentasDe.setBounds(17, 41, 171, 29);
 		contentPane.add(btnVerVentasDe);
 		
 		lblNewLabel = new JLabel("Sin cliente seleccionado");
-		lblNewLabel.setBounds(185, 28, 160, 16);
+		lblNewLabel.setBounds(190, 46, 160, 16);
 		contentPane.add(lblNewLabel);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(17, 29, 644, 12);
+		contentPane.add(separator);
+		
+		JLabel lblVentasRealizadas = new JLabel("Ventas realizadas");
+		lblVentasRealizadas.setBounds(17, 11, 644, 16);
+		contentPane.add(lblVentasRealizadas);
 	}
 	
 	public void fillTable(Vector<VentaHistorica> vector) {

@@ -45,7 +45,7 @@ public class FormPromociones extends JFrame {
 	 */
 	public FormPromociones() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 472, 357);
+		setBounds(100, 100, 484, 357);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -56,7 +56,7 @@ public class FormPromociones extends JFrame {
 		contentPane.add(lblAdministrarPromociones);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(12, 31, 430, 12);
+		separator.setBounds(12, 31, 443, 12);
 		contentPane.add(separator);
 		
 		scrollPane = new JScrollPane();
@@ -66,17 +66,17 @@ public class FormPromociones extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		JButton btnAgregarPromociones = new JButton("Agregar promocion");
+		JButton btnAgregarPromociones = new JButton("AGREGAR PROMOCION");
 		btnAgregarPromociones.setForeground(new Color(0, 128, 0));
 		btnAgregarPromociones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				(new FormNuevaPromocion(null, FormPromociones.this)).setVisible(true);
 			}
 		});
-		btnAgregarPromociones.setBounds(279, 42, 163, 38);
+		btnAgregarPromociones.setBounds(279, 42, 177, 38);
 		contentPane.add(btnAgregarPromociones);
 		
-		JButton btnModificarPromociones = new JButton("Modificar promocion");
+		JButton btnModificarPromociones = new JButton("MODIFICAR PROMOCION");
 		btnModificarPromociones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow() != -1) {
@@ -86,10 +86,10 @@ public class FormPromociones extends JFrame {
 				}
 			}
 		});
-		btnModificarPromociones.setBounds(279, 93, 163, 38);
+		btnModificarPromociones.setBounds(279, 93, 177, 38);
 		contentPane.add(btnModificarPromociones);
 		
-		JButton btnEliminarPromociones = new JButton("Eliminar promocion");
+		JButton btnEliminarPromociones = new JButton("ELIMINAR PROMOCION");
 		btnEliminarPromociones.setForeground(Color.RED);
 		btnEliminarPromociones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -112,7 +112,7 @@ public class FormPromociones extends JFrame {
 			}
 		});
 		btnEliminarPromociones.setForeground(Color.RED);
-		btnEliminarPromociones.setBounds(279, 144, 163, 38);
+		btnEliminarPromociones.setBounds(279, 144, 177, 38);
 		contentPane.add(btnEliminarPromociones);
 		
 		
@@ -140,7 +140,7 @@ public class FormPromociones extends JFrame {
 			fillTable(vector);
 		}
 		//Fin llenado inicial de la tabla
-		setTitle("PROMOCIONES");
+		setTitle("Promociones");
 		
 	}
 	

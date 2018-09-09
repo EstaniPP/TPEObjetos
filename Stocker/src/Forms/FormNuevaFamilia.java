@@ -33,6 +33,7 @@ public class FormNuevaFamilia extends JFrame {
 	 * Create the frame.
 	 */
 	public FormNuevaFamilia(FamiliaArticulo fam, FormFamilias ff) {
+		setTitle("Agregar familia");
 		DBManager db = new DBManager();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 316, 162);
@@ -41,7 +42,7 @@ public class FormNuevaFamilia extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNombreFamilia = new JLabel("NOMBRE FAMILIA");
+		JLabel lblNombreFamilia = new JLabel("Nombre familia");
 		lblNombreFamilia.setBounds(14, 13, 107, 16);
 		contentPane.add(lblNombreFamilia);
 		
@@ -79,9 +80,9 @@ public class FormNuevaFamilia extends JFrame {
 		button.setActionCommand("OK");
 		panel.add(button);
 		
-		JButton button_1 = new JButton("Cancelar");
-		button_1.setActionCommand("Cancel");
-		panel.add(button_1);
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setActionCommand("Cancel");
+		panel.add(btnCancelar);
 		
 		if(fam != null) {
 			txtNombreFamilia.setText(fam.getNombreFamilia());

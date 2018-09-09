@@ -35,6 +35,7 @@ public class FormNuevaPromocion extends JFrame {
 	 * Create the frame.
 	 */
 	public FormNuevaPromocion(Promocion promo, FormPromociones promos) {
+		setTitle("Agregar promocion");
 		DBManager db = new DBManager();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 333, 162);
@@ -53,7 +54,7 @@ public class FormNuevaPromocion extends JFrame {
 		}
 		combotipo.setModel(new DefaultComboBoxModel(aux));
 		
-		JLabel lblNombreFamilia = new JLabel("NOMBRE FAMILIA");
+		JLabel lblNombreFamilia = new JLabel("Nombre familia");
 		lblNombreFamilia.setBounds(14, 13, 148, 16);
 		contentPane.add(lblNombreFamilia);
 		
@@ -91,16 +92,16 @@ public class FormNuevaPromocion extends JFrame {
 		button.setActionCommand("OK");
 		panel.add(button);
 		
-		JButton button_1 = new JButton("Cancelar");
-		button_1.addActionListener(new ActionListener() {
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cancel();
 			}
 		});
-		button_1.setActionCommand("Cancel");
-		panel.add(button_1);
+		btnCancelar.setActionCommand("Cancel");
+		panel.add(btnCancelar);
 		
-		JLabel lblDescuento = new JLabel("DESCUENTO");
+		JLabel lblDescuento = new JLabel("Descuento");
 		lblDescuento.setBounds(162, 13, 148, 16);
 		contentPane.add(lblDescuento);
 		
