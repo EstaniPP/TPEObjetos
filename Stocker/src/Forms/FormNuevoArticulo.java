@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import Articulos.Articulo;
 import Articulos.FamiliaArticulo;
 import DataBase.DBManager;
+import Filtros.FiltroArticulo;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -127,22 +128,32 @@ public class FormNuevoArticulo extends JDialog {
 										if(combotipo.getSelectedIndex()!=0){
 											idfam = familias.get(combotipo.getSelectedIndex()-1).getIdFamilia();
 										}
-										if(art == null) {
-											Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),idfam,Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
-											db.addArticulo(temp);
-											JOptionPane.showMessageDialog(null, "Articulo agregado con exito.");
-											cancel();
-										}else {
-											Articulo updateado = new Articulo(art.getIdInterno(),textCodigoBarras.getText(),textDescripcion.getText(),idfam,Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
-											art.update(updateado); 						
-											db.updateArticulo(updateado);
-											JOptionPane.showMessageDialog(null, "Articulo modificado con exito");
-											cancel();
-										}
+										Vector<Articulo> codigoUnico = new Vector<Articulo>();
 										try {
-											fa.fillTable(db.getArticulos(null));
-										}catch(SQLException e2){
-											e2.printStackTrace();
+											FiltroArticulo.codigoBarras f = new FiltroArticulo.codigoBarras(textCodigoBarras.getText());
+											codigoUnico = db.getArticulos(f);
+										}catch(SQLException e2) {}
+										
+										if(codigoUnico.size()==0) {
+											if(art == null) {
+												Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),idfam,Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+												db.addArticulo(temp);
+												JOptionPane.showMessageDialog(null, "Articulo agregado con exito.");
+												cancel();
+											}else {
+												Articulo updateado = new Articulo(art.getIdInterno(),textCodigoBarras.getText(),textDescripcion.getText(),idfam,Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+												art.update(updateado); 						
+												db.updateArticulo(updateado);
+												JOptionPane.showMessageDialog(null, "Articulo modificado con exito");
+												cancel();
+											}
+											try {
+												fa.fillTable(db.getArticulos(null));
+											}catch(SQLException e2){
+												e2.printStackTrace();
+											}
+										}else {
+											JOptionPane.showMessageDialog(null, "El codigo de barras ya existe.");
 										}
 									}else {
 										JOptionPane.showMessageDialog(null, "El stock debe ser un numero valido.");

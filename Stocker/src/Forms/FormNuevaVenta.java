@@ -200,40 +200,7 @@ public class FormNuevaVenta extends JFrame {
 		txtcant.setColumns(10);
 		txtcant.setBounds(122, 47, 103, 26);
 		contentPane.add(txtcant);
-		
-		
-		
-		
-		txtcod = new JTextField();
-		
-		txtcod.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(java.awt.event.KeyEvent e) {
-				if(e.getKeyCode() == 10) {
-					// chequeo si existe
-					articulo = Articulo.getArticuloError();
-					Vector<Articulo> vect = new Vector<Articulo>();
-					try {
-						vect = db.getArticulos(new FiltroArticulo.codigoBarras(txtcod.getText()));
-					}catch(SQLException esql1) {
-						esql1.printStackTrace();
-					}
-					if(vect.size() == 0) {
-						JOptionPane.showMessageDialog(null, "EL PRODUCTO NO EXISTE");
-					}else {
-						articulo = vect.elementAt(0);
-						txtcant.setEnabled(true);
-						txtcant.requestFocus();
-					}
-				}
-			}
-		});
-		
-		txtcod.setColumns(10);
-		txtcod.setBounds(16, 47, 103, 26);
-		contentPane.add(txtcod);
-		
-		
+
 		table.getModel().addTableModelListener(new TableModelListener() {
 		      public void tableChanged(TableModelEvent e) {
 		    	  if(e.getColumn() == 1) {
@@ -297,11 +264,44 @@ public class FormNuevaVenta extends JFrame {
 					txtcod.setText("");
 					txtcant.setText("");
 					txtcant.setEnabled(false);
+					btnAgregar.setEnabled(false);
 				}
 			}
 		});
 		btnAgregar.setBounds(237, 48, 97, 25);
 		contentPane.add(btnAgregar);
+		btnAgregar.setEnabled(false);
+		
+		
+		txtcod = new JTextField();
+		
+		txtcod.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(java.awt.event.KeyEvent e) {
+				if(e.getKeyCode() == 10) {
+					// chequeo si existe
+					articulo = Articulo.getArticuloError();
+					Vector<Articulo> vect = new Vector<Articulo>();
+					try {
+						vect = db.getArticulos(new FiltroArticulo.codigoBarras(txtcod.getText()));
+					}catch(SQLException esql1) {
+						esql1.printStackTrace();
+					}
+					if(vect.size() == 0) {
+						JOptionPane.showMessageDialog(null, "EL PRODUCTO NO EXISTE");
+					}else {
+						articulo = vect.elementAt(0);
+						txtcant.setEnabled(true);
+						btnAgregar.setEnabled(true);
+						txtcant.requestFocus();
+					}
+				}
+			}
+		});
+		
+		txtcod.setColumns(10);
+		txtcod.setBounds(16, 47, 103, 26);
+		contentPane.add(txtcod);
 		
 		JLabel lblCrearVenta = new JLabel("Crear venta");
 		lblCrearVenta.setBounds(16, 1, 761, 16);

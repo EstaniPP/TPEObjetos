@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Hashtable;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
@@ -37,7 +38,7 @@ public class FormNuevoCliente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public FormNuevoCliente(Cliente c) {
+	public FormNuevoCliente(Cliente c, FormClientes fc) {
 		setTitle("Agregar cliente");
 		
 
@@ -130,7 +131,11 @@ public class FormNuevoCliente extends JDialog {
 							JOptionPane.showMessageDialog(null, "Cliente modificado con exito");
 							cancel();
 						}
-						
+						try {
+							fc.fillTable(db.getClientes(null));
+						}catch(SQLException e2){
+							e2.printStackTrace();
+						}
 					}
 				});
 				okButton.setActionCommand("OK");

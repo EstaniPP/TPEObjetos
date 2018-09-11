@@ -47,7 +47,7 @@ public class DBManager {
 		return conectado;
 	}
 	
-	public ResultSet dataQuery(String query) {
+	private ResultSet dataQuery(String query) {
 		try {
 			Statement s = connection.createStatement();
 			ResultSet rs = s.executeQuery(query);
@@ -58,7 +58,7 @@ public class DBManager {
 		return null;
 	}
 	
-	public void execQuery(String query) {
+	private void execQuery(String query) {
 		try {
 			Statement s = connection.createStatement();
 			s.executeUpdate(query);
@@ -164,6 +164,26 @@ public class DBManager {
 		execQuery("UPDATE `VENTAS` SET "
 				+ "`idClienteVenta` = '" + "NULL" + "' "
 				+ "WHERE `VENTAS`.`idClienteVenta` = " + c.getIdCliente()+ ";");
+	}
+	
+	public int getCantidadCompras(Cliente c) throws SQLException {
+		String query = "SELECT count(*) COUNT FROM `VENTAS` ";
+		if(c != null) {
+			query += "WHERE `VENTAS`.`idClienteVenta` = " + c.getIdCliente();
+		}
+		ResultSet rs = dataQuery(query);
+		rs.next();
+		return rs.getInt("COUNT");
+	}
+	
+	public float getGastoCliente(Cliente c) throws SQLException {
+		String query = "SELECT sum(pagado) pagado FROM `VENTAS` ";
+		if(c != null) {
+			query += "WHERE `VENTAS`.`idClienteVenta` = " + c.getIdCliente();
+		}
+		ResultSet rs = dataQuery(query);
+		rs.next();
+		return rs.getFloat("pagado");
 	}
 	
 	//fin funcionalidad clientes

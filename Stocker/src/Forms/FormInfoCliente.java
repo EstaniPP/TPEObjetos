@@ -18,6 +18,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class FormInfoCliente extends JFrame {
@@ -87,12 +88,20 @@ public class FormInfoCliente extends JFrame {
 		JLabel lblCantidadDeCompras = new JLabel("Cantidad de compras:");
 		lblCantidadDeCompras.setBounds(286, 52, 135, 16);
 		contentPane.add(lblCantidadDeCompras);
+
+		int cantcompras = 0;
+		float totalGastado = 0;
+		try{
+			cantcompras = db.getCantidadCompras(c);
+			totalGastado = db.getGastoCliente(c);
+		}catch(SQLException e2){
+		}
 		
-		JLabel lblNewLabel = new JLabel("label_totalgastado");
+		JLabel lblNewLabel = new JLabel(""+totalGastado);
 		lblNewLabel.setBounds(433, 34, 135, 16);
 		contentPane.add(lblNewLabel);
-		
-		JLabel lblLabelcantcompras = new JLabel("label_cantcompras");
+
+		JLabel lblLabelcantcompras = new JLabel(""+cantcompras);
 		lblLabelcantcompras.setBounds(433, 52, 135, 16);
 		contentPane.add(lblLabelcantcompras);
 		

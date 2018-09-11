@@ -185,7 +185,7 @@ public class FormClientes extends JFrame {
 		btnNewButton.setForeground(new Color(0, 128, 0));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FormNuevoCliente nuevoC = new FormNuevoCliente(null);
+				FormNuevoCliente nuevoC = new FormNuevoCliente(null,FormClientes.this);
 				nuevoC.setVisible(true);
 			}
 		});
@@ -213,7 +213,7 @@ public class FormClientes extends JFrame {
 					if(vect.size() == 0) {
 						JOptionPane.showMessageDialog(null, "Se produjo un error");
 					}else {
-						(new FormNuevoCliente((Cliente)table.getModel().getValueAt(table.getSelectedRow(), 5))).setVisible(true);
+						(new FormNuevoCliente((Cliente)table.getModel().getValueAt(table.getSelectedRow(), 5),FormClientes.this)).setVisible(true);
 					}
 				}
 				//System.out.println(table.getSelectedRow());
