@@ -230,7 +230,8 @@ public class FormClientes extends JFrame {
 					int idSeleccionado = Integer.valueOf(table.getValueAt(selectedIndex, 0).toString());
 					Cliente c = Cliente.getClienteError();
 					try {
-						c = db.getClienteById(idSeleccionado);
+						FiltroCliente.idCliente fc = new FiltroCliente.idCliente(idSeleccionado);
+						c = db.getClientes(fc).elementAt(0);
 					}catch(SQLException e1) {
 						e1.printStackTrace();
 					}

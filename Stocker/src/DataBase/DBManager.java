@@ -130,15 +130,7 @@ public class DBManager {
 		return vTemp;
 	}
 	
-	public Cliente getClienteById(int idCliente) throws SQLException {
-		FiltroCliente.idCliente f1 = new FiltroCliente.idCliente(idCliente);
-		Vector<Cliente> vect = getClientes(f1);
-		if(vect.size() != 0) {
-			return vect.elementAt(0);
-		}else {
-			return Cliente.getClienteError();
-		}
-	}
+	
 
 	public void addCliente(Cliente c) {
 		String query = "INSERT INTO `CLIENTES` (`idCliente`, `nombre`, `telefono`, `email`, `tipoCliente`) VALUES "
@@ -406,9 +398,20 @@ public class DBManager {
 			String q2 = "SELECT * FROM PRODUCTOSVENTA WHERE idVentaForeign = '" + rs.getInt("idVenta") + "'";
 			ResultSet rsProd = this.dataQuery(q2);
 			// get cliente venta
-			FiltroCliente.idCliente filC = new FiltroCliente.idCliente(rs.getInt("idClienteVenta"));
-			
-			Cliente cV = this.getClientes(filC).elementAt(0);
+			// que pasa si es consumidor final -> id = -1
+			int idCliente = rs.getInt("idClienteVenta");
+			Cliente cV;
+			if(idCliente == -1) {
+				// consumidor final 
+				cV = Cliente.getConsumidorFinal();
+			}else {
+				if(idCliente == 0) {
+					cV = Cliente.getUsuarioEliminado();
+				}else {
+					FiltroCliente.idCliente filC = new FiltroCliente.idCliente(idCliente);
+					cV = this.getClientes(filC).elementAt(0);
+				}
+			}
 			Vector<ArticuloHistorico> arts = new Vector<ArticuloHistorico>();
 			while(rsProd.next()) {
 				ArticuloHistorico art = new ArticuloHistorico(rsProd.getString("descripcionArticulo"), rsProd.getDouble("precioArticulo"), rsProd.getInt("cantidad"));

@@ -41,7 +41,7 @@ public class FormNuevaVenta extends JFrame {
 	private JTextField txtcod;
 	private JTextField txtcant;
 	JLabel clientelbl;
-	Cliente clienteVenta = Cliente.getClienteError();
+	Cliente clienteVenta = Cliente.getConsumidorFinal();
 	private JTextField total;
 	
 	public static void main(String[] args) {

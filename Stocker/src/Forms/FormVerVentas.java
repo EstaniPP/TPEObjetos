@@ -116,6 +116,33 @@ public class FormVerVentas extends JFrame {
 		JLabel lblVentasRealizadas = new JLabel("Ventas realizadas");
 		lblVentasRealizadas.setBounds(17, 11, 644, 16);
 		contentPane.add(lblVentasRealizadas);
+		
+		JButton btnConsumidorFinal = new JButton("CONSUMIDOR FINAL");
+		btnConsumidorFinal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					fillTable(db.getVentas(new FiltroVenta.idClienteVenta(Cliente.getConsumidorFinal().getIdCliente())));
+				}catch(SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnConsumidorFinal.setBounds(504, 131, 160, 45);
+		contentPane.add(btnConsumidorFinal);
+		
+		JButton btnVerTodos = new JButton("VER TODOS");
+		btnVerTodos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					fillTable(db.getVentas(null));
+					lblNewLabel.setText("Sin cliente seleccionado");
+				}catch(SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnVerTodos.setBounds(504, 186, 160, 45);
+		contentPane.add(btnVerTodos);
 	}
 	
 	public void fillTable(Vector<VentaHistorica> vector) {

@@ -81,5 +81,10 @@ public class Cliente {
 	public static Cliente getClienteError() {
 		return new Cliente(-1, "Error", "Error", "Error", -1);
 	}
-	
+	public static Cliente getConsumidorFinal() {
+		return new Cliente(-1, "CONSUMIDOR FINAL", "", "", -1);
+	}
+	public static Cliente getUsuarioEliminado() {
+		return new Cliente(0, "ELIMINADO", "", "", -2);
+	}
 }
