@@ -162,7 +162,7 @@ public class DBManager {
 	public void deleteCliente(Cliente c) throws SQLException {
 		execQuery("DELETE FROM `CLIENTES` WHERE `CLIENTES`.`idCliente` = " + c.getIdCliente() + "");
 		execQuery("UPDATE `VENTAS` SET "
-				+ "`idClienteVenta` = '" + "NULL" + "' "
+				+ "`idClienteVenta` = '" + "0" + "' "
 				+ "WHERE `VENTAS`.`idClienteVenta` = " + c.getIdCliente()+ ";");
 	}
 	
