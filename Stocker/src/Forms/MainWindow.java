@@ -52,6 +52,7 @@ public class MainWindow{
 		frmStocker.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmStocker.getContentPane().setLayout(null);
 		
+		
 		JLabel lblStocker = new JLabel("STOCKER");
 		lblStocker.setFont(new Font("Verdana", Font.BOLD, 50));
 		lblStocker.setBounds(166, 39, 267, 103);
