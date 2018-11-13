@@ -108,9 +108,13 @@ public class FormInfoCliente extends JFrame {
 		JButton btnVerVenta = new JButton("Ver ventas");
 		btnVerVenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/*FiltroVenta.idClienteVenta filtro = new FiltroVenta.idClienteVenta(c.getIdCliente());
-				FormVerVentas nuevoFV = new FormVerVentas(filtro);
-				nuevoFV.setVisible(true);*/
+				try {
+					FormVerVentas nuevoFV = new FormVerVentas();
+					nuevoFV.setCliente(c);
+					nuevoFV.setVisible(true);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		btnVerVenta.setEnabled(true);

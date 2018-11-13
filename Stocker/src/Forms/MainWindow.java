@@ -39,6 +39,9 @@ public class MainWindow{
 		}
 	}
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public MainWindow() {
 		initialize();
 	}
