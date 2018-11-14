@@ -134,12 +134,16 @@ public class FormNuevoArticulo extends JDialog {
 											codigoUnico = db.getArticulos(f);
 										}catch(SQLException e2) {}
 										
-										if(codigoUnico.size()==0) {
+										
 											if(art == null) {
-												Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),idfam,Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
-												db.addArticulo(temp);
-												JOptionPane.showMessageDialog(null, "Articulo agregado con exito.");
-												cancel();
+												if(codigoUnico.size()==0) {
+													Articulo temp = new Articulo(textCodigoBarras.getText(),textDescripcion.getText(),idfam,Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
+													db.addArticulo(temp);
+													JOptionPane.showMessageDialog(null, "Articulo agregado con exito.");
+													cancel();
+												}else {
+													JOptionPane.showMessageDialog(null, "El codigo de barras ya existe.");
+												}
 											}else {
 												Articulo updateado = new Articulo(art.getIdInterno(),textCodigoBarras.getText(),textDescripcion.getText(),idfam,Double.valueOf(textPrecioUnitario.getText()),Integer.valueOf(textField.getText()));
 												art.update(updateado); 						
@@ -152,9 +156,6 @@ public class FormNuevoArticulo extends JDialog {
 											}catch(SQLException e2){
 												e2.printStackTrace();
 											}
-										}else {
-											JOptionPane.showMessageDialog(null, "El codigo de barras ya existe.");
-										}
 									}else {
 										JOptionPane.showMessageDialog(null, "El stock debe ser un numero valido.");
 									}

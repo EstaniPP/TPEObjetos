@@ -35,7 +35,7 @@ public class DBManager {
 	public DBManager() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection ("jdbc:mysql://"+ dbHost +":"+ dbPort +"/"+ dbName +"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",""+ dbUser +"", dbPassword);
+			connection = DriverManager.getConnection ("jdbc:mysql://"+ dbHost +":"+ dbPort +"/"+ dbName ,""+ dbUser +"", dbPassword);
 			conectado = true;
 		}catch(Exception e) {
 			e.printStackTrace();
