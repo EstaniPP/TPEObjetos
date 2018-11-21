@@ -1,16 +1,14 @@
 package DataBase;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 import java.util.Vector;
-import java.util.logging.Logger;
-
-import javax.swing.JOptionPane;
-
 import Articulos.Articulo;
 import Articulos.ArticuloHistorico;
 import Articulos.FamiliaArticulo;
@@ -24,15 +22,37 @@ import Ventas.VentaHistorica;
 
 public class DBManager {
 	private Connection connection;
-	private final String dbHost = "localhost";
-	private final String dbPort = "3306";
-	private final String dbUser = "root";
-	private final String dbPassword = "";
-	private final String dbName = "stocker";
+	private  String dbHost = "localhost";
+	private  String dbPort = "3306";
+	private  String dbUser = "root";
+	private  String dbPassword = "";
+	private  String dbName = "stocker";
 	private boolean conectado;
 	
 	
-	public DBManager() {
+	public DBManager(){
+		// leo desde el archivo
+		File f = new File("connection.txt");
+		try {
+			f.createNewFile();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			// formato host\nport\ndbname\nuser\npassword
+			dbHost = br.readLine();
+			dbPort = br.readLine();
+			dbName = br.readLine();
+			dbUser = br.readLine();
+			dbPassword = br.readLine();
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("no se encontro connection.txt");
+			e1.printStackTrace();
+		} 
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection ("jdbc:mysql://"+ dbHost +":"+ dbPort +"/"+ dbName+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&serverTimezone=UTC",""+ dbUser +"", dbPassword);
@@ -44,7 +64,7 @@ public class DBManager {
 	}
 	
 	public boolean conexionExitosa() {
-		return conectado;
+		return conectado; 
 	}
 	
 	private ResultSet dataQuery(String query) {
