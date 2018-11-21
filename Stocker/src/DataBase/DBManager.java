@@ -1,7 +1,9 @@
 package DataBase;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,11 +24,11 @@ import Ventas.VentaHistorica;
 
 public class DBManager {
 	private Connection connection;
-	private  String dbHost = "localhost";
-	private  String dbPort = "3306";
-	private  String dbUser = "root";
-	private  String dbPassword = "";
-	private  String dbName = "stocker";
+	private  String dbHost;
+	private  String dbPort;
+	private  String dbName;
+	private  String dbUser;
+	private  String dbPassword;
 	private boolean conectado;
 	
 	
@@ -35,6 +37,17 @@ public class DBManager {
 		File f = new File("connection.txt");
 		try {
 			f.createNewFile();
+			BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+			bw.write("localhost");
+			bw.newLine();
+			bw.write("3306");
+			bw.newLine();
+			bw.write("stocker");
+			bw.newLine();
+			bw.write("root");
+			bw.newLine();
+			bw.write("");
+			bw.close();
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
@@ -46,13 +59,13 @@ public class DBManager {
 			dbName = br.readLine();
 			dbUser = br.readLine();
 			dbPassword = br.readLine();
+			br.close();
 			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			System.out.println("no se encontro connection.txt");
 			e1.printStackTrace();
-		} 
-		
+		}
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection ("jdbc:mysql://"+ dbHost +":"+ dbPort +"/"+ dbName+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&serverTimezone=UTC",""+ dbUser +"", dbPassword);
