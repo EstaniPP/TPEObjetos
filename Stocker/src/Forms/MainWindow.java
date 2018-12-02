@@ -24,7 +24,9 @@ public class MainWindow{
 		DBManager db = new DBManager();
 		if(db.conexionExitosa()==false) {
 			JOptionPane.showMessageDialog(null, "No se ha podido establecer conexion con el servidor");
-		}else {
+			Connection cn = new Connection();
+			cn.setVisible(true);
+		}else{
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
